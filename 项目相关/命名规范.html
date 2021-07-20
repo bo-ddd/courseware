@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .p-10 {
+            padding: 10px;
+        }
+
+        .pl-10 {
+            padding-left: 10px;
+        }
+
+        .pr-10 {
+            padding-right: 10px;
+        }
+
+        .fs-14 {
+            font-size: 14px;
+        }
+
+        .icon_close {
+            width: 24px;
+            height: 24px;
+        }
+
+        .protocol{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 命名不能用拼音，也不能用 ul1 ul2 p1 p2 p3 p4 -->
+    <!-- 全局中，尽可能的在最外层元素中用Id; 其它情况一般用class -->
+    <!-- 因为在实际项目中，存在，产品同学、或者服务端同学，需要用到前端固定id -->
+    <!-- 目前比较大数据 ，本质上用到埋点功能，其实就是存的ID -->
+    <div id="signin">
+        <div class="p-10">
+            <!-- 图标命名用 icon_xxx/ico_xxx  因为ui同学给你的所有图标都是这个命名 -->
+            <img class="icon_close" src="" alt="">
+        </div>
+        <div class="main">
+            <img class="main-bg" src="" alt="">
+            <p class="title">欢迎来到牛客</p>
+            <!-- article:段落 desc/description:描述  title-desc -->
+            <!-- 除了图标用 icon_xx 下划线  一般的class命名全部是中横线 -->
+            <!-- 如果需要用到第三个阶段命名可以用下划线 order-list_header -->
+            <!-- 这种三阶段的命名方法叫 BEM B：block e:element M:model;-->
+            <!-- 但是绝对不能 jobxxx -->
+            <p class="desc">求职之前，先上牛客</p>
+            <!-- ipt : input  img:image  ipt-box:存放input的盒子 -->
+            <!-- form表单的ID是要写与服务端相同的字段号 -->
+            <form action="">
+                <div class="ipt-box">
+                    <label for="username">用户名：</label>
+                    <input id="username" name="username" type="text">
+                </div>
+                <div class="ipt-box">
+                    <label for="password">用户名：</label>
+                    <input id="password" name="password" type="password">
+                </div>
+                <div class="ipt-box">
+                    <label for="verify-code">验证码：</label>
+                    <input id="verify-code" name="code" type="text">
+                </div>
+                <!-- 如果类型声明为submit 点击时，会自动调用接口提交表单 -->
+                <!-- submit:提交 -->
+                <!-- icon_logo ipt-username btn-sigin -->
+                <!-- btn-submit  submit  btn-login btn-signin -->
+                <button class="btn-submit" type="submit">登录</button>
+            </form>
+        </div>
+
+        <!-- footer 定位 -->
+        <div class="footer">
+            <!-- 所有的登录 都包括登录 和鉴权两部分 全世界用的登录最标准的就是passport -->
+            <div class="passport">
+                <div class="item">
+                    <img class="icon" src="" alt="">
+                    <span>微信</span>
+                </div>
+                <div class="item">
+                    <img class="icon" src="" alt="">
+                    <span>微信</span>
+                </div>
+                <div class="item">
+                    <img class="icon" src="" alt="">
+                    <span>微信</span>
+                </div>
+                <div class="item">
+                    <img class="icon" src="" alt="">
+                    <span>微信</span>
+                </div>
+                <div class="item">
+                    <img class="icon" src="" alt="">
+                    <span>微信</span>
+                </div>
+            </div>
+            <div class="protocol">
+                <p>
+                    <input type="video">
+                    我已阅读xxxxxxxxxxxxxxx
+                </p>
+                <p>牛客xxxxxxx</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    //js命名规范： 
+    //  如果 声明的是一个对象可以 以 o开头；比如：
+    //  var oBtn = document.querySelector('.btn-sigin');
+    //  如果是数组、多个应该用a开头
+        var aBox = document.querySelectorAll('.box');
+    // 如果操作处理事件相关函数，命名开头 handle;
+    oBtn.onclick =  handleClickEvent();
+    oBtn.addEventListener('click',handleClickEvent,false);
+    //  如果我们想得到某个属性，而封装 的方法，我们可以用get开头；
+    //  get开头的函数 ，必须要有return值；
+    let userInfo = getUserInfo();
+    //  如果你想用来设置某个值 ，可以用set开头；
+    setAttribute('id')
+    // 构造函数的命名，要以大写开头；
+    function Cat(){
+
+    }
+</script>
+</html>
