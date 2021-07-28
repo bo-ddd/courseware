@@ -9,4 +9,14 @@
 <body>
     my name is 3.html
 </body>
+<script>
+    var xml = new XMLHttpRequest();
+    xml.open('GET','http://localhost:3000/user/login',false);
+    xml.onload = function(){
+        if(xml.status == 200){
+            console.log(xml.responseText)
+        }
+    }
+    xml.send();
+</script>
 </html>

@@ -8,7 +8,7 @@ const http = require("http")  //  nodejs自带http模块；
 
 // create 创建   server:服务   http.createServer// 创建一个http的服务；
 const app = http.createServer((req,res)=>{
-    //console.log(req) //  req:  requrest 前端请求的参数；
+    //console.log(req) //  req:  request 前端请求的参数；
     //console.log(res)  // response : 响应：  服务端响应的数据；
     res.end(`<!DOCTYPE html>
     <html lang="en">
