@@ -17,11 +17,11 @@ class Express {
             res.end()
         })
     }
-
+    // router 调用路由的方法   route路由
+    //  work  工作   worker工作的人  
+    // play 玩  player 玩家；
     router(req,res){
         try{
-            console.log(this.route)
-            console.log(req.url);
             this.route[req.url].callback(req,res);
         }catch(err){
 
@@ -33,7 +33,7 @@ class Express {
     }
 
     get(url,callback){
-        // url :   /user/info
+        // url :   /user/info /user/login
         this.route[url] = {
             type:'GET',
             callback

@@ -1,7 +1,10 @@
-const { get } = require('http');
 const express = require('./express')
 
 const app = express();
+
+const session = {
+    "woodfish":'13123123'
+}
 
 app.use( express.static(__dirname) )
 
@@ -18,7 +21,8 @@ app.get('/user/login',(req,res)=>{
         success:true,
         data:[]
     }
-    res.write(JSON.stringify(local))
+    res.send(local);
+    // res.write(JSON.stringify(local))
 })
 
 app.listen(3000, function () {
