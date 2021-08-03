@@ -51,3 +51,20 @@
 	}
   };
   ```
+
+
+
+#### 测试登录是否正确接口
+
+```javascript
+let interface = '/test'  //接口名
+let type = 'POST'
+let params = {}  //入参
+//出参
+let res = {
+    status: 1,
+    success: 'success',
+    data: []
+}
+```
+
