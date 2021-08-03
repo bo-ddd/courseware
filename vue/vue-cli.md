@@ -1,7 +1,7 @@
 ### 创建一个项目
 
 ```javascript
-vue create hello-world  //hello-world 这是一个项目文件夹的名称，可以自定义看心情修改
+vue create hello-world  //hello-world 这是一个项目文件夹的名称，可以自定义看心情修改，但不能包含中文
 
 //step1: Manually select features  
 			*Choose Vue version
