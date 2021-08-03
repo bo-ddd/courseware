@@ -102,22 +102,12 @@ module.exports = {
 
 ```javascript
 //5. src/store/index.js   使用vuex中的actions方法，封装接口；
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import Api from '@/api/api'
-
-Vue.use(Vuex)
-export default new Vuex.Store({
+export default createStore({
   state: {
-    userInfo:{},
   },
   mutations: {
-    USER_INFO:(state,val)=>{
-      state.userInfo = val;
-    }
-  },
-  getters:{
-    userInfo:state=>state.userInfo,
   },
   actions: {
     /**
@@ -125,15 +115,13 @@ export default new Vuex.Store({
      * @param username  用户名
      * @param password 密码
     */
-    signin(ctx,payload) {
+     signin(ctx,payload) {
       return Api.signin(payload)
     }
   },
   modules: {
-    
   }
 })
-
 ```
 
 
@@ -141,14 +129,17 @@ export default new Vuex.Store({
 ```javascript
 //6. 调用接口的方法  比如 Home.vue
 <script>
+    // step1
 	import { mapActions } from 'vuex'  //mapActions 是一个辅助函数，可以获取到 store/index.js中 actions中定义的方法；
 	export default {
         methods:{
-            ...mapActions(['sigin'])  //这样我们就可以把 store/index.js中的actions中的sigin方法挂到this中，访问时直接可以用this.sigin()来调用接口；
+            //step2:
+            ...mapActions(['signin'])  //这样我们就可以把 store/index.js中的actions中的sigin方法挂到this中，访问时直接可以用this.sigin()来调用接口；
         },
         async created(){
             //res为接口调用返回数据信息；
-            let res = await this.sigin({
+            // step3:
+            let res = await this.signin({
                 username:this.username,
                 password:this.password
             }); 
