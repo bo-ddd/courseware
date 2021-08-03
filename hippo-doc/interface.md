@@ -34,7 +34,7 @@
     ```
 5. 登录失效和未登录
   ```javascript
-  //登录失效
+  //未登录
   var res = {
 	data:{
 	  status: '401',
@@ -42,11 +42,11 @@
 	  data: false
 	}
   };
-  //未登录
+  //登录失效
   var res = {
 	data:{
-	  status: '9001',
-	  message: 'token验证失败',
+	  status: '401',
+	  message: 'jwttoken error',  //此信息基于校验规则，自动提示错误信息；
 	  data: false
 	}
   };
