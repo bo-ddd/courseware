@@ -29,7 +29,7 @@
     var res = {
       status:[Number]      //登录是否成功 1：成功      0：失败；
       message:[String]      //返回信息
-      data:[String token] 
+      data:[String token]   // 此token签名串需要存起来；在调用需要登录的接口时，通过headers（请求头带给服务端）
     }
     ```
 5. 登录失效和未登录

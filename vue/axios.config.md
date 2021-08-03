@@ -134,7 +134,7 @@ export default createStore({
 	export default {
         methods:{
             //step2:
-            ...mapActions(['signin'])  //这样我们就可以把 store/index.js中的actions中的sigin方法挂到this中，访问时直接可以用this.sigin()来调用接口；
+            ...mapActions(['signin'])  //这样我们就可以把 store/index.js中的actions中的sigin方法挂到this中，访问时直接可以用this.signin()来调用接口；
         },
         async created(){
             //res为接口调用返回数据信息；
