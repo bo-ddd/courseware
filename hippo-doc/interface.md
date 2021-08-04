@@ -68,3 +68,23 @@ let res = {
 }
 ```
 
+#### 学习目录列表接口
+
+```javascript
+let interface = '/list'
+let type = 'POST';
+let params = {
+    type:''   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
+}
+let res = {
+    status:1,
+    message:'success'
+    data:[
+        {
+            title:'js', // icon对应的标题 有可能是 js css node 等
+            icon:''   //icon图的地址；
+        }
+    ]
+}
+```
+

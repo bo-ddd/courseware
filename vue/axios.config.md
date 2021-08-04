@@ -104,6 +104,7 @@ module.exports = {
 //5. src/store/index.js   使用vuex中的actions方法，封装接口；
 import { createStore } from 'vuex'
 import Api from '@/api/api'
+//Vuex：状态管理（在页面中存取全局变量的地方） 有两个页面a.vue b.vue   a.vue有一个变量叫userinfo ,我想让b.vue使用，那么可以先把a.vue中的userinfo放到vuex中，在b页面中，可以通过vuex来获取到userinfo;  
 export default createStore({
   state: {
   },
