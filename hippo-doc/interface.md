@@ -74,7 +74,8 @@ let res = {
 let interface = '/list'
 let type = 'POST';
 let params = {
-    type:''   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
+    type:'',   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
+    hasContent: [Boolean]  // 接收一个布尔值,非必填项，如果填true，收接收到目录及文件中的内容；否则只返回标题，如果不填，默认为false;
 }
 let res = {
     status:1,
@@ -82,7 +83,8 @@ let res = {
     data:[
         {
             title:'js', // icon对应的标题 有可能是 js css node 等
-            icon:''   //icon图的地址；
+            icon:'',   //icon图的地址；
+            content:'' // 如果入参hasContent为true,那么会返回文件的内容；否则不返回该字段；
         }
     ]
 }
