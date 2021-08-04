@@ -75,7 +75,7 @@ let interface = '/list'
 let type = 'POST';
 let params = {
     type:'',   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
-    hasContent: [Boolean]  // 接收一个布尔值,非必填项，如果填true，收接收到目录及文件中的内容；否则只返回标题，如果不填，默认为false;
+    hasContent: [Boolean]  // 接收一个布尔值,非必填项，如果填true，收接收到目录及文件中的内容；否则只返回标题，如果不填，默认为false; 如果该值为true,则type为必填项；
 }
 let res = {
     status:1,
