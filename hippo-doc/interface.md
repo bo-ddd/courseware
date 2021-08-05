@@ -68,23 +68,28 @@ let res = {
 }
 ```
 
-#### 学习目录列表接口
+#### 答题列表接口
 
 ```javascript
-let interface = '/list'
+let interface = '/question/category/list'
 let type = 'POST';
 let params = {
     type:'',   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
-    hasContent: [Boolean]  // 接收一个布尔值,非必填项，如果填true，收接收到目录及文件中的内容；否则只返回标题，如果不填，默认为false; 如果该值为true,则type为必填项；
 }
 let res = {
     status:1,
     message:'success'
     data:[
         {
-            title:'js', // icon对应的标题 有可能是 js css node 等
+            title:'', // icon对应的标题 有可能是 js css node ，如果type有值，那么返回的是题目 题目是markdown类型;如果不传type,返回的是标题；
             icon:'',   //icon图的地址；
-            content:'' // 如果入参hasContent为true,那么会返回文件的内容；否则不返回该字段；
+            options:[
+    			{
+    				value:''   //选择项
+    				right:[boolean] //true ： 正确答案  false:错误答案
+				}
+    		] // 选择题选项及答案；  type不为空时会返回；
+    		id:'',     // 题目的id；
         }
     ]
 }
