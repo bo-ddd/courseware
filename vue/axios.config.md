@@ -23,7 +23,7 @@ axios.interceptors.request.use(function (config) {
     return config;
 })
 
-// 添加响应拦截器  概念：每次调用接口之后都会走到此方法中，服务端返回数据后优先走到此方法，之后才会走到 axiox.get()/axios.post() 的then方法中；
+// 添加响应拦截器  概念：每次调用接口之后都会走到此方法中，服务端返回数据后优先走到此方法，之后才会走到 // // // //axiox.get()/axios.post() 的then方法中；
 axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么，一般可以把登录失效后的逻辑添加到此处，所有需要登录接口的判断都可以写到此处，这样就不用每个接口都判断用户是否登录，如果没有登录就跳转到登录页面去的逻辑；抽离业务逻辑的好地方；
     if (response.data.status == 401) {
@@ -102,22 +102,13 @@ module.exports = {
 
 ```javascript
 //5. src/store/index.js   使用vuex中的actions方法，封装接口；
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import Api from '@/api/api'
-
-Vue.use(Vuex)
-export default new Vuex.Store({
+//Vuex：状态管理（在页面中存取全局变量的地方） 有两个页面a.vue b.vue   a.vue有一个变量叫userinfo ,我想让b.vue使用，那么可以先把a.vue中的userinfo放到vuex中，在b页面中，可以通过vuex来获取到userinfo;  
+export default createStore({
   state: {
-    userInfo:{},
   },
   mutations: {
-    USER_INFO:(state,val)=>{
-      state.userInfo = val;
-    }
-  },
-  getters:{
-    userInfo:state=>state.userInfo,
   },
   actions: {
     /**
@@ -125,15 +116,13 @@ export default new Vuex.Store({
      * @param username  用户名
      * @param password 密码
     */
-    signin(ctx,payload) {
+     signin(ctx,payload) {
       return Api.signin(payload)
     }
   },
   modules: {
-    
   }
 })
-
 ```
 
 
@@ -141,14 +130,17 @@ export default new Vuex.Store({
 ```javascript
 //6. 调用接口的方法  比如 Home.vue
 <script>
+    // step1
 	import { mapActions } from 'vuex'  //mapActions 是一个辅助函数，可以获取到 store/index.js中 actions中定义的方法；
 	export default {
         methods:{
-            ...mapActions(['sigin'])  //这样我们就可以把 store/index.js中的actions中的sigin方法挂到this中，访问时直接可以用this.sigin()来调用接口；
+            //step2:
+            ...mapActions(['signin'])  //这样我们就可以把 store/index.js中的actions中的sigin方法挂到this中，访问时直接可以用this.signin()来调用接口；
         },
         async created(){
             //res为接口调用返回数据信息；
-            let res = await this.sigin({
+            // step3:
+            let res = await this.signin({
                 username:this.username,
                 password:this.password
             }); 
