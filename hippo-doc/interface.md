@@ -95,3 +95,29 @@ let res = {
 }
 ```
 
+#### 用户信息接口
+
+```javascript
+let interface = '/user/info'
+let type = 'POST';
+let params = {};
+let res = {
+    status:1,
+    message:'success'
+    data:[
+        {
+            userId:'', // 用户Id;
+            avatorId:0, // 头像的索引值
+    		avatorName:'哈哈哈', //网名
+    		class:'',  //班级名称
+    		identity:'',  //身份信息 0：学生 1：老师
+    		mail:''， //邮箱号
+            phoneNumber:'', //手机号
+    		createdAt:'' // 账号创建时间
+    		updatedAt:'' //最近一次的用户信息修改时间
+    		uuid:'',  // 用户的uuid;
+            
+        }
+    ]
+}
+```
