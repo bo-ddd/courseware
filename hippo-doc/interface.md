@@ -122,3 +122,38 @@ let res = {
     ]
 }
 ```
+
+#### 修改用户信息接口
+
+```javascript
+let interface = '/user/update'
+let type = 'POST';
+let params = {
+    avatorId: 0  //头像Id; 非必填项，如果未修改，则不传；
+    avatorName:''  //昵称  非必填项，如果未修改，则不传；
+    phone:'',  // 手机号 非必填项，如果未修改，则不传；
+    mail:'',   //  邮箱 非必填项，如果未修改，则不传；
+    password:'' //密码 非必填项，如果未修改，则不传；
+};
+let res = {
+    status:1,   //1:成功  0:密码不满足要求
+    message:'success'  
+    data:[]
+}
+```
+
+#### 用户注册接口
+
+```javascript
+let interface = '/user/register'
+let type = 'POST';
+let params = {
+    username:'',   //用户名
+    password:''    //密码
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:[]
+}
+```
