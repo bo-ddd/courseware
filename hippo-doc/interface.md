@@ -116,7 +116,8 @@ let res = {
     		createdAt:'' // 账号创建时间
     		updatedAt:'' //最近一次的用户信息修改时间
     		uuid:'',  // 用户的uuid;
-            
+            exp:[Number] // 用户信息过期时间；
+            iat:[Number] //用户信息过期
         }
     ]
 }
