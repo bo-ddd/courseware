@@ -116,8 +116,7 @@ let res = {
     		createdAt:'' // 账号创建时间
     		updatedAt:'' //最近一次的用户信息修改时间
     		uuid:'',  // 用户的uuid;
-            exp:[Number] // 用户信息过期时间；
-            iat:[Number] //用户信息过期
+    		desc:'', //个人介绍
         }
     ]
 }
@@ -131,7 +130,7 @@ let type = 'POST';
 let params = {
     avatorId: 0  //头像Id; 非必填项，如果未修改，则不传；
     avatorName:''  //昵称  非必填项，如果未修改，则不传；
-    phone:'',  // 手机号 非必填项，如果未修改，则不传；
+    phoneNumber:'',  // 手机号 非必填项，如果未修改，则不传；
     mail:'',   //  邮箱 非必填项，如果未修改，则不传；
     password:'' //密码 非必填项，如果未修改，则不传；
 };
