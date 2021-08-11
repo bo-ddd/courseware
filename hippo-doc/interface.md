@@ -216,7 +216,7 @@ let params = {
     type:[String]  // 类目类型 1：试题 2：文章；
 };
 let res = {
-    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    status:1,   //1:成功  0：失败
     message:'success'  
     data:[
     	{
@@ -237,8 +237,43 @@ let params = {
     key:''   //类目文本 eg:  html ? css ? js ?  
 };
 let res = {
-    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    status:1,   //1:成功  0:失败
     message:'success'  
+    data:[]
+}
+```
+
+#### 删除类目
+
+```javascript
+let interface = '/category/delete'
+let type = 'POST';
+let params = {
+    type:[String]  // 类目类型 1：试题 2：文章；
+    id:''   //类目标识 eg: 1 ,2 ,3,4,5
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  
+    data:[]
+}
+```
+
+#### 增加题
+
+```javascript
+let interface = '/topic/create'
+let type = 'POST';
+let params = {
+		type:[String]  //题目类型
+		title:[String]  //题目；
+		options:[Array],    //选择题选项 ['a选内容','b选内容','c选内容','d选内容']
+        result: [String]  //答案 如果是选择题 如果选择ab为正确项，那么会给 字符串格式的 '0,1'
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
     data:[]
 }
 ```
