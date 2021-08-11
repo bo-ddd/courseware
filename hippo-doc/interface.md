@@ -117,6 +117,7 @@ let res = {
     		updatedAt:'' //最近一次的用户信息修改时间
     		uuid:'',  // 用户的uuid;
     		desc:'', //个人介绍
+    		sex: [Number]  // 1:男 0:女
         }
     ]
 }
@@ -149,6 +150,91 @@ let type = 'POST';
 let params = {
     username:'',   //用户名
     password:''    //密码
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:[]
+}
+```
+
+#### 获取题列表
+
+```javascript
+let interface = '/topic/list'
+let type = 'POST';
+let params = {
+    type:[String] // 非必填  可以传题型类目；
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:{
+    	id: [Number],  // 题目标识
+        uuid:[String]  // 出题人uuid；
+		type:[String]  //题目类型
+		title:[String]  //题目；
+		options:[Array],    //选择题选项 ['a选内容','b选内容','c选内容','d选内容']
+        result: [String]  //答案 如果是选择题 如果选择ab为正确项，那么会给 字符串格式的 '0,1'
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
+        createdAt:[Data],  //创建时间戳    
+        updatedAt:[Data], //更新时间戳
+	}
+}
+```
+
+#### 文章详情
+
+```javascript
+let interface = '/article/detail'
+let type = 'POST';
+let params = {
+    id:''  //文章ID;
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:{
+    	id: [Number],  // 文章标识  主键；
+        uuid:[String]  // 写文章的人的uuid；
+		type:[String]  //题目类型
+		title:[String]  //题目；
+		article:[String] //文章
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue; 文章所所属分类
+        createdAt:[Data],  //创建时间戳    
+        updatedAt:[Data], //更新时间戳
+	}
+}
+```
+
+#### 类目列表
+
+```javascript
+let interface = '/category/list'
+let type = 'POST';
+let params = {
+    type:[String]  // 类目类型 1：试题 2：文章；
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:[
+    	{
+            id: [Number],  // 文章标识  主键；
+            key:[String]  // html / css /js 
+		}
+    ]
+}
+```
+
+#### 增加类目
+
+```javascript
+let interface = '/category/create'
+let type = 'POST';
+let params = {
+    type:[String]  // 类目类型 1：试题 2：文章；
+    key:''   //类目文本 eg:  html ? css ? js ?  
 };
 let res = {
     status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
