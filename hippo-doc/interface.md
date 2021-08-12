@@ -164,7 +164,9 @@ let res = {
 let interface = '/topic/list'
 let type = 'POST';
 let params = {
-    type:[String] // 非必填  可以传题型类目；
+    type:[String], // 非必填  可以传题型类目；  eg  1 2 3 4;
+    pageNum:1,   // 非必填  如果不传 默认是1   第几页数据；
+    pageSize:10,  // 非必填 如果不传 每页数据量
 };
 let res = {
     status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
@@ -174,9 +176,9 @@ let res = {
         uuid:[String]  // 出题人uuid；
 		type:[String]  //题目类型
 		title:[String]  //题目；
-		options:[Array],    //选择题选项 ['a选内容','b选内容','c选内容','d选内容']
-        result: [String]  //答案 如果是选择题 如果选择ab为正确项，那么会给 字符串格式的 '0,1'
-		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
+		options:[Array],    //选择题选项 [{key:a,value:'a选项的内容'},{key:b,value:'b选项的内容'}]
+        result: [String]  //答案 如果是选择题 如果选择ab为正确项，那么会给 字符串格式的 a,b
+		categoryId: [Number], // 类目id 1: html 2:css 3:js 4:vue; 
         createdAt:[Data],  //创建时间戳    
         updatedAt:[Data], //更新时间戳
 	}
@@ -277,3 +279,39 @@ let res = {
     data:[]
 }
 ```
+
+#### 更新类目接口
+
+```javascript
+let interface = '/category/update'
+let type = 'POST';
+let params = {
+		type:[String]  //
+		id:[String]  //
+		key:[String],    
+        iconUrl: [String] 
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 增加文章接口
+
+```javascript
+let interface = '/article/create'
+let type = 'POST';
+let params = {
+		title:[String]  //
+		article:[String]  //
+		categoryId:[String],    
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
