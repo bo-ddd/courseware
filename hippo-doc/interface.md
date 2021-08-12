@@ -281,6 +281,41 @@ let res = {
 }
 ```
 
+#### 编辑题
+
+```javascript
+let interface = '/topic/update'
+let type = 'POST';
+let params = {
+		id:[String],  //题id
+    	type:[String] //题类型
+		title:[String]  //题目；
+		options:[Array],    //选择题选项 [{key:'A',value:'A的答案'}]
+        result: [String]  //答案 如果是选择题 如果选择AB为正确项，那么会给 字符串格式的 'A,B'
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除题
+
+```javascript
+let interface = '/topic/delete'
+let type = 'POST';
+let params = {
+		id:[String],  //题id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
 #### 更新类目接口
 
 ```javascript
