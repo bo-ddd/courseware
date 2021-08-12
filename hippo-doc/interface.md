@@ -270,8 +270,8 @@ let type = 'POST';
 let params = {
 		type:[String]  //题目类型
 		title:[String]  //题目；
-		options:[Array],    //选择题选项 ['a选内容','b选内容','c选内容','d选内容']
-        result: [String]  //答案 如果是选择题 如果选择ab为正确项，那么会给 字符串格式的 '0,1'
+		options:[Array],    //选择题选项 [{key:'A',value:'A的答案'}]
+        result: [String]  //答案 如果是选择题 如果选择AB为正确项，那么会给 字符串格式的 'A,B'
 		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
 };
 let res = {
@@ -322,7 +322,7 @@ let res = {
 let interface = '/article/list'
 let type = 'POST';
 let params = {
-		type:[String]  // 非必填 文章类型  eg :  1，2，3，4 
+		categoryId:[String]  // 非必填 文章类型  eg :  1，2，3，4 
 		pageNum:[String]  //非必填 第几页 如不传，默认为1
 		pageSize:[String],    //非必填 获取几条数据 默认为10；
 };
@@ -347,3 +347,4 @@ let res = {
     data:[]
 }
 ```
+
