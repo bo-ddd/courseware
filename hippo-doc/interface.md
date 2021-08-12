@@ -164,7 +164,8 @@ let res = {
 let interface = '/topic/list'
 let type = 'POST';
 let params = {
-    type:[String], // 非必填  可以传题型类目；  eg  1 2 3 4;
+    id: '',  // 非必填 题id；
+    categoryId:[String], // 非必填  可以传题型类目；  eg  1 2 3 4;
     pageNum:1,   // 非必填  如果不传 默认是1   第几页数据；
     pageSize:10,  // 非必填 如果不传 每页数据量
 };
@@ -315,3 +316,34 @@ let res = {
 }
 ```
 
+#### 获取文章列表
+
+```javascript
+let interface = '/article/list'
+let type = 'POST';
+let params = {
+		type:[String]  // 非必填 文章类型  eg :  1，2，3，4 
+		pageNum:[String]  //非必填 第几页 如不传，默认为1
+		pageSize:[String],    //非必填 获取几条数据 默认为10；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除文章
+
+```javascript
+let interface = '/topic/delete'
+let type = 'POST';
+let params = {
+		id:[String]  // 必填 文章id;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
