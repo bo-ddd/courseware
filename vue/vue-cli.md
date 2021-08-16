@@ -1,7 +1,10 @@
 ### 创建一个项目
 
 ```javascript
+//命令行创建项目方式：
 vue create hello-world  //hello-world 这是一个项目文件夹的名称，可以自定义看心情修改，但不能包含中文
+//可视化创建方式
+//vue ui
 
 //step1: Manually select features  
 			*Choose Vue version
