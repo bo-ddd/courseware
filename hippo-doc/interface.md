@@ -68,33 +68,6 @@ let res = {
 }
 ```
 
-#### 答题列表接口
-
-```javascript
-let interface = '/question/category/list'
-let type = 'POST';
-let params = {
-    type:'',   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
-}
-let res = {
-    status:1,
-    message:'success'
-    data:[
-        {
-            title:'', // icon对应的标题 有可能是 js css node ，如果type有值，那么返回的是题目 题目是markdown类型;如果不传type,返回的是标题；
-            icon:'',   //icon图的地址；
-            options:[
-    			{
-    				value:''   //选择项
-    				right:[boolean] //true ： 正确答案  false:错误答案
-				}
-    		] // 选择题选项及答案；  type不为空时会返回；
-    		id:'',     // 题目的id；
-        }
-    ]
-}
-```
-
 #### 用户信息接口
 
 ```javascript
