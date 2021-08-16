@@ -1,9 +1,11 @@
 ```javascript
 1. 用户 调用 /user/login 接口；
-2. 进入 router.js   // 
-3. 找到 router.post('/user/login',ctx.controller.user.login);
+2. 进入 router.js   
+3. router.js会找到对应 user/login的路由； router.post('/user/login',ctx.controller.user.login);
 	ctx.controller.user.login 指的是  controller文件夹中 user.js 中的 login方法
-4. 可以在controller层中，通过ctx.request.body获取到前端传过来的参数，是一个JSON格式的对象；controller层中的方法只允许写校验逻辑，业务逻辑要放在service层： ctx.service.user.login方法;   其中：ctx.service,user.login 方法会调用 service文件夹中user.js中的login方法；
+4. 可以在controller层中，通过ctx.request.body获取到前端传过来的参数，是一个JSON格式的对象；
+	controller层中的方法一般只允许写校验逻辑，业务逻辑要放在service层： ctx.service.user.login方法; 
+    注：ctx.service,user.login 方法会调用 service文件夹中user.js中的login方法；
 5. controller层中通过 ctx.success()方法把结果返回到客户端页面中； 
 6. 通过ctx.fail()方法把错误发给前端；
 
