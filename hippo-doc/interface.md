@@ -257,7 +257,7 @@ let params = {
 };
 let res = {
     status:1,   //1:成功  0:失败
-    message:'success'  
+    message:'success'   // 如果失败  类目中有x条数据，暂不能不删除
     data:[]
 }
 ```
@@ -383,3 +383,50 @@ let res = {
 }
 ```
 
+#### 查询题目答案
+
+```javascript
+let interface = '/topic/answer'
+let type = 'POST';
+let params = {
+		ids:[Array]  // 必填 题目id的集合；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除文章
+
+```javascript
+let interface = '/article/delete'
+let type = 'POST';
+let params = {
+		id:[Number]  // 必填 文章id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 编辑修改文章
+
+```javascript
+let interface = '/article/update'
+let type = 'POST';
+let params = {
+    id:[Number],  // 必填 文章id
+    categoryId:'',   //类目标识 ；
+    title:'',  //文章标题
+    article:'' //文章内容
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
