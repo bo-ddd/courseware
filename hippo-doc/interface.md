@@ -403,3 +403,71 @@ let res = {
     data:[]
 }
 ```
+
+#### 收藏题
+
+```javascript
+let interface = '/mark/set'
+let type = 'POST';
+let params = {
+    categoryId:'',   //收藏对象的类型  1： 题  2：文章
+    markId:'',  //
+    status:'',  // 1：收藏  0：取消收藏；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 查看收藏列表
+
+```javascript
+let interface = '/mark/list'
+let type = 'POST';
+let params = {
+    categoryId:'',   //收藏对象的类型  1： 题  2：文章
+    markId:'',  //
+    status:'',  // 1：收藏  0：取消收藏；
+    pageNum:'',  // 非必填，默认第一页数据；
+    pageSize:''  //非必填  如不传，默认是10条数据；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 查看收藏id列表集合
+
+```javascript
+let interface = '/mark/list/id'
+let type = 'POST';
+let params = {
+    categoryId:'',   //收藏对象的类型  1： 题  2：文章
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]  // markId的集合；
+}
+```
+
+#### 获取用户列表信息
+
+```javascript
+let interface = '/user/list'
+let type = 'POST';
+let params = {
+    uuid:'',  // 非必填， 根据uuid查用户信息；
+    pageNum:1,  //非必填，如不填默认是1
+    pageSize:10  // 非必填，如不填，默认是10
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
