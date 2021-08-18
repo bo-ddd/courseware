@@ -428,7 +428,7 @@ let interface = '/mark/list'
 let type = 'POST';
 let params = {
     categoryId:'',   //收藏对象的类型  1： 题  2：文章
-    markId:'',  //
+    type:'',  //
     status:'',  // 1：收藏  0：取消收藏；
     pageNum:'',  // 非必填，默认第一页数据；
     pageSize:''  //非必填  如不传，默认是10条数据；
