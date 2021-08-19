@@ -410,7 +410,8 @@ let res = {
 let interface = '/mark/set'
 let type = 'POST';
 let params = {
-    categoryId:'',   //收藏对象的类型  1： 题  2：文章
+    markType:'',//收藏对象的类型  1： 题  2：文章
+    categoryId:'',   //
     markId:'',  //
     status:'',  // 1：收藏  0：取消收藏；
 };
@@ -427,7 +428,8 @@ let res = {
 let interface = '/mark/list'
 let type = 'POST';
 let params = {
-    categoryId:'',   //收藏对象的类型  1： 题  2：文章
+    markType:''  //收藏对象的类型  1： 题  2：文章
+    categoryId:'',   //  1：html ? 2：css ? 3:js ?
     type:'',  //
     status:'',  // 1：收藏  0：取消收藏；
     pageNum:'',  // 非必填，默认第一页数据；
@@ -446,7 +448,7 @@ let res = {
 let interface = '/mark/list/id'
 let type = 'POST';
 let params = {
-    categoryId:'',   //收藏对象的类型  1： 题  2：文章
+    markType:'',   //收藏对象的类型  1： 题  2：文章
 };
 let res = {
     status:1,   //1:成功  0:失败
