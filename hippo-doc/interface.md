@@ -473,3 +473,83 @@ let res = {
     data:[]
 }
 ```
+
+#### 我的消息列表
+
+```javascript
+let interface = '/message/list'
+let type = 'POST';
+let params = {
+	type:1,   // 1：系统消息  2:好友消息  如不传，代表全部消息
+    pageNum:1,  //非必填，如不填默认是1
+    pageSize:10  // 非必填，如不填，默认是10
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[ 
+    	{
+    		id:'' //消息Id
+    		type:'' // 1:系统消息 2：好友消息；
+    		avatorImg:'',  //头像
+    		formUserId:''  // 发送信息人的uuid;
+    		toUserId:''    // 接收信息人的uuid;
+    		postMessage:'' // 消息体
+		}
+    ]  
+}
+```
+
+#### 发送消息
+
+```javascript
+let interface = '/message/send'
+let type = 'POST';
+let params = {
+	toUserId:1,   // 1：发送至的人员uuid
+    postMessage:'',  //消息体
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]  
+}
+```
+
+#### 查看消息详情
+
+```javascript
+let interface = '/message/detail'
+let type = 'POST';
+let params = {
+	id:'' //  消息id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[
+    	{
+    		id:'',  
+    	    formUserId:''  // 发送消息人的uuid;
+    		toUserId:''    // 接收消息人的id;
+    		postMessage:''  //消息体
+		}
+    ]
+}
+```
+
+#### 删除我的消息
+
+```javascript
+let interface = '/message/delete'
+let type = 'POST';
+let params = {
+	id:'' //  消息id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
