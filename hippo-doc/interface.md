@@ -531,7 +531,7 @@ let res = {
     	{
     		id:'',  
     	    formUserId:''  // 发送消息人的uuid;
-    		toUserId:''    // 接收消息人的id;
+    		toUserId:''    // 接收消息人的uuid;
     		postMessage:''  //消息体
 		}
     ]
