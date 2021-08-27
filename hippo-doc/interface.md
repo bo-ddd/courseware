@@ -553,3 +553,122 @@ let res = {
 }
 ```
 
+#### 创建班级
+
+```javascript
+let interface = '/class/create'
+let type = 'POST';
+let params = {
+	name:'' //班级名称
+    admin:'' // 管理员uuid
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 班级列表
+
+```javascript
+let interface = '/class/list'
+let type = 'POST';
+let params = {
+	pageNum:'' // 非必填
+    pageSize:'' // 非必填
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除班级
+
+```javascript
+let interface = '/class/delete'
+let type = 'POST';
+let params = {
+	id:''  //班级id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 修改班级
+
+```javascript
+let interface = '/class/update'
+let type = 'POST';
+let params = {
+	id:''  //班级id
+    name:'' //班级名
+    admin:''  //班级管理员的uuid;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建作业
+
+```javascript
+let interface = '/task/create'
+let type = 'POST';
+let params = {
+    uuid:'' //作者的uuid;
+	content:'' // 作业内容
+    endTime:'' // 作业的结束时间
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建活动
+
+```javascript
+let interface = '/active/create'
+let type = 'POST';
+let params = {
+    title:'' //活动名
+    region:'' // 活动地点
+    nature:'' //活动类型
+    startTime:'' //活动开始时间
+    endTime:'' //活动结束时间
+    banner:'' //图片url
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建考试
+
+```javascript
+let interface = '/exam/create'
+let type = 'POST';
+let params = {
+    classId:'' //考试班级
+    categoryId:'' // 考试类型  非必填 如不填 默认所有题型
+    startTime:'' //活动开始时间
+    endTime:'' //活动结束时间
+    count:'' //试题数量
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
