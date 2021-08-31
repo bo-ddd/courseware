@@ -686,7 +686,9 @@ let interface = '/exam/create'
 let type = 'POST';
 let params = {
     classId:'' //考试班级
+    className:'' // 考试班级名；
     categoryId:'' // 考试类型  非必填 如不填 默认所有题型
+    categoryName:'' // 类目名
     startTime:'' //活动开始时间
     endTime:'' //活动结束时间
     count:'' //试题数量
@@ -697,3 +699,20 @@ let res = {
     data:[]
 }
 ```
+
+#### 打卡签到
+
+```javascript
+let interface = '/sign/create'
+let type = 'POST';
+let params = {
+    uuid:'' //
+    username:'' //用户名；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
