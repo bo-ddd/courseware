@@ -21,6 +21,8 @@
    var data = { 
      username:[String],
      password:[String],
+     captcha:'',  //[String]图形验证码,非必填项
+     version:'V1.0'  //[String]非必填项，如果传 V1.0,需要加图形验证码参数
    }
    ```
    
@@ -52,7 +54,30 @@
   };
   ```
 
+### 图形验证码
+  1. 接口名称： /user/captcha
+  2. 描述：适用于登录,注册时的获取图形验证码功能；
+  3. 接口方式： 'GET'
+  4. 接口入参： 无
+  5. 接口出参：图片
 
+ ### 校验图形验证码
+  1. 接口名称： /user/checkCaptcha
+  2. 描述： 适用于用户登录注册时的验证码， 失效时间60秒
+  3. 接口入参：
+  ```javascript
+  var request = {
+    captcha:'' //[String]4位字符
+  }
+  ```
+  4. 接口出参：
+  ```javascript 
+  var res = {
+    status:1,  //1:成功  0：失败
+    message:'success',  //success  0:验证失败
+    data:null
+  }
+  ```
 
 #### 测试登录是否正确接口
 

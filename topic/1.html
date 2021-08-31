@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    1. 你有没有进行过混合（Hibird）开发？
+        答： 有，但是只做过h5嵌套app; app相关的不是我做的；
+    2. 混合开发的好处和缺点？ 
+        答： 优点：开发成本低；  相比原生应用来说：加载速度慢；
+    3. vue的优点？
+        diff算法    diff:意思是不同；   
+        原生js操作dom一个元素列表，渲染列表时，会删除所有的列表后，重新增加元素到页面上；
+        vue通过diff算法，会找到那个被修改的元素，只重新渲染那一个元素；
+    4. 虚拟DOM是什么
+        用普通js对象来描述DOM结构，这个结构就是虚拟DOM;
+        //js可以操作的那个dom树，就是虚拟dom;
+        vue中的虚拟dom叫VNode;
+    5. 你说一下vue中的虚拟DOM?
+        vue中封装了一个VNode类，这个类就是虚拟DOM;
+    6. 你说一下vue中的VNode;
+        VNode是vue中的虚拟DOD;他和diff算法一起搭配，性能很好，减少重绘和回流；
+    7. vue中的双向绑定是如何实现的？
+        Vue2.0 : Object.definedProperty
+        Vue3.0 : new Proxy()
+    8. 说一说对vue的理解？
+        答：vue是基于mvvm模式，他利用Object.definedProperty实现了数据双向绑定；
+    9. 说一下你对数据双向绑定的理解？
+        数据变视图变，视图变数据变；
+    10.说说你对SPA的理解？
+
+    11. SEO引擎优化？
+        1.合理利用html5标签，
+        2. 动态设置title,meta等属性；
+    12. hash模式和history模式？
+        cms:hash:  www.baidu.com#home.html    改变hash不会调用服务端接口
+        h5:history: www.baidu.com/user/info 改变history地址会调用服务端接口；
+    13. ssr渲染？
+        服务端渲染，服务端处理好静态页面发给前端； 优点：SEO很好；
+    14. 面试官：Vue实例挂载的过程中发生了什么?
+        beforeCreate
+        created  //data已挂载   this.$nextTick(){}
+        beforeMount
+        mounted  // dom已挂载
+        update
+        beforeUpdate
+        destroy  // 页面关闭时   当前页面有很多个定时器，在页面关闭时，要把定时器关着；拼团；
+        activity
+    15. eventloop
+        事件环，又叫事件队列，提的是js的执行顺序；
+        事件环的执行顺序：先同后异， 先微后宏；
+        注： js的异步任务有 setTimeout(宏任务)  Promise.then()(微任务);
+    16. 
+</body>
+<script>
+    let path = '2.html';
+    let stateObj = {
+        foo:'bar'
+    }
+    let title = 'title'
+    history.replaceState(stateObj, title,path);
+</script>
+</html>
