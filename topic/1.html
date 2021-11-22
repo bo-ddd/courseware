@@ -40,7 +40,8 @@
         h5:history: www.baidu.com/user/info 改变history地址会调用服务端接口；
     13. ssr渲染？
         服务端渲染，服务端处理好静态页面发给前端； 优点：SEO很好；
-    14. 面试官：Vue实例挂载的过程中发生了什么?
+    14. 面试官：Vue实例挂载的过程中发生了什么? vue中钩子有哪些？vue的生命周期？（必问）
+        vue创建的过程就是挂载数据和渲染dom元素的过程；这个过程用了几个钩子函数；
         beforeCreate
         created  //data已挂载   this.$nextTick(){}
         beforeMount
@@ -49,18 +50,228 @@
         beforeUpdate
         destroy  // 页面关闭时   当前页面有很多个定时器，在页面关闭时，要把定时器关着；拼团；
         activity
-    15. eventloop
-        事件环，又叫事件队列，提的是js的执行顺序；
-        事件环的执行顺序：先同后异， 先微后宏；
+    15. eventloop？
+        什么是eventloop ? 事件环，又叫事件队列，指的是js的执行顺序；
+        事件环的执行顺序 ? 先同后异， 先微后宏；
         注： js的异步任务有 setTimeout(宏任务)  Promise.then()(微任务);
-    16. 
+    16. 什么是组件化？
+        组件就是满足复用性，和解藕。我在项目中我把xxx封装成了组件；
+    17. vue中什么是指令系统？
+        就是在标签中加上自定义属性，通过object.definedProperty来现双向绑定；常用的指令有：xxx;
+    18. vue和jquery的区别？
+        1. vue 兼容 ie8之上； 不包括ie8;  
+        2. jquery 兼容所有浏览器；
+        // ie8浏览器已比宣布死亡；
+    19. Vue和React对比?
+        1.没用过react;
+        2.但是我了解过一点点，react是all in js的思想；
+    20. vue-cli 又叫 全家桶；
+    21. 单页面应用？
+        一个项目中打包后只有一个页面的应用叫单页面应用；
+    22. 多页面应用？
+        一个项目中打包后有多个页面的应用叫多页面应用；
+    23. hash跳转的实现原理是什么？
+        hashchange这个方法；
+    24. 列表页面到详情页面的传参方法？
+        url拼接 eg:www.baiud.com/detail.html?id=1
+        这些方案是不行的：vuex 单例 ，sessionStorage localStorage;
+    25. 说说你和服务端之间如何交互、配合？
+        工作中，一般和配合是在接口联调时，服务端接口数据返回不正确时，
+        会把相应报文发给服务端；
+        同时配合服务端测试连调各种接口状态；
+    26. 开发中你们的团队资源是如何分配的？
+        1-2个前端  2-5个后台；
+    27. 2个前端时，你们的任务是如何分配的？
+        按页面模块分；  比如说一个前端做列表页面、一个前端做详情页面;
+        按功能模块分；  如果模块较多，一个人做订单模块 、 另一个做签到模块；
+    28. 公司中，你们的项目代码托管工具是什么？
+        git: git是分布式，（可以在任何地方开发）github,gitlab;
+        但是公司中，github不是我们用的github;公司用的github是收费的；
+        收费体现在： 域名 suning.github.com;
+        免费： https://github.com/bo-ddd 
+        svn：不是分布式 （svn依赖内网，只能在公司内网来用）
+        svn一般是放产品的需求文档的；
+    29. 项目中git是如何管理分支的？
+        1. 线上代码用master分支
+        2. 开发时的代码用dev/pre分支（develop） ;
+        3. 提测分支叫 sit分支；
+        有一个功能a,你开发代码的时候，就在dev分支开发；
+        功能开发完以后，把代码合并到sit分支；
+        测试人员就在sit分支进行功能测试，
+        如果功能测出bug；
+        开发人员在从dev分支开发，
+        开发完以后，在合并到sit分支；
+        如果测试完毕，
+        上线时，把代码合并到master分支；
+    30. 如何合并分支；
+        1.切换到想合并代码的分支（master）
+        git merge sit;
+
+        当前分支是sit,想合dev的代码合过来；
+        那就在sit分支下 git merge  dev;
+
+        项目上线时
+        要把sit环境的代码合到master上；
+        切换到master分支  git merge sit;
+    31. 项目上线后出现bug,该怎么办？  
+        1. 创建一个分支 Hot_br20210906  (热分支 热修复分支)这种分支是用来解决临时线上bug的；
+        2. 这个分支代码是从master分支上拉取下来的；
+        3. 修复完bug以后，在提交到sit分支，
+        4. 测试人员测试完毕后，在把sit分支的代码合到master上，
+        5. 然后发版；
+        6. 此时如果你已经在下个版本中Ft_br20211021开发了C功能，那需要做一步：
+        7. 切换到Ft_br20211021分支 git merge master;
+
+        答：创建一个热分支，改完bug,测试完以后，合并到master分支；
+    32. 分支命名
+        master   Dev_br+日期   Ft_br+日期  Hot_br+日期
+    33. 为什么v-if和v-for不建议一起使用？
+        v-if 是渲染或者不渲染元素
+        v-for 是循环渲染元素；
+        v-for加载优先于v-if;
+        如果一起使用，就相当于 小卖铺的老板给了你了个糖，结果又给要回去；
+    34，为什么data是一个函数，而不是一个json对象？
+        污染其它组件变量；
+    35. 为什么在vue2.0中给Vue添加新属性后界面不刷新？如何解决？ 
+        因为新增的属性没有被数据劫持；
+        Vue.set(data,'key',value);
+        this.$set(data,'key',value)
+        Object.assign(data,{})
+    36. vue中什么是组件？
+        放在components文件夹中的.vue文件就是组件,组件是为了满足复用性；
+    37. 项目中用到的技术栈？（基础中的基础）
+        h5:  vue-cli vuex  vue-router  echarts betterscroll axios vant less;
+        pc-cms: vue-cli vuex  vue-router  echarts betterscroll axios elementui less;
+    38. 面试官：Vue组件间通信方式都有哪些?(必问)
+        父子关系的组件数据传递选择 props  与 $emit进行传递，也可选择ref
+        兄弟关系的组件数据传递可选择$bus，其次可以选择$parent进行传递
+        祖先与后代组件数据传递可选择attrs与listeners或者 Provide与 Inject
+        复杂关系的组件数据传递可以通过vuex存放共享的变量
+    39. 请问你在项目中最近遇到的最难的问题是什么？如何解决的？
+        以逻辑出发？（男生）  以布局出发（女生）
+    40. 项目中遇到的兼容性问题？ 
+        firefox vant 下拉刷新不好使
+    41. 面试官：说说你对nexttick的理解?
+        nextTick本质上是通过事件环，做了异步加载，改变了js的执行顺序；
+    42.面试官：说说Javascript中的数据类型？区别？
+        基本数据类型： undefined、null、boolean、string、number、symbol，
+        以及引用类型： object
+    43. undefined 和 null的区别？
+        undefined:未定义
+        null:空
+    44. typeof数据类型的值？
+        typeof undefined   'undefined'
+        typeof null        'object'
+        typeof []          'object'
+        typeof boolean     'boolean'
+        typeof string      'string'
+        typeof number       'number'
+        typeof symbol       'symbol'
+        typeof object       'object'
+    45. 判断数据类型？
+        Array.isArray([])  //判断是否是数组；
+        Array.prototype.toString.call('abc').slice(8,-1) == 'String';
+        Array.prototype.toString.call(5).slice(8,-1) == 'Number'; 
+        Array.prototype.toString.call(Symbol('abc')).slice(8,-1) == 'Symbol'; 
+    46. 数组转字符串？
+        [1,2,3,4,5].join(',')
+    47. a链接不跳转方式？
+        方法1：<a href="javascript:void(0)">asdad</a>  js执行空函数；
+        方法2： <a href="#"></a>   hash
+    48. 匿名函数的应用场景？
+        1. 写jquery的时候，每一个页面都需要写一个匿名函数；这个就不会有污染全局变量；
+        2. 接口入参的时候需要自执行函数
+        let params = {
+            username:(function(){
+                var user;
+                var res ;
+                var result;
+                var req
+                var oUser = docment.getElmentByID("user");
+                //经过一些自己的业务逻辑；
+                return user;
+            })(),
+            password:(function(){
+                let res = '';
+                //经过自己的业务逻辑改变这个值；
+                return res;
+            })()
+        }
+    49. jquery的常用方法？
+        attr()获取的是自定义属性 .props()获取自身dom属性；(必会)
+
+        （炒鸡基础中的基础）
+        $('.element').attr().props().val().show().hide().html().parent().eq().find();
+
+        （必会！必会！必会！） 事件委托  $("ul").on('click','li',function(){})
+    50. image里alt和title的区别？
+        如果 图片没有加载出来，那么页面会显示 alt的值 ；
+        如果图片显示出来，鼠标移入显示的文字，是通过title设置的；
+    51. html5的新特性？
+        footer  header  nav  article 
+        video视频，audio 音频，canvas动画  svg矢量图 
+    52. UI给的图片设计图?
+        答：sketch;
+    53. 数组的常用方法？
+        。。。。
+    54. 你在公司中，前端组中的级别是什么？
+        1. 中型公司或者小型公司里，一般公司中有1-2个前端，如果前端较少，那么一般组长就是前端 leader;
+        但是总负责人，是服务端技术经理；
+    55. 你是前端leader，那么你的管理和开发比重是多少？
+        2：8； 管理：开发
+    56. 你上家公司离职的原因是什么？
+        1.家里有事
+        2.公司倒闭
+        3.leader走了
+        4.外调南京（登录，销费者中心）
+        5.从外地来北京的这个思路（很靠谱）
+    57. 996  
+        早9晚9,一周上六天；
+    58. 答题技巧？
+        他的作用是什么；我在xx时候用，（第一,我了解,第二，我用过/我知道怎么用);
+    59. 面试官：说说你对vue的mixin的理解，有什么应用场景？
+        1. 把一些前置需要加载的功能，封装到mixin中；页面中如果引入了mixin，
+        那么会先执行mixin组件中的方法，然后在执行自身实例的方法；
+        2. 我看vue-router的底层，他用的就是minxin;
+        3. 但是项目中不太常用；
+    60. 你们公司不用xxx方法吗？ / 你有没有听说过xx方法？  / 你们的项目中不用xxx方法吗？
+        这个方法我知道，他是xxx用的，但是我们项目中有项目规范，在项目初期的时候，就没有这么用；
+        我们为了保证代码的统一性，所以没有用到这个方法；
+    61. 说说你对slot的理解？slot使用场景有哪些？
+        slot就是插槽，可以实现在组件中有一些自定义样式和逻辑；
+    62. 面试官：Vue.observable你有了解过吗？说说看
+        就是非父子组件之间的传参，但是现在不用了，我们项目中统一用的vuex；
+    63. 面试官：你知道vue中key的原理吗？说说你对它的理解？
+        Vue中用到了diff算法，他会根据这个唯一的key来找到修改的是哪一个，页面渲染性能会很高；
+    64. 说一下vue中diff算法的理解？
+        原生js中列表数据改变时，会渲染当前元素中所有的列表元素，
+        这样造成了大量的重绘和回流；
+        会使页面性能较差；
+        vue中使用的diff算法，就是以减少元素的重绘和回流；
+    65. 什么是重绘和回流？
+        每一次修改dom元素的宽高样式，等都会造成页面重新渲染；
+        重绘和回流会影响性能；
+        开发中尽可能避免；
+    66. 怎么缓存当前的组件？缓存后怎么更新？说说你对keep-alive的理解是什么?
+        移动端必用keep-alive;(重点中的重点在移动端)
+    67. 面试官：Vue常用的修饰符有哪些？有什么应用场景？
+    stop prevent once
+    68.面试官：你有写过自定义指令吗？自定义指令的应用场景有哪些？
+
 </body>
 <script>
-    let path = '2.html';
-    let stateObj = {
-        foo:'bar'
-    }
-    let title = 'title'
-    history.replaceState(stateObj, title,path);
+    var mixin = new Vue({
+        mounted(){
+            console.log("我执行了一些业务逻辑")
+        }
+    })
+
+    var vm = new Vue({
+        mixin:mixinName,
+        mounted(){
+            console.log("我执行了一些业务逻辑")
+            console.log('这是我vue中created的业务逻辑')
+        }
+    })
 </script>
 </html>

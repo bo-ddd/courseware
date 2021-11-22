@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div"></div>
+    <button id="btn">button</button>
+</body>
+
+<script>
+
+    let data = {
+        username:'xiaoming',
+        age:18
+    }
+
+    Object.keys(data).forEach(key=>{
+        let val = 0;
+    Object.defineProperty(obj, key, {
+        get() {
+            console.log(`get foo:${val}`);
+            // 业务几百行业务逻辑；
+            return val
+        },
+        set(newVal) {
+            if (newVal !== val) {
+                if(newVal > 5){
+                    val = 0;
+                }else{
+                    val = newVal;
+                }
+                console.log(`set foo:${newVal}`);
+                document.getElementById('div').innerHTML = val;
+            }
+        }
+    })
+    })
+    const obj = {}
+
+    //数据劫持
+    Vue.set(data,'a','ballab') 
+
+</script>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 1. var/left/const区别？
+    // 1.var有变量提升，2.let没有变量提升 3.const是常量
+    // const 有没有办法修改？基本类型数据不可以修改： const a = 1;
+    // 引用型数据 obj类型的常量其实也可以修改 const json = {name:{}} // 
+
+    // 2. 说出下列代码的执行结果？  知识点：考的就是变量提升，变量提升只在当前*(作用域)中进行提升，所以是undefined;
+    // var a = 1;
+    // function aaa(){
+    //     console.log(a); //undefined;
+    //     var a = 10;
+    // }
+    // aaa();
+
+    // 3. 知识点： 赋值的规则： 从右至左赋值,如果变量没有声明变量，那么就是全局变量；
+    // function aaa (){
+    //     var a = b = 10;
+    // }
+    // aaa();
+    // console.log(a); // Exception;
+    // console.log(b); // 10;
+
+    //4.
+    // var a = 10;
+    // function aaa(){
+    //     console.log(a)
+    // }
+
+    // function bbb(){
+    //     var a;
+    //     console.log(a)  //undefined;
+    //     a = 5;
+    //     aaa();
+    // }
+
+    // bbb();
+    // // undefined 5   // *undefined 10; // undefined undefined  // 10 5;
+
+    //5.
+    // let a = 10;
+    // {
+    //     console.log(a); //Exception; 会报访问异常，并不是变量声明异常；
+    //     let a = 5;
+    // }
+    //undefined;  10;  
+
+    //6. 
+    // for(var i = 0;i< 10;i++){
+    //     var timer = setTimeout(function(){
+    //         console.log(i);
+    //     },0)
+    // }
+</script>
+</html>
