@@ -21,6 +21,8 @@
    var data = { 
      username:[String],
      password:[String],
+     captcha:'',  //[String]图形验证码,非必填项
+     version:'V1.0'  //[String]非必填项，如果传 V1.0,需要加图形验证码参数
    }
    ```
    
@@ -52,7 +54,30 @@
   };
   ```
 
+### 图形验证码
+  1. 接口名称： /user/captcha
+  2. 描述：适用于登录,注册时的获取图形验证码功能；
+  3. 接口方式： 'GET'
+  4. 接口入参： 无
+  5. 接口出参：图片
 
+ ### 校验图形验证码
+  1. 接口名称： /user/checkCaptcha
+  2. 描述： 适用于用户登录注册时的验证码， 失效时间60秒
+  3. 接口入参：
+  ```javascript
+  var request = {
+    captcha:'' //[String]4位字符
+  }
+  ```
+  4. 接口出参：
+  ```javascript 
+  var res = {
+    status:1,  //1:成功  0：失败
+    message:'success',  //success  0:验证失败
+    data:null
+  }
+  ```
 
 #### 测试登录是否正确接口
 
@@ -68,30 +93,626 @@ let res = {
 }
 ```
 
-#### 答题列表接口
+#### 用户信息接口
 
 ```javascript
-let interface = '/question/category/list'
+let interface = '/user/info'
 let type = 'POST';
-let params = {
-    type:'',   // 非必填项  如果不填，会获取到总目录，如果填 js 会 显示 js目录下面所有的题；
-}
+let params = {};
 let res = {
     status:1,
     message:'success'
     data:[
         {
-            title:'', // icon对应的标题 有可能是 js css node ，如果type有值，那么返回的是题目 题目是markdown类型;如果不传type,返回的是标题；
-            icon:'',   //icon图的地址；
-            options:[
-    			{
-    				value:''   //选择项
-    				right:[boolean] //true ： 正确答案  false:错误答案
-				}
-    		] // 选择题选项及答案；  type不为空时会返回；
-    		id:'',     // 题目的id；
+            userId:'', // 用户Id;
+            avatorId:0, // 头像的索引值
+    		avatorName:'哈哈哈', //网名
+    		class:'',  //班级名称
+    		identity:'',  //身份信息 0：学生 1：老师
+    		mail:''， //邮箱号
+            phoneNumber:'', //手机号
+    		createdAt:'' // 账号创建时间
+    		updatedAt:'' //最近一次的用户信息修改时间
+    		uuid:'',  // 用户的uuid;
+    		desc:'', //个人介绍
+    		sex: [Number]  // 1:男 0:女
         }
     ]
+}
+```
+
+#### 修改用户信息接口
+
+```javascript
+let interface = '/user/update'
+let type = 'POST';
+let params = {
+    avatorId: 0  //头像Id; 非必填项，如果未修改，则不传；
+    avatorName:''  //昵称  非必填项，如果未修改，则不传；
+    phoneNumber:'',  // 手机号 非必填项，如果未修改，则不传；
+    mail:'',   //  邮箱 非必填项，如果未修改，则不传；
+    password:'' //密码 非必填项，如果未修改，则不传；
+};
+let res = {
+    status:1,   //1:成功  0:密码不满足要求
+    message:'success'  
+    data:[]
+}
+```
+
+#### 用户注册接口
+
+```javascript
+let interface = '/user/register'
+let type = 'POST';
+let params = {
+    username:'',   //用户名
+    password:''    //密码
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:[]
+}
+```
+
+#### 获取题列表
+
+```javascript
+let interface = '/topic/list'
+let type = 'POST';
+let params = {
+    id: '',  // 非必填 题id；
+    categoryId:[String], // 非必填  可以传题型类目；  eg  1 2 3 4;
+    pageNum:1,   // 非必填  如果不传 默认是1   第几页数据；
+    pageSize:10,  // 非必填 如果不传 每页数据量
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:{
+    	id: [Number],  // 题目标识
+        uuid:[String]  // 出题人uuid；
+		type:[String]  //题目类型
+		title:[String]  //题目；
+		options:[Array],    //选择题选项 [{key:a,value:'a选项的内容'},{key:b,value:'b选项的内容'}]
+        result: [String]  //答案 如果是选择题 如果选择ab为正确项，那么会给 字符串格式的 a,b
+		categoryId: [Number], // 类目id 1: html 2:css 3:js 4:vue; 
+        createdAt:[Data],  //创建时间戳    
+        updatedAt:[Data], //更新时间戳
+	}
+}
+```
+
+#### 文章详情
+
+```javascript
+let interface = '/article/detail'
+let type = 'POST';
+let params = {
+    id:''  //文章ID;
+};
+let res = {
+    status:1,   //1:成功  2:账号或密码不满足要求 0：账号已存在
+    message:'success'  
+    data:{
+    	id: [Number],  // 文章标识  主键；
+        uuid:[String]  // 写文章的人的uuid；
+		type:[String]  //题目类型
+		title:[String]  //题目；
+		article:[String] //文章
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue; 文章所所属分类
+        createdAt:[Data],  //创建时间戳    
+        updatedAt:[Data], //更新时间戳
+	}
+}
+```
+
+#### 类目列表
+
+```javascript
+let interface = '/category/list'
+let type = 'POST';
+let params = {
+    type:[String]  // 类目类型 1：试题 2：文章；
+};
+let res = {
+    status:1,   //1:成功  0：失败
+    message:'success'  
+    data:[
+    	{
+            id: [Number],  // 文章标识  主键；
+            key:[String]  // html / css /js 
+		}
+    ]
+}
+```
+
+#### 增加类目
+
+```javascript
+let interface = '/category/create'
+let type = 'POST';
+let params = {
+    type:[String]  // 类目类型 1：试题 2：文章；
+    key:''   //类目文本 eg:  html ? css ? js ?  
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  
+    data:[]
+}
+```
+
+#### 删除类目
+
+```javascript
+let interface = '/category/delete'
+let type = 'POST';
+let params = {
+    type:[String]  // 类目类型 1：试题 2：文章；
+    id:''   //类目标识 eg: 1 ,2 ,3,4,5
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'   // 如果失败  类目中有x条数据，暂不能不删除
+    data:[]
+}
+```
+
+#### 增加题
+
+```javascript
+let interface = '/topic/create'
+let type = 'POST';
+let params = {
+		type:[String]  //题目类型
+		title:[String]  //题目；
+		options:[Array],    //选择题选项 [{key:'A',value:'A的答案'}]
+        result: [String]  //答案 如果是选择题 如果选择AB为正确项，那么会给 字符串格式的 'A,B'
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 编辑题
+
+```javascript
+let interface = '/topic/update'
+let type = 'POST';
+let params = {
+		id:[String],  //题id
+    	type:[String] //题类型
+		title:[String]  //题目；
+		options:[Array],    //选择题选项 [{key:'A',value:'A的答案'}]
+        result: [String]  //答案 如果是选择题 如果选择AB为正确项，那么会给 字符串格式的 'A,B'
+		categoryId: [Number], // 1: html 2:css 3:js 4:vue;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除题
+
+```javascript
+let interface = '/topic/delete'
+let type = 'POST';
+let params = {
+		id:[String],  //题id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 更新类目接口
+
+```javascript
+let interface = '/category/update'
+let type = 'POST';
+let params = {
+		type:[String]  //
+		id:[String]  //
+		key:[String],    
+        iconUrl: [String] 
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 增加文章接口
+
+```javascript
+let interface = '/article/create'
+let type = 'POST';
+let params = {
+		title:[String]  //
+		article:[String]  //
+		categoryId:[String],    
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 获取文章列表
+
+```javascript
+let interface = '/article/list'
+let type = 'POST';
+let params = {
+		categoryId:[String]  // 非必填 文章类型  eg :  1，2，3，4 
+		pageNum:[String]  //非必填 第几页 如不传，默认为1
+		pageSize:[String],    //非必填 获取几条数据 默认为10；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除文章
+
+```javascript
+let interface = '/topic/delete'
+let type = 'POST';
+let params = {
+		id:[String]  // 必填 文章id;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 查询题目答案
+
+```javascript
+let interface = '/topic/answer'
+let type = 'POST';
+let params = {
+		ids:[Array]  // 必填 题目id的集合；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除文章
+
+```javascript
+let interface = '/article/delete'
+let type = 'POST';
+let params = {
+		id:[Number]  // 必填 文章id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 编辑修改文章
+
+```javascript
+let interface = '/article/update'
+let type = 'POST';
+let params = {
+    id:[Number],  // 必填 文章id
+    categoryId:'',   //类目标识 ；
+    title:'',  //文章标题
+    article:'' //文章内容
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 收藏题
+
+```javascript
+let interface = '/mark/set'
+let type = 'POST';
+let params = {
+    markType:'',//收藏对象的类型  1： 题  2：文章
+    categoryId:'',   //
+    markId:'',  //
+    status:'',  // 1：收藏  0：取消收藏；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 查看收藏列表
+
+```javascript
+let interface = '/mark/list'
+let type = 'POST';
+let params = {
+    markType:''  //收藏对象的类型  1： 题  2：文章
+    categoryId:'',   //  1：html ? 2：css ? 3:js ?
+    type:'',  //
+    status:'',  // 1：收藏  0：取消收藏；
+    pageNum:'',  // 非必填，默认第一页数据；
+    pageSize:''  //非必填  如不传，默认是10条数据；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 查看收藏id列表集合
+
+```javascript
+let interface = '/mark/list/id'
+let type = 'POST';
+let params = {
+    markType:'',   //收藏对象的类型  1： 题  2：文章
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]  // markId的集合；
+}
+```
+
+#### 获取用户列表信息
+
+```javascript
+let interface = '/user/list'
+let type = 'POST';
+let params = {
+    uuid:'',  // 非必填， 根据uuid查用户信息；
+    pageNum:1,  //非必填，如不填默认是1
+    pageSize:10  // 非必填，如不填，默认是10
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 我的消息列表
+
+```javascript
+let interface = '/message/list'
+let type = 'POST';
+let params = {
+	type:1,   // 1：系统消息  2:好友消息  如不传，代表全部消息
+    pageNum:1,  //非必填，如不填默认是1
+    pageSize:10  // 非必填，如不填，默认是10
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[ 
+    	{
+    		id:'' //消息Id
+    		type:'' // 1:系统消息 2：好友消息；
+    		avatorImg:'',  //头像
+    		formUserId:''  // 发送信息人的uuid;
+    		toUserId:''    // 接收信息人的uuid;
+    		postMessage:'' // 消息体
+		}
+    ]  
+}
+```
+
+#### 发送消息
+
+```javascript
+let interface = '/message/send'
+let type = 'POST';
+let params = {
+	toUserId:1,   // 1：发送至的人员uuid
+    postMessage:'',  //消息体
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]  
+}
+```
+
+#### 查看消息详情
+
+```javascript
+let interface = '/message/detail'
+let type = 'POST';
+let params = {
+	id:'' //  消息id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[
+    	{
+    		id:'',  
+    	    formUserId:''  // 发送消息人的uuid;
+    		toUserId:''    // 接收消息人的uuid;
+    		postMessage:''  //消息体
+		}
+    ]
+}
+```
+
+#### 删除我的消息
+
+```javascript
+let interface = '/message/delete'
+let type = 'POST';
+let params = {
+	id:'' //  消息id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建班级
+
+```javascript
+let interface = '/class/create'
+let type = 'POST';
+let params = {
+	name:'' //班级名称
+    admin:'' // 管理员uuid
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 班级列表
+
+```javascript
+let interface = '/class/list'
+let type = 'POST';
+let params = {
+	pageNum:'' // 非必填
+    pageSize:'' // 非必填
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 删除班级
+
+```javascript
+let interface = '/class/delete'
+let type = 'POST';
+let params = {
+	id:''  //班级id
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 修改班级
+
+```javascript
+let interface = '/class/update'
+let type = 'POST';
+let params = {
+	id:''  //班级id
+    name:'' //班级名
+    admin:''  //班级管理员的uuid;
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建作业
+
+```javascript
+let interface = '/task/create'
+let type = 'POST';
+let params = {
+    uuid:'' //作者的uuid;
+	content:'' // 作业内容
+    endTime:'' // 作业的结束时间
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建活动
+
+```javascript
+let interface = '/active/create'
+let type = 'POST';
+let params = {
+    title:'' //活动名
+    region:'' // 活动地点
+    nature:'' //活动类型
+    startTime:'' //活动开始时间
+    endTime:'' //活动结束时间
+    banner:'' //图片url
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 创建考试
+
+```javascript
+let interface = '/exam/create'
+let type = 'POST';
+let params = {
+    classId:'' //考试班级
+    className:'' // 考试班级名；
+    categoryId:'' // 考试类型  非必填 如不填 默认所有题型
+    categoryName:'' // 类目名
+    startTime:'' //活动开始时间
+    endTime:'' //活动结束时间
+    count:'' //试题数量
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
+}
+```
+
+#### 打卡签到
+
+```javascript
+let interface = '/sign/create'
+let type = 'POST';
+let params = {
+    uuid:'' //
+    username:'' //用户名；
+};
+let res = {
+    status:1,   //1:成功  0:失败
+    message:'success'  // fail
+    data:[]
 }
 ```
 
