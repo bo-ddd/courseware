@@ -3,6 +3,7 @@
 2. wrap布局和padding布局的优缺点？
 3. class维度使用及高阶进阶技巧；（非常重要，如果不会，则无法正确的声明vue中的组件）
 4. padding + width布局所导致的问题及解决方案？（怪异盒）
+4. common.css  index.css   theme.css的划分和作用
 5. scroll布局的实现方案;
 
 #### 布局要素：
