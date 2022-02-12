@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,h3,h4{
+            margin:0;
+            padding:0;
+        }
+
+        .mt-20{
+            margin-top: 20px !important;
+        }
+
+        .banner{
+            width:335px;
+            margin:0 auto;
+            padding:12px 22px;
+            border-radius:12px;
+            box-sizing: border-box;
+        }
+        
+        .banner h3, h4{
+            padding:4px 0;
+        }
+
+        .banner .btn{
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 12px;
+            margin-top:6px;
+        }
+
+        .banner h3{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner .arrow{
+            width:20px;
+            height:20px;
+            background-color: #fff;
+            display: inline-block;
+        }
+
+        .skin-green{
+            background:green;
+            color:#fff;
+        }
+
+        .skin-green .btn{
+            color:green;
+            background:#ebf2ef;
+        }
+
+        .skin-light{
+            color:#000;
+            background:#ebf2ef;
+        }
+
+        .skin-light .btn{
+            color:#fff;
+            background:green;
+        }
+    </style>
+</head>
+<body>
+    <div class="home">
+        <div class="banner skin-green">
+            <h3>
+                <span>Delivery to Home</span>
+                <span class="arrow"></span>
+            </h3>
+            <h4>Utama Street no.14, Rumbai</h4>
+            <span class="btn">2.4km</span>
+        </div>
+
+        <Banner skin="green"  size="big"  title="Delivery to Home" desc="Utama Street no.14, Rumbai" btnName="2.4km"></Banner>
+
+        <div class="mt-20">
+            <div class="banner skin-light"">
+                <h3>
+                    <span>Chicken Teriyaki</span>
+                    <span class="arrow"></span>
+                </h3>
+                <h4>Discount 25%</h4>
+                <span class="btn">Order Now</span>
+            </div>
+        </div>
+
+        <div class="mt-20">
+            <div class="banner skin-light">
+                <h3>
+                    <span>购买会员卡</span>
+                    <span class="arrow"></span>
+                </h3>
+                <h4>150元</h4>
+                <span class="btn">截止时间 2022-2-12</span>
+            </div>
+        </div>
+
+
+        <div class="banner skin-green">
+            <h3>
+                <span>拼团</span>
+                <span class="arrow"></span>
+            </h3>
+            <h4>现在已拼3人，还差2人拼团成功</h4>
+            <span class="btn">快来吧！</span>
+        </div>
+
+
+
+
+    </div>
+</body>
+<script>
+    /**
+     * 1. class命名的维度    1：类的维度   2：多态的维度
+     * 2. 如果你在首页上看见的 不管是轮播图，还是 带圆角，占比很大的图，这种模块，就叫banner  :  横幅广告
+     *  banner 就是类   而送货（send）就是 多态的一种   第二种多态：打折(discount)
+     * 3. 优先使用 类维度， 次选多态维度；
+     * 4. 几乎没有几个元素是给宽或者高
+     * 5.  width + padding 所引发的问题？  就是 我们通常设计的宽，本质上是想让这个元素的最后的宽；但是
+     * width这个尺寸的宽代表的是 元素的content宽   
+     * 6.  标准盒模型和怪异盒之间的区别？
+     * 标准盒的宽： border-left + padding-left + contentWidth + padding-right + border-right + margin;
+     * 7. 在css样式中，可以被继承的属性有哪些？  
+     * 答： font-size  color:  background;
+     * 8. 在项目中，h标签的使用场景及你如何化分？
+     * 如果你的页面中，标题的维度是类的维度，那么你应该直接用h1标签；
+     * 如果你的页面中，有其他的标签，他的选择是  h3 和  h5,除非你能非常确定这个标题是二级标题，你可以直接用h2;
+     * 9. 写样式时，字体还有没有称满格就换行是什么原因？ 
+     * 答： html判断如果是连续的英文单词，那么他会认为他是一个整体的单词或者字，如果该字过长，放不到当前行，则会自动换行；
+     * 10. 如果你量的英文单词是12px，则要自动计算2px的padding， 如果你量的字是12px， 16px;
+     * 11. 项目中，你是否用过Devtools？ 答： 是；  Dev： development 开发  tool 工具   开发调试工具   Devtools:浏览器的调试工具
+     * 12. 任何一个模块都不应该设置margin?  
+     * 因为如果这些模块在下一个页面会被复用，这些margin会非常影响页面效果，因为通常情况下，我们所要的模块，只是单独的这个模块，这个页面的模块间距是20px,下个页面不一定是；这样就会造成组件扩展性变低；
+     * 13. 样式的优先级 ？   class="classa  classb"  classb 会覆盖class a；
+     * 14. 样式的所有优先级    行内 》 style 》  index.css;
+     * 15. 组件维度的使用；  把class名变成组件名， 把次级维度的class变成属性， 一个合格的组件就诞生了
+     * **/ 
+
+    // //  类的维度
+    // class Animal{
+
+    // }
+
+    // // 多态的维度
+    // class Dark{
+
+    // }
+
+</script>
+</html>

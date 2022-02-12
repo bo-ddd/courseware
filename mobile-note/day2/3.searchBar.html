@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        .search{
+            width:335px;
+            margin:0 auto;
+            display: grid;
+            padding: 14px 16px; 
+            grid-template-columns: 36px auto;
+            background:yellow;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .icon{
+            width:24px;
+            height:24px;
+            background:red;
+        }
+
+        input{
+            outline: none;
+            border:none;
+        }
+
+        /* 测试版本，在只webkit内核的浏览器上，这条语法才好使 */
+        ::-webkit-meter-bar{}
+        /* 测试版本，在只ms内核的浏览器上，这条语法才好使 */
+        :-ms-fullscreen{
+            
+        }
+        /* 在项目中，vue  react脚手架，他会自动帮你加上兼容性 */
+
+        /* 谁帮你去加这些浏览器兼容的关键字呢？   */
+        /* postcss */
+    </style>
+</head>
+<body>
+    <!-- outline border -->
+    <div class="search">
+        <div class="icon"></div>
+        <input type="text">
+    </div>
+</body>
+<script>
+    // outline  border   
+    //  outline 不占用空间    border占空间的；
+    //  为什么大多数情况下都使用border  而不使用outline  content-外线-border;
+    //  因为兼容性的原因， ie8以上的才支持outline
+
+
+    //  请说明你常用的浏览器内核？
+    //  trident  ie    
+    //  webkit  google
+    //   Geocko  fireforx;
+</script>
+</html>

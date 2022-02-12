@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+
+        .home > div{
+            background:#fff;
+        }
+
+        /* <!-- 正确布局 --> */
+        .title {
+            display: grid;
+            grid-template-columns: 1fr 6fr 1fr;
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            background: red;
+            align-self: center;
+            justify-self: right;
+        }
+
+        .home {
+            height: 100vh;
+            background: #f3d9d9;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+            padding:40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="home">
+        <div class="title">
+            <div></div>
+            <h1>Home</h1>
+            <div class="icon"></div>
+        </div>
+        <div class="mt-10">我是搜索模块</div>
+        <div class="mt-10">我是banner模块</div>
+        <!-- <div class="mt-10">我是banner模块</div>
+        <div class="mt-10">我是一周热卖模块</div>
+        <div class="mt-10">我是拼团模块</div>
+        <div class="mt-10">-------------到达底部-------------</div> -->
+
+        
+    </div>
+</body>
+<script>
+    /**
+     * 1. title布局中的padding:20 0;  可以替换成margin:20 0 吗？
+     * 答： 不可以，会导致扩展性变低
+     * **/
+</script>
+
+</html>
