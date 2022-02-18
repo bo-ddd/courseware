@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="hotweek">
+        <h3>top of week</h3>
+        <!-- 组件的封装？   把 class 类名中 以类为维度的class声明成组成组件 ，以多态为维度的组件 声明成属性和值 -->
+        <div class="scroll scroll-x">
+
+        </div>
+        <!-- 非业务组件 -->
+        <Scroll  type="x"></Scroll>
+    </div>
+
+    <div class="hot-week">
+        <Title value="top of week"></Title>
+        <Scroll  type="x"></Scroll>
+    </div>
+
+    <!-- home.vue -->
+    <Headline level="1"  left-icon=""  value="Home"  right-icon="icon_msg.png"></Headline>
+    <!-- menu.vue -->
+    <Headline level="1"  left-icon=""  value="Menu"  right-icon="icon_msg.png"></Headline>
+    <!-- MsgHeadline    <headline-msg> -->
+        <!-- 铃铛 -->
+        <headline-msg  value="Menu"  :console2="console2"></headline-msg>
+
+        var vm = new Vue({
+            data(){
+                return {
+
+                }
+            },
+            methods:{
+                console2(){
+                    console.log("1")
+                }
+            }
+        })
+
+        <!-- HeadlineMsg.vue -->
+        import Headline from './Headline.vue';
+        import IconSearch from './icon-search.png'
+        <template>
+
+            <Headline level="1"  :value="value"  :right-icon="right-icon"></Headline>
+
+            <el-button  @click="handleEvent">铃铛</el-button>
+        </template>
+        <script>
+            export default {
+                data(){
+                    return {
+
+                    }
+                },
+                components:{
+                    "Headline":Headline
+                },
+                props:['left-icon','value','rightIcon','console2'],
+                mounted(){
+                    
+                },
+                methods:{
+                    handleEvent(){
+                        if(this.console2){
+                            this.console2();  //2   
+                        }else{
+                            console.log("1")  
+                        }
+                    }
+                }
+            }
+        </script>
+</body>
+
+</html>
