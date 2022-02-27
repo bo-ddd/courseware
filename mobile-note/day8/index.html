@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+<script>
+
+    // var obj = {};
+
+
+    // var obj1 = Object.create(null);
+
+    // console.log(obj);
+    // console.log(obj1);
+
+    // // obj  是继承 Object对象的，  Object对象上自带咱刚才说的call  apply  toString  bind  
+    // // obj.prototye.toString方法的话，  是不是会把之前的Object对象中的方法给替换掉呀？ 是吧？
+    // // obj1 = Object.create(null)  // 因为这种写法是创建一个对象，他的prorotype是null, 也就是说，该对象身上没有任何的方法； 通常的应用场景其实是在写一些底层的框架中；
+    // // 但是你如果在vue中这么声明其实也可以， 只是因为这个变量出现的时间比较迟， 所以人们通常喜欢 使用 var obj = {}  其实在某种场景上说， Object.create(null) 这种写法性能会比第一种要好；
+
+
+    // Object.defineProperty
+    // var obj = {}
+    // obj.name = 'xiaoming';
+    // obj.age = 18;
+    // obj.sex = 1;
+
+
+    // Object.defineProperties
+    // var obj = {
+    //     name: 'xiaoming',
+    //     age: 18,
+    //     sex: 1
+    // }
+
+
+    // function Person(name, age) {
+    //     return {
+    //         setName(newName){
+    //             name = newName;
+    //         },
+    //         getName(){
+    //             return name;
+    //         },
+    //         setAge(){
+    //             name = newName;
+    //         },
+    //         getAge(){
+    //             return name;
+    //         }
+    //     }
+    // }
+
+    // Person.prototype = {
+    //     setName(newName) {
+    //         name = newName;
+    //     },
+    //     getName() {
+    //         return name;
+    //     },
+    //     setAge() {
+    //         name = newName;
+    //     },
+    //     getAge() {
+    //         return name;
+    //     }
+    // }
+
+    // // 这种使用方式，叫做工厂模式
+    // var xiaoming = Product('iphone', '白色');
+    // var xiaoming = Product('iphonex', '红色');
+
+
+    var arr = [1, 2, 3]
+
+    Array.prototype.myReduce = function (cb) {
+        var total = 0;
+        for (let i = 0; i < this.length; i++) {
+            total = cb(total, this[i]);
+        }
+        return total;
+    }
+
+    let total = arr.myReduce(function (total, val) {
+        return total + val
+    })
+
+    console.log(total);
+
+    // 登录模块   订单模块，  商品模块  
+    // 模拟面试
+    //  vue方面的面试题  js其它的面试题  css   html
+
+
+    // __proto__和prototype区别是啥
+    // function Person(name) {
+    //     this.name = name;
+    // }
+
+    // Person.prototype.run = function () {
+    //     console.log('is runing');
+    // }
+
+    // var laosu = new Pserson('laosu')
+    // //   __proto__  ===  Pserson.prototype;
+    // // laosu.__proto__.run !==  Pserson.prototype.run; 
+    // laosu.run() //就会报错
+    // loasu.run() // js会去loasu当前对象中找这个run()的方法， 如果没有找到，他会去__proto__下面找run的方法；
+
+
+    // 桶排
+    // var arr = [];
+    // arr[3] = arr[3] ? arr[3] + 1 : 1;
+    // arr[3] = arr[3] ? arr[3] + 1 : 1;
+    // arr[6] = arr[6] ? arr[6] + 1 : 1;
+
+    // // arr   [undefined,2,1,3,1,undefined,1,1,undefined,undefined,undefined];
+    // arr.sort()
+
+
+    // 函数声明和  函数表达式的区别
+    // cb();
+    // function cb(){
+
+    // }
+
+
+    // cb();  // 报错  undefined;
+    // var cb = function(){
+
+    // }
+
+    // (function(){
+    //     console.log('hello')
+    // })()
+
+    
+    //  vue中$bus传参中使用到了arguments;
+    class Instance {
+        constructor() {
+            this.store = {}
+        }
+        on(key, fn) {
+            this.store[key] = this.store[key] || [];
+            this.store[key].push(fn);
+        }
+        emit() {
+            var arr = Array.from(arguments);
+            var key = arr.shift();  // key
+            //var arr   // 是所有入参；
+            for (let i = 0; i < this.store[key].length; i++) {
+                this.store[key][i](arr)
+            }
+        }
+    }
+
+    var bus = new Instance();
+
+    bus.on('click',function(params){
+        console.log(...params);
+    })
+
+    bus.emit('click','第一个参数','第二个参数','第三个参数','第四个参数','asdfjkalsdf')
+
+    bus.on('orderInfo',function(params){
+        console.log(...params);
+    })
+    bus.emit('orderInfo','asdjfkasd','asdfjksld','asdfjklsd')
+
+
+    
+</script>
+
+</html>
