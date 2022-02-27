@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* common.css */
+        /* .wrap{ */
+            /* 建议不要用这种布局，这种布局扩展性差 */
+            /* padding:0 20px; */
+
+            /* 建议用这种 */
+            /* width:335px;
+            margin:0 auto; */
+        /* } */
+        
+        /* width:100%;  margin-left:24px  margin-right:24px; */
+        .wrap{
+            width:33.5rem;
+            margin:0 auto;
+            /* 建议不要用下面这行： */
+            /* margin:0 2.4rem; */
+        }
+
+        body,h3{
+            margin:0;
+            padding:0;
+        }
+
+        /* .wrap{
+            padding:0 20px;
+        } */
+
+        .mt-20{
+            margin-top:20px;
+        }
+
+
+        /* 1. 组件内不能设置宽和高 */
+        /* .wrap */
+    </style>
+</head>
+<body>
+    <!-- Banner.vue -->
+    <template>
+        <div class="wrap">
+
+        </div>
+    </template>
+
+
+    <!-- Home.vue -->
+    <template>
+        <div class="home">
+            <div class="wrap">
+                <Title value="Home"></Title>
+                <Banner title="develiver to home" desc="street.no" btnName="2.4px"></Banner>
+                <Scroll></Scroll>
+            </div>
+            <div  class="w-170">
+                <el-input></el-input>
+            </div>
+        </div>
+    </template>
+
+
+    <!-- 任何一个页面中，都要用一个最大的div给包起来，命名可以为id，也可以为class，该class的维度是类维度 -->
+    <div class="home">
+        <h3 class="wrap">Home</h3>
+        <div class="wrap">
+            <div class="banner wrap">
+                <h3>Delivery to home</h3>
+                <div>xxx streen 14.no</div>
+                <span>2.4km</span>
+            </div>
+        </div>
+    
+        <div class="banner">
+            <h3>Chicken</h3>
+            <div>discount 25</div>
+            <span>order buy</span>
+        </div>
+        
+        <!-- wrap布局本质就是给盒子设置常用的宽 -->
+        <div class="wrap">
+            <h3 class="mt-20">ajskxld</h3>
+    
+            <div class="mt-20">sjdfklasdf</div>
+    
+            <span class="mt-20">adsjfklasdf</span>
+        </div>
+    </div>
+</body>
+<script>
+    // 这种布局维护性较差，只适合简单且不会经常迭代的样式；
+
+    // padding wrap布局
+    // 布局： 指的是做项目时页面中最大的div布局方案；
+    // cms:   app页面写的是layout布局； 
+    // layout.vue就是一个布局框架页面；
+</script>
+</html>

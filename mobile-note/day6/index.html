@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="rem.js"></script>
+    <script src="2.js"></script>
+</head>
+
+<body>
+    <div></div>
+</body>
+<script>
+    // 你了解垃圾回收机制吗?
+    // (function(n){
+    //     console.log(n);
+    //     var num = 1;
+    //     var fontSize = 10;
+    // })(1)
+
+
+    // 闭包是一个方法中return一个方法;
+    // 闭包不污染全局变量
+    function bibao() {
+        var num = 1;
+        return function () {
+            console.log(num);
+        }
+    }
+
+    // bibao()();
+
+
+    class Vue {
+        constructor(props) {
+            this.data = props.data();
+            Object.assign(this, this.data);
+            this.mounted = props.mounted;
+            this.mounted();
+        }
+    }
+    // 闭包是一个方法中return一个方法;
+    // 闭包不污染全局变量
+    var vm = new Vue({
+        data() {
+            return {
+                orderId: 1,
+                username: 'xiaoming'
+            }
+        },
+        mounted() {
+            console.log(this.username);
+            console.log(this.orderId);
+        }
+    })
+
+    var obj = {
+        username: 'xiaoming',
+        age: 18
+    }
+
+    var getData = function () {
+        return obj;
+    }
+
+    let obj2 = getData();
+
+    obj2.username = 'xiaohong'
+    console.log(obj2);
+    console.log(obj);
+
+    // e是通过闭包传过来的;
+    // 闭包的使用场景?   onclick事件  
+    // setInterval(function(text){
+    //     console.log(text);  //hello world;
+    // },1000,'hello world')   
+
+    function mySetInterval(cb, test) {
+        var str = test;
+        return cb(str);
+    }
+
+    mySetInterval(function (str) {
+        console.log(1, 123)
+        console.log(str)
+    }, 'jfaksldfjkalsdjfklsdj ')
+    // dom.onclick  = function(e){
+    //     console.log(e);  //
+    // }
+
+    // // 
+    // this.$resfs.ref.validate(function(valida){
+    //     if(valida){
+    //         // el-element ui  中 from 表单的验证规则及方法
+    //     }
+    // })
+
+    // const  fs = require('fs')
+    // fs.readFile('1.txt',function(err,data){
+    //     if(err){
+    //         console.log(err)
+    //     }else{
+    //         console.log(datafhfhfhfhfhf)
+    //     }
+    // })
+
+
+
+    var obj3 = {
+        name: 'xiaoming',
+    }
+
+    var obj3 = {
+        username: 'xiaohong'
+    }
+
+    function bb(obj) {
+        var json = {
+            key1: 1,
+            key2: 1,
+            key3: 1,
+            key4: 1,
+            key5: 1,
+            key6: 1,
+            key7: 1,
+            key8: 1,
+        }
+
+        return function () {
+            if (obj.username == 'xiaoming') {
+                Object.keys(json).forEach(key => {
+                    obj[key] = json[key];
+                })
+            }
+        }
+    }
+
+    // 闭包的基础应用场景
+    // let parseObj3 = bb(obj3);
+    // let parseObj4 = bb(obj4);
+
+    // // 
+    // parseData(obj1, function (obj) {
+    // })
+
+    // format(tasklist, function (task) {
+
+    // })
+
+    Array.prototype.myForEach = function (cb) {
+        for (let i = 0; i < this.length; i++) {
+            var item = this[i];
+            cb(item);
+        }
+    }
+
+    var arr = [1, 23, 3, 4, 5, 6, 7, 7, , 889, 9, 9, 9]
+    arr.myForEach(item => {
+        console.log(item);
+    })
+
+    let orderList = parseObj3();
+    let goodsList = parseObj4();
+
+
+    // Object.assign(obj3,json);
+    // console.log(obj3);
+
+
+    var cb = function () {
+
+    }
+
+
+
+    function cb() {
+
+    }
+
+
+    function bibao() {
+        var num = 1;
+        return function () {
+            return {
+                setNum(n) {
+                    num = n;
+                }
+            }
+        }
+    }
+
+    // num  = 1;
+    let fn = bibao();
+
+    // 闭包不可以修改内部的值，不传染全局变量？ 不可以修改里面的值 ？
+    // let obj = fn();  //num   //我想修改它？该怎么？
+    // {
+    //     setNum(n){
+    //         num = n
+    //     }
+    // }
+</script>
+
+</html>
