@@ -41,7 +41,7 @@
 
     相等 和 全等
 
-12. typof运算各种值？
+12. typeof运算各种值？
     1. typeof 'hello word'
     2. typeof 13
     3. typeof null
@@ -151,4 +151,18 @@
 41. promise.all的作用？
 
 42. await async的使用方法及使用场景？
+
+43. es6新增了哪些内容？
+
+    1. 增加了数组中常用的方法，对象中也加入了一些方法  Object.keys()  Object.assign()
+    2. Promise,  await async
+    3. class
+
+44.  你说一下Promise和await async的理解吧？
+
+    1. Promise是解决回调地狱的一种方案
+    2. axios是基于Promise实现的
+    3. 在我们的项目中，通过对服务端接口的封装api.js ，在页面中可以直接用await async来完美的解决异步问题；
+
+45. 
 
