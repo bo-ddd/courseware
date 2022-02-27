@@ -164,5 +164,141 @@
     2. axios是基于Promise实现的
     3. 在我们的项目中，通过对服务端接口的封装api.js ，在页面中可以直接用await async来完美的解决异步问题；
 
-45. 
+45.  构造函数和class的区别？
+
+    1. 构造函数 是es5   class是es6;
+    2. 构造函数兼容性好  class不兼容ie8以下；
+    3. class继承非常方便， super() 可以继承;   构造函数的继承方案就不完美
+    4. 构造函数    Parent.call(this,props);  //  也有一些问题；
+    5. Children.prototype = Parent.protoype;
+    6. Children.prototype.constructor = Children;
+
+46. 字符串的常用方法？
+
+    1. slice,     应用场景：  判断数据类型的时候  Object.protoype.toString.call().slice(8,-1)
+    2. replace  : 应用场景：  158****3615  脱敏数据   脱离第三信息数据
+    3. substr 
+    4. substring
+    5. indexOf    
+    6. charat 
+
+47. 谈一下对promise的理解？
+
+    1. 解决回调地狱的问题
+
+48. 你在项目中用到过promise吗？
+
+    1. 几乎不用，因为在我的移动端（或者是PC端）中，我们是利用 axios + await async来解决回调地狱的；
+    2. axios底层就是基于promise来封装的，
+
+49.  你项目中用到过axios吗？
+
+    1. 是的，用到过，在公司当中，我们用到了axios， axios是访问服务端的必须条件，如果不访问他，就没有办法和服务端进行交互；
+
+50.  请你说一下axios的理解？
+
+    1. axios是基于Promise的封装，内部封装了ajax,可以解决异步回调地狱的问题；
+    2. axios常用方法是 axios.get()   和  axios.post();
+    3. 在项目中，通常会把服务端的接口api进行封装，封装到api.js中；
+    4. 调用时利用async + await  实现   比如   await api.getUserInfo();
+
+51.   请你谈一下对ajax的理解？
+
+    1. ajax是针对 XmlHttpRequest方法的封装； 
+    2. ajax实现了页面局部刷新的问题；
+
+52.   手动封装一个ajax？
+
+    ```javascript
+    function ajax(params){
+        const { type = 'GET', url, data = {}, success, fail } = params;
+        var xhr = new XMLHttpRequest();
+        xhr.open('get','www.baidu.com',false);
+        xhr.onload = function(){
+            if(xhr.status == 200){
+                success(JSON.parse(xhr.responseText);
+            }
+            xhr.send(data)
+    }
+                           
+    //正常的使用
+    ajax({
+       type:'POST',
+       url:'/user/login',
+       data:{
+           username:'xiaoming',
+           password:'999999'
+       },
+        success:function(res){
+            console.log(res);
+        },
+        fail:function(err){
+            console.log(err);
+        }
+    })
+    
+    // axios的基本实现方案；    
+    class Axios{
+        constructor(props){
+            
+        }
+        
+        post(url,params = {}){
+            return new Promise(function(resolve,reject){
+                ajax({
+                    url,
+                    type:'POST',
+                    params,
+                    success:function(res){
+                        resolve(res);
+                    },
+                    fail:function(err){
+                        reject(err);
+                    }
+                })
+        	})
+        }
+    }
+    
+    // axios的使用
+    axios.post('/users/info',{
+        username:'xiaoming',
+        password:"0000000000"
+    }).then(res=>{
+        console.log(res)  // axios 底层实现原理；
+    })
+    
+    // await  async  ＋ axios 的应用
+    (async function(){
+        let res = axios.post('/users/info',{
+            username:'xiaoming',
+            password:"0000000000"
+        })
+        console.log(res)  //服务端返回的数据；
+    })()
+    
+    // 项目中的应用
+    // 1. 创建一个api.js   api.js会统一管理这些接口；
+    import Axios from './axios';
+    let axios = new Axios();
+    const Api = {
+        getUserInfo(params = {}){
+            return axios.post('user/info',params);
+        }
+    }
+    import default Api;
+    
+    
+    //  Home.vue
+    var vm = new Vue({
+        async mounted(){
+            let userInfo = await Api.getUserInfo({
+                username:'xiaomign',
+                password:"0000000000"
+            });
+        }
+    })
+    ```
+
+    
 
