@@ -135,6 +135,37 @@
 
 36. 作用域？
 
+    1. 被花括号包起来的内容，就是一个单独的作用域
+
+       ```javascript
+       function (){
+           
+       }
+       
+       for(let i = 0; i < 5; i++){
+           
+       }
+       
+       let json = {
+           username:'xiaoming',
+           get getName(){
+               return this.username;
+           }
+       }
+       
+       {
+           let a = 1;
+       }
+       
+       {
+           let a = 6;
+       }
+       
+       console.log(a);
+       ```
+
+       
+
 37. 闭包
 
 38. call()函数，apply( )函数，bind( )函数的使用与区别
