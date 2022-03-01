@@ -1,0 +1,214 @@
+[1mdiff --cc mobile-note/day8/index.html[m
+[1mindex cd78423,8f52deb..0000000[m
+[1m--- a/mobile-note/day8/index.html[m
+[1m+++ b/mobile-note/day8/index.html[m
+[36m@@@ -5,214 -4,38 +4,70 @@@[m
+      <meta charset="UTF-8">[m
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">[m
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[31m-     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>[m
+      <title>Document</title>[m
+  </head>[m
+[31m- [m
+  <body>[m
+[31m-     <div id="app"></div>[m
+[32m+     [m
+  </body>[m
+[31m- [m
+  <script>[m
+[31m- [m
+[31m-     // var obj = {};[m
+[31m- [m
+[31m- [m
+[31m-     // var obj1 = Object.create(null);[m
+[31m- [m
+[31m-     // console.log(obj);[m
+[31m-     // console.log(obj1);[m
+[31m- [m
+[31m-     // // obj  是继承 Object对象的，  Object对象上自带咱刚才说的call  apply  toString  bind  [m
+[31m-     // // obj.prototye.toString方法的话，  是不是会把之前的Object对象中的方法给替换掉呀？ 是吧？[m
+[31m-     // // obj1 = Object.create(null)  // 因为这种写法是创建一个对象，他的prorotype是null, 也就是说，该对象身上没有任何的方法； 通常的应用场景其实是在写一些底层的框架中；[m
+[31m-     // // 但是你如果在vue中这么声明其实也可以， 只是因为这个变量出现的时间比较迟， 所以人们通常喜欢 使用 var obj = {}  其实在某种场景上说， Object.create(null) 这种写法性能会比第一种要好；[m
+[31m- [m
+[31m- [m
+[31m-     // Object.defineProperty[m
+[31m-     // var obj = {}[m
+[31m-     // obj.name = 'xiaoming';[m
+[31m-     // obj.age = 18;[m
+[31m-     // obj.sex = 1;[m
+[31m- [m
+[31m- [m
+[31m-     // Object.defineProperties[m
+[31m-     // var obj = {[m
+[31m-     //     name: 'xiaoming',[m
+[31m-     //     age: 18,[m
+[31m-     //     sex: 1[m
+[31m-     // }[m
+[31m- [m
+[31m- [m
+[31m-     // function Person(name, age) {[m
+[31m-     //     return {[m
+[31m-     //         setName(newName){[m
+[31m-     //             name = newName;[m
+[31m-     //         },[m
+[31m-     //         getName(){[m
+[31m-     //             return name;[m
+[31m-     //         },[m
+[31m-     //         setAge(){[m
+[31m-     //             name = newName;[m
+[31m-     //         },[m
+[31m-     //         getAge(){[m
+[31m-     //             return name;[m
+[31m-     //         }[m
+[31m-     //     }[m
+[31m-     // }[m
+[31m- [m
+[31m-     // Person.prototype = {[m
+[31m-     //     setName(newName) {[m
+[31m-     //         name = newName;[m
+[31m-     //     },[m
+[31m-     //     getName() {[m
+[31m-     //         return name;[m
+[31m-     //     },[m
+[31m-     //     setAge() {[m
+[31m-     //         name = newName;[m
+[31m-     //     },[m
+[31m-     //     getAge() {[m
+[31m-     //         return name;[m
+[31m-     //     }[m
+[31m-     // }[m
+[31m- [m
+[31m-     // // 这种使用方式，叫做工厂模式[m
+[31m-     // var xiaoming = Product('iphone', '白色');[m
+[31m-     // var xiaoming = Product('iphonex', '红色');[m
+[31m- [m
+[31m- [m
+[31m-     var arr = [1, 2, 3][m
+[31m- [m
+[31m-     Array.prototype.myReduce = function (cb) {[m
+[31m-         var total = 0;[m
+[31m-         for (let i = 0; i < this.length; i++) {[m
+[31m-             total = cb(total, this[i]);[m
+[31m-         }[m
+[31m-         return total;[m
+[31m-     }[m
+[31m- [m
+[31m-     let total = arr.myReduce(function (total, val) {[m
+[31m-         return total + val[m
+[31m-     })[m
+[31m- [m
+[31m-     console.log(total);[m
+[31m- [m
+[31m-     // 登录模块   订单模块，  商品模块  [m
+[31m-     // 模拟面试[m
+[31m-     //  vue方面的面试题  js其它的面试题  css   html[m
+[31m- [m
+[31m- [m
+[31m-     // __proto__和prototype区别是啥[m
+[31m-     // function Person(name) {[m
+[31m-     //     this.name = name;[m
+[31m-     // }[m
+[31m- [m
+[31m-     // Person.prototype.run = function () {[m
+[31m-     //     console.log('is runing');[m
+[31m-     // }[m
+[31m- [m
+[31m-     // var laosu = new Pserson('laosu')[m
+[31m-     // //   __proto__  ===  Pserson.prototype;[m
+[31m-     // // laosu.__proto__.run !==  Pserson.prototype.run; [m
+[31m-     // laosu.run() //就会报错[m
+[31m-     // loasu.run() // js会去loasu当前对象中找这个run()的方法， 如果没有找到，他会去__proto__下面找run的方法；[m
+[31m- [m
+[31m- [m
+[31m-     // 桶排[m
+[31m-     // var arr = [];[m
+[31m-     // arr[3] = arr[3] ? arr[3] + 1 : 1;[m
+[31m-     // arr[3] = arr[3] ? arr[3] + 1 : 1;[m
+[31m-     // arr[6] = arr[6] ? arr[6] + 1 : 1;[m
+[31m- [m
+[31m-     // // arr   [undefined,2,1,3,1,undefined,1,1,undefined,undefined,undefined];[m
+[31m-     // arr.sort()[m
+[31m- [m
+[31m- [m
+[31m-     // 函数声明和  函数表达式的区别[m
+[31m-     // cb();[m
+[31m-     // function cb(){[m
+[31m- [m
+[31m-     // }[m
+[31m- [m
+[31m- [m
+[31m-     // cb();  // 报错  undefined;[m
+[31m-     // var cb = function(){[m
+[31m- [m
+[31m-     // }[m
+[31m- [m
+[31m-     // (function(){[m
+[31m-     //     console.log('hello')[m
+[31m-     // })()[m
+[31m- [m
+[31m-     [m
+[31m-     //  vue中$bus传参中使用到了arguments;[m
+[31m-     class Instance {[m
+[31m-         constructor() {[m
+[31m-             this.store = {}[m
+[31m-         }[m
+[31m-         on(key, fn) {[m
+[31m-             this.store[key] = this.store[key] || [];[m
+[31m-             this.store[key].push(fn);[m
+[32m+     // 访问一个变量的值，js优先会从他的作用域(方法体)内去找，如果当前作用域没有找到，[m
+[32m+     // 他会向他的父级作用域去找，一直找到window;[m
+[32m+     var a = 1;[m
+[32m+       function fn1() {[m
+[32m+         function fn2() {[m
+[32m+           console.log(a);[m
+          }[m
+[31m-         emit() {[m
+[31m-             var arr = Array.from(arguments);[m
+[31m-             var key = arr.shift();  // key[m
+[31m-             //var arr   // 是所有入参；[m
+[31m-             for (let i = 0; i < this.store[key].length; i++) {[m
+[31m-                 this.store[key][i](arr)[m
+[31m-             }[m
+[32m+         function fn3() {[m
+[32m+           var a = 4;[m
+[32m+           fn2();[m
+          }[m
+[31m-     }[m
+[32m+         fn3();[m
+[32m+         var a = 2;[m
+[32m+       }[m
+  [m
+[31m-     var bus = new Instance();[m
+  [m
+[31m-     bus.on('click',function(params){[m
+[31m-         console.log(...params);[m
+[31m-     })[m
+[32m+     var a;[m
+[32m+     console.log(a); // undefined;[m
+  [m
+[31m-     bus.emit('click','第一个参数','第二个参数','第三个参数','第四个参数','asdfjkalsdf')[m
+  [m
+[31m-     bus.on('orderInfo',function(params){[m
+[31m-         console.log(...params);[m
+[31m-     })[m
+[31m-     bus.emit('orderInfo','asdjfkasd','asdfjksld','asdfjklsd')[m
+  [m
+[31m-     // vue  http  api  eventloop[m
+  [m
+[31m-     // var 水果 =  '广州'   // js开辟的内存有限，会把多余的值给去掉[m
+[31m-     // var 新水果 =  '广州'    广州热门小香蕉  ===  广州[m
+[31m-     //  正则  鑫华  小帆帆  许胜利  [m
+[31m-     //   小智 张静  鑫鑫 李佳煊（问啥就是沉默）  小鹿(像背)  青松（超级炸弹 * 2）[m
+[31m-     //  最近做的项目是.....   最近做了几个项目，一个是xxxx,另外一个是xxx；[m
+  [m
+[32m++<<<<<<< HEAD[m
+[32m +    // null是空对象，  undefined是未定义[m
+[32m +    // typeof null  是一个object  [m
+[32m +    // typoof undefined  是一个 'undefined';[m
+[32m +    // 在vue的项目中，通常我们声明一些变量，需要声明成null;[m
+[32m +[m
+[32m +[m
+[32m +    // cookie[m
+[32m +// cookie 有一个作用，服务端和前端 可以同时设置和访问他；   token中存的是用户相关信息；[m
+[32m +// cookie =  sajdfklasdfjklasdjfklasdjfklasjdklfjkasldf;[m
+[32m +    var cookie  = 
