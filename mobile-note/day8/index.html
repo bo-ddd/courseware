@@ -393,6 +393,26 @@
             }
         }
     }
+
+
+    // rsa非对称加密
+    //   前端 传给服务端密码,如果不加密, 某些木马程序可以兼听到你的用户敏感信息;
+    //   服务端 给了你一个箱子,该箱子可以理解成一个存钱罐 ,只有入口,没有出口;  存钱罐底部有一个锁,服务端的人,有钥匙;其它人都没有;
+    //  前端 把密码 塞到这个箱子中, 此时,塞密码到箱子的这个人,也没有办法把这个密码给拿出来; 因为前端没有钥匙,
+    //  前端 把这个 箱子传给服务端 ;
+    //  服务端 有该箱子的钥匙,就可以解开;
+    var params = {
+        username:'xiaoming',
+        password:CryptoKey(999999999999)  // 把密码放到箱子中, console.log(params.password) // asjdfklsadjfklasdjfklasjdkflasjdkflajsdklfjaskldjfklasjdfkls
+    }
+    axios.post('/user/login',params){
+        
+    }
+
+    //  server.js
+    function LoginController(){
+        let psw = Crypto(password)  // 99999999999
+    }
 </script>
 
 </html>
