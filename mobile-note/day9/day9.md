@@ -489,8 +489,6 @@ data(){return {  active:  null}}.mounted(){ console.log(this.active)}
     
     答 commonjs是遵循的nodejs规范,用的是非浏览器端, ecma规范是存在于浏览器的js中的;
     
-    现在还是会有非常少的公司用commonjs，这个东西实现了模块化，但被 esm给替代了；
-    
     18.会不会问上一家公司离职的原因及薪水。
     
     答： 百分之百会问，这是hr相关面试题；后面会在说；
