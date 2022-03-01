@@ -144,7 +144,7 @@
     //     console.log('hello')
     // })()
 
-    
+
     //  vue中$bus传参中使用到了arguments;
     class Instance {
         constructor() {
@@ -166,16 +166,16 @@
 
     var bus = new Instance();
 
-    bus.on('click',function(params){
+    bus.on('click', function (params) {
         console.log(...params);
     })
 
-    bus.emit('click','第一个参数','第二个参数','第三个参数','第四个参数','asdfjkalsdf')
+    bus.emit('click', '第一个参数', '第二个参数', '第三个参数', '第四个参数', 'asdfjkalsdf')
 
-    bus.on('orderInfo',function(params){
+    bus.on('orderInfo', function (params) {
         console.log(...params);
     })
-    bus.emit('orderInfo','asdjfkasd','asdfjksld','asdfjklsd')
+    bus.emit('orderInfo', 'asdjfkasd', 'asdfjksld', 'asdfjklsd')
 
     // vue  http  api  eventloop
 
@@ -192,17 +192,17 @@
 
 
     // cookie
-// cookie 有一个作用，服务端和前端 可以同时设置和访问他；   token中存的是用户相关信息；
-// cookie =  sajdfklasdfjklasdjfklasdjfklasjdklfjkasldf;
-    var cookie  = {
-        "8.131.89.171:80":{
-            username:'xiaoming',
-            password:'',
-            token:'asdjfkasldfjklasdf'
+    // cookie =  sajdfklasdfjklasdjfklasdjfklasjdklfjkasldf;
+    var cookie = {
+        "8.131.89.171:80": {
+            username: 'xiaoming',
+            password: '',
+            token: 'asdjfkasldfjklasdf'
         }
     }
 
-    // cookie的特性：  cookie
+    // cookie的特性： 
+    // cookie的大小容量有4k, 服务端和前端 可以同时设置和访问他；   token中存的是用户相关信息；
 
     //  cookie 项目的登录流程： 
     // 用户在前端的页面中输入账号和密码； 点击登录按钮；把账号和密码发送给服务端；
@@ -214,7 +214,185 @@
     // 就可以判断用户是否登录  或者用户是否超时 
     //  但cookie只能在当前域名中去使用；
     //  也就是说， cookie不可以跨域
-    //  在前后端分离的项目中，  cook
+    //  在前后端分离的项目中，  前端存的cookie 不能被 服务端所访问，所以我们不可以把token存到cookie中；
+
+    // 我们在B端中使用的登录方案是：
+    //  用户在前端的页面中输入账号和密码； 点击登录按钮；把账号和密码发送给服务端；
+    // 服务端接收前端传过来的参数；
+    // 服务端校验前端传来的参数；
+
+    // 分支一：
+    // 如果校验成功；  服务端会把token返回给前端；
+    // 前端把token存到sessionStorage中
+    // 在访问其他接口的时候，利用axios拦截器，把token存到请求头中
+    // 服务端 可以从请求头中拿到 token， 从而进行判断 
+    // 因为请求头相关信息不存在跨域问题，所以在目前的市场中， jwt登录方案通常用在前后端分离的场景中；
+    // 分支二： 
+    // 如果服务端校验不成功，他会给你返回一个状态码为401的状态码； 表示你登录失效，或者说是未登录；
+    // 前端在拦截器中进行统一判断 ，如果你返回的状态码是401，那么我会直接跳转到 'login页面',让用户重新登录；
+
+    // jwt:  jsonwebtoken
+
+    // 请求头相关参数：会多加一个authorization
+    // var http = {
+    //     headers:{
+    //         "content-type":'application/json',
+    //         "cache-control":'no-cache',
+    //         "authorization":'token=asjdfklasldfjklasjfdklasdjfklsjdkflajskdljtlkjljkl'
+    //     },
+    //     body:{
+    //         username:'xiaoming',
+    //         password:'99999999'
+    //     }
+    // }
+
+
+    //   login.vue
+    export default {
+        data() {
+            return {
+                username: 'xiaoming',
+                password: "000000000"
+            }
+        },
+        methods: {
+            // 登录按钮的点击事件
+            submit() {
+                const { username, password } = this;
+                axios.post('/user/login', {
+                    username,
+                    password
+                }).then(res => {
+                    // 这个res对象；
+                    // let res = {
+                    //     status: 1,
+                    //     message: '登录成功',
+                    //     data: 'asdjfkalsdjfklasjdfklsdjkflasjkdfljaskdlfjklsadf'  //token对应的那个值 ；
+                    // }
+                    if (res.status == 1) {
+                        console.log("登录成功")
+                        // 设置token 到sessionStorage中；
+                        sessionStorage.setItem('token', res.data);
+                        // 跳转到  home.vue
+                        this.$router.push({
+                            name: "Home"
+                        })
+                    }
+                })
+            },
+        }
+    }
+
+    // userinfo.vue
+    // 此页面要展示用户相关的信息；
+    //   axios.post('/user/info')
+    export default{
+        data(){
+            return {}
+        },
+        created(){
+            // 这样做在项目中完全是ok的,但是存在一个很严重的问题，
+            //  几乎所有的接口，都需要登录 ，那和以你需要在每一个接口中都传一次token,
+            //  还都要进行 401判断， 判断 如果是401，那么我们就跳转到登录页面去；
+            //  如何 解决这个问题？ 
+            //  1。 axios 拦截器 
+                    //  我们理想中，认为axios的操作流程：
+                    //  前端访问服务端  axios.post()   
+                    //  服务端 直接接收到我们的请求 ，然后把 该接口的数据返回；
+                    //  前端 直接做业务逻辑的处理；
+
+                    //  实计中，也有一个类似于 vue-router中的导航守卫一样的东西；他也相当一个看门的老大爷；
+                    //  真实的请求是这样的：
+                    //   1。 前端 调用  axios.post('/user/info')  去请求用户信息；
+                    //  2.  遇到了一个叫请求拦截器的看门老大爷，这个老大爷，如果return false ，那么你就无法访问服务的接口，服务端根本就没有办法收到你的请求，因为请求被 拦截了；
+                    //  3。 如果老大爷同意了， 此时才会发到服务端 ；
+                    //  4。 服务返回数据时，你又遇到了一个老大爷，这个老大爷叫（响应拦截器）他让你把数据返给前端 ，前端的业务逻辑才可以被接收；
+
+                    //  如果你上面的内容理解 了，
+                    //  那么你可以发现，我们可以直接把 token 放到看门老大爷身上，每次你出去访问服务端时， 让 请求拦截器的这个老大爷，把token(学生证)给你挂载到你的头上
+                    //  http: headers 
+                    //  const http = {
+                    //     headers:{
+                    //         authorization:sessionStorage.getItem('token')
+                    //     }
+                    // }
+                    // 说到这里，你应该就可以明白， 请求拦截器的作用是什么， 他方便我们对所有的接口进行维护，比如说我们做登录时，他可以统一的将token挂载到所有的接口上，方便服务端来用；
+                    //  响应拦截器  每一个接口返回数据时，都会优先走到这个响应拦截器中
+                    //  他可以做什么呢?  如果你回来时, 你身上没有挂着出门时给你的胸卡(token) ===  老大爷眼里,其实你身上就挂载着一个401 ,老大爷此时就可以统一的不让你进来;
+                    //   响应拦截器  就可以实现  统一的对登录 失效相关的流程进行把控;
+
+                    // 总结:  请求拦截器可以帮你自动传递token ,  响应拦截器可以帮你统一的做登录失效,或者说未登录时的相关流程;
+            //  2。 请求头；
+            axios.post('/user/info',{
+                token: sessionStorage.getItem('token')
+            }).then(res=>{
+                // 正向流程：
+                if(res.status == 1){
+                    this.userInfo = res.data;
+                }else if(res.status == 401){
+                    // 逆向流程
+                    //  如果服务端给我返回的状态码是401,说明当前用户未登录，或者登录失效；我们应该让这些未登录的用户去登录 
+                    // window.location.href = '/login'
+                    this.$router.push({
+                        name:"Login",
+                    })
+                }else{
+                    // 目前逻辑是100%跳转到这个地方来； 因为我们没有把token传给服务端；
+                    // elmenentui 中的提示框 插件；
+                    this.$message({
+                        type:'primary',
+                        message: res.message
+                    })
+                }
+
+                
+            })
+        }
+    }
+
+    //  server.js
+    function LoginController() {
+        const { username, password } = params;  //  params:  前端传过来的参数；
+        // flag 代表校验是否通过； 
+        let flag = true;
+        if (flag) {
+            body = {
+                status: 1,
+                message: '登录成功',
+                data: 'asdjfkalsdjfklasjdfklsdjkflasjkdfljaskdlfjklsadf'  //token对应的那个值 ；
+            }
+        }else{
+            body = {
+                status:401,
+                message:'用户未登录',
+                data:null
+            }
+        }
+    }
+
+    function UserInfoController(){
+        const { token } = params;
+        let flag = true  // flag 代表token校验是否通过；
+        if(flag){
+            body = {
+                status:1,
+                message:'success',
+                data:{
+                    username:'xiaoming',
+                    avatar:'1.png',
+                    age:1,
+                    price:1000.000,
+                    type:3  // 角色类型 
+                }
+            }
+        }else{
+            body = {
+                status:401,
+                message:'登录失效',
+                data:{}
+            }
+        }
+    }
 </script>
 
 </html>
