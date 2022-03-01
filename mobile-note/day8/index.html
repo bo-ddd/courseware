@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 访问一个变量的值，js优先会从他的作用域(方法体)内去找，如果当前作用域没有找到，
+    // 他会向他的父级作用域去找，一直找到window;
+    var a = 1;
+      function fn1() {
+        function fn2() {
+          console.log(a);
+        }
+        function fn3() {
+          var a = 4;
+          fn2();
+        }
+        fn3();
+        var a = 2;
+      }
+
+
+    var a;
+    console.log(a); // undefined;
+
+
+
+
+
+
+      
+      var fn = fn1();
+      fn(); // 2
+</script>
+</html>
