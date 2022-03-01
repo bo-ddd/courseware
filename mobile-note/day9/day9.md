@@ -487,7 +487,7 @@ data(){return {  active:  null}}.mounted(){ console.log(this.active)}
     
     17.模块化，commonJS和esm区别。
     
-    答 commonjs 是 从 jquery 过度到 模块化的一种方案，最后被 esm给替代了，咱现在用的模块化就是esm   esm   es : es5  es6   m: module 
+    答 commonjs是遵循的nodejs规范,用的是非浏览器端, ecma规范是存在于浏览器的js中的;
     
     现在还是会有非常少的公司用commonjs，这个东西实现了模块化，但被 esm给替代了；
     
