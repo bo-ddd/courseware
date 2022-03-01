@@ -189,6 +189,30 @@
     // typeof null  是一个object  
     // typoof undefined  是一个 'undefined';
     // 在vue的项目中，通常我们声明一些变量，需要声明成null;
+
+
+    // cookie
+// cookie 有一个作用，服务端和前端 可以同时设置和访问他；   token中存的是用户相关信息；
+// cookie =  sajdfklasdfjklasdjfklasdjfklasjdklfjkasldf;
+    var cookie  = {
+        "8.131.89.171:80":{
+            username:'xiaoming',
+            password:'',
+            token:'asdjfkasldfjklasdf'
+        }
+    }
+
+    //  cookie 项目的登录流程： 
+    // 用户输入账号和密码；
+    // 服务端接收前端传过来的参数；
+    //  服务端校验前端传来的参数；
+    //  如果校验成功；  服务端会把token存到cookie中；
+    //  前端访问任何页面的时候，因为cookie会自动存在请求头中， 自动会发给服务端；
+    // 这样，前端在访问任何接口时，服务端都可以校验cookie中的token； 
+    // 就可以判断用户是否登录  或者用户是否超时 
+    //  但cookie只能在当前域名中去使用；
+    //  也就是说， cookie不可以跨域
+    //  在前后端分离的项目中，  cook
 </script>
 
 </html>
