@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,p,footer{
+            margin:0;
+            padding:0;
+        }
+
+        .app{
+            background:red;
+        }
+
+        footer{
+            width:100%;
+            height:80px;
+            background:yellow;
+            position:fixed;
+            bottom:0;
+        }
+
+        .home{
+            height:calc(100vh - 80px);
+            overflow-y: scroll;
+        }
+
+        .home p {
+            background:skyblue;
+            height:3000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="home">
+            <p>home page</p>
+            <div>我已经到底部了</div>
+        </div>
+        <footer></footer>
+    </div>
+</body>
+</html>
