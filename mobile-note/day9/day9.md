@@ -238,7 +238,20 @@ axios.post('/user/login',params).then(res=>{
 
 1. 项目线上运行时，是服务端解决，服务端在请求头中设置   access-control-allow-origin：*   
 
-​    如果回答不上来，你就没有办法做前后端分离的项目；
+​    如果回答不上来，你就没有办法做前后端分离的项目；（适合生产环境和开发环境，但是，通常只会在生产环境中用）
+
+ 	2.  vue项目中， vue.config.js  中设置proxy    (开发中配置，只能适用于开发中)   原因是： npm run serve 的时候，vue-cli会自动在本地创建服务器；  npm run build 只会打包，不会创建服务器，所以此方法不适应于生产环境；
+ 	3.   jsonp  
+
+####  你知道vue.fonfig.js中的proxy 的底层实现原理吗？
+
+前端访问会有跨域问题，但是我们需要做一个代理，  我们把需要跨域的服务器都让vue开发时启动的服务器去访问，服务器访问服务器是没有跨域问题的，
+
+就相当于， 我们的地址是  8.131.89.181:8001   我们本地启动的服务器去访问  8.131.89.181:7001
+
+跨域只存在于浏览器端 我们的项目请求我们开发的服务器，开发的服务器去请求服务端的接口；
+
+
 
 #####  说一下对http的理解 ？
 
@@ -343,3 +356,66 @@ promise 状态只有两种，  resolve  ,reject    失败了以后是永远不�
 > 总结 ：
 >
 > 状态码， http,   xhr   ajax  axios   promise  await async 
+
+####  less  sass的区别
+
+1.  项目中，如果是vue + vant 会考虑用 less ， 因为vant底层用的就是less
+2.  vue + elementui   会考虑用 sass ,  因为你在项目中只用到了 & 没有过多的用其它的变量声明啥的，所以具体哪不一样，不太清楚；  
+3.  答完以后要让面试官知道，你什么时候用，实话实说；
+
+##### 2.vue2和vue3的区别。
+
+​	1. vue2底层实现原理用的是 Object.defineProperty  
+
+data(){return {  active:  null}}.mounted(){ console.log(this.active)}
+
+​	vu3 用的  new Proxy();  
+
+data(){return {  active:  null}}.mounted(){ console.log(this.active)}
+
+ 2. vue3性能更好，  setup 方法；   setup是在构造vue实例之前就去执行的方法；  但是，你在项目中，是感受不到哪个快，哪个慢的； 人是感觉不到这个感知的，只是研究底层的人，得出的结论；
+
+ 3. 有单独的server层，方便抽离业务逻辑；因为很多人写代码不会抽离业务逻辑，一个页面中经常出现3000  - 10000行代码的场景都非常多， 增加代码的可读性
+
+ 4. 为什么v-for要加key。
+
+    	1.  因为vue的兼听者模式，兼听的数据来源需要有一个身份识别，这个key就是一个唯一的标识， vue底层就是根据这个key来让当前对象中的数据进行变化的； key就是可当于当前元素的id; 
+    	2.  vue不推荐你直接去操作dom; vue也不会直接操作dom;
+    	3.  那我去改变dom元素中的值该怎么办呢？ 
+    	4.  本质上还得去获取 到元素  
+    	5.  如何获取元素呢？
+    	6.  document.querySelector('.el-name')
+    	7.  我给你加上一个key，在vue中能根据这个key来找到这个dom，同时改变当前dom的值 ； 
+    	8.  类似一个这样的数组[ { 1: domObj1, 2,3:dom3}] 
+
+ 5.   vue底层实现原理
+
+    ​	监听者模式， diff算法  Object.defineProperty
+
+    6.webpack原理。
+
+    7.webpack是怎么实现模块化。
+
+    8.当你构建vue项目的时候，主要做了哪些工作。
+
+    9.如何实现组件通用化。
+
+    10.项目难点。
+
+    11.h5和小程序的区别。
+
+    12.为什么目前很多公司使用小程序而不是app。
+
+    13.localStorage和sessionStorage的对比。
+
+    14.cookie和token的对比。
+
+    15.vue组件通信方式（父子 兄弟 vuex）。
+
+    16.vue router的几种钩子函数 各自的应用场景？
+
+    17.模块化，commonJS和esm区别。
+
+    18.会不会问上一家公司离职的原因及薪水。
+
+    19.说用qq邮箱会不会显得很业余。
