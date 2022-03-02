@@ -392,7 +392,7 @@ data(){return {  active:  null}}.mounted(){ console.log(this.active)}
 
     ​	监听者模式， diff算法  Object.defineProperty
 
-    6.webpack的使用原理。
+    6.webpack的工作原理。
 
     ​	webpack 中提供一个配置文件，默认是在 webpack.config.js中配置， 其中接收几个key，
 
