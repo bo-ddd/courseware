@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <!-- 刘青松 -->
     <!-- 个人介绍  语句 拖沓 -->
@@ -40,6 +42,111 @@
     <!-- 登录模块解释 -->
     <!-- 前端校验没有安全性？ -->
     <!-- 前端校验 和后端 校验的区别吗？   如果这道 题没有答出来， 代表的是你可以做项目，但是对项目的整体把控的能力不高，说明你没有做leader的能力 -->
-    <!-- flex  grid  缺少对概念性的表达 -->  
+    <!-- flex  grid  缺少对概念性的表达 -->
+
+    <!-- 正则   表达能力没问题，面试的感觉是对的-->
+    <!-- 登录模块  -->
+    <!-- axios的配置文件 -->
+    <!-- vue-router   -->
+    <!-- vue-router   history hash -->
+    <!-- history 模式中，如果你发服务器的时候， 会报错，只能找 index.vue 其它的路由都会失效，你有遇到过这个问题吗？ -->
+    <!-- js  -->
+    <!-- addEventListener（一般情况下，在写一些底层框架，或者是类的时候，要用到，比如咱之前写的那个动画类，就用的addEventListener）  click(常用) -->
+    <!-- 事件监听addEventListener  事件委托（基于事件监听，给想添加点击事件的元素的父级设置addEventlistener）  事件冒泡（从里到外），  事件捕获（从外到里） -->
+
+    <!--  -->
+
+    <div class="list">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+    </div>
+
+    <div class="parent">
+        <div class="children"></div> 
+    </div>
 </body>
+<script>
+    var aItem = document.querySelectorAll('.item');
+    // 如果你用这种写法的话，也没有问题； 但是，
+    // 如果此列表又动态的增加了一个 .item ， 新加的这个item,是没有点击事件效果的；
+    Array.form(aItem).forEach(el => {
+        el.onclick = function (ev) {
+            console.log('我点击了item')
+            ev.stopPropagation()
+        }
+    })
+
+    // 原生js的写法：
+    document.querySelector('.list').addEventListener('click', function (ev) {
+        console.log(ev)  // ev.target  这个参数代表的是你点击的那个元素；
+        // 我给 item的父元素添加点击事件，但是能获取到点击的是哪一个子元素；（.item）  /
+        // 这种写法可以解决刚才遇到的问题；
+        //  这种写法，叫做事件委托   你把.item的事件，委托给list ，这样就可以给所有。item添加点击事件了；
+        // 通常情况下，在写jquery的项目中，几乎每渲染一个列表，都会用这种方案；
+        //  但是，因为jquery自带一个封装好的 事件委托，所以，我们经常用到的方法是：
+        if (ev.item.hasClass('.item')) {
+            console.log('我点击的是.item')
+        }
+    }, false);
+
+    // jquery 常用，必备语法
+    //  eq: 找到第几个  
+    // find  找到 item中的第1个下面的一个子元素，子元素类名叫.item
+    // parent，找的是当前元素的父级
+    //  parents， 找到的是当前元素中所有的父级；
+    //  html()  给当前元素设置html内容  相当于 原生js的   dom.innerHTML = '';
+    // css({width:100px,height:50px;display:flex})  //给当前dom设置样式
+    // show()  展示当前元素
+    // hide()  隐藏当前元素；
+    // 加上事件监听
+    // $('.item').eq(1).find('.item').parent().parents('body').html().css();
+
+    // // jquery写法；
+    // $('.list').on('click', '.item', function () {
+    //     console.log('我点击的是.item')
+    // })
+
+    // 鑫鑫
+    // 做过哪些模块？ 文章管理？ 登录？
+    // 登录的流程如何实现的？
+
+    // 佳煊
+    // 说一下登录的流程？  搬砖1号
+    
+    // 乔 搬砖3号  自我介绍 （ 60分） 你差在，表达问题的时候， 给人一种紧张的感觉；
+    // 验证码卡住了 搬砖2号
+
+    // 小鹿  （个人介绍   ok）
+    // 登录模块： 能表达出流程，但是完全不能通过； 不流畅；
+
+    // 张静 (个人介绍  ok)
+    // 登录模块的相关流程      
+
+    // 苏 (个人介绍 搬砖4号)
+    // 负责内容: 路由 登录 ,文章,
+    // 登录: jwt  jwt是解决跨域登录的方案????
+    //  登录实现的细节 
+
+    // 小飞飞 (个人介绍 棒)
+    // 17k,  登录 卡  卡   不卡；
+
+    // 轻松 （个人介绍  ok）
+    // 
+
+    // 浩爽 （潜炸弹   个人介绍 ： ok）
+    //  紧张
+
+    // 景 （个人介绍  ok）
+    // 不流畅；
+
+    // 阿凯 （个人介绍  ok ）
+    // 
+
+    // 胜利 （个人介绍  ok  种子选手）
+    // 面试过；  公司中要这种表达能力；
+</script>
+
 </html>
