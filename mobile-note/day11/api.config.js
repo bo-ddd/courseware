@@ -176,11 +176,11 @@ switch (process.env.NODE_ENV){
 module.exports = {
     "scripts": {
         "serve": "vue-cli-service serve",
-        "prd": "process.env.NODE_ENV=prd vue-cli-service serve",
-        "sit": "process.env.NODE_ENV=sit  vue-cli-service serve",
-        "serve:laosu": "process.env.NODE_ENV=laosu  vue-cli-service serve",
-        "dev": "process.env.NODE_ENV=dev  vue-cli-service serve",
-        "build": "process.env.NODE_ENV=prd vue-cli-service build",
+        "prd": "set NODE_ENV=prd vue-cli-service serve",
+        "sit": "set NODE_ENV=sit  vue-cli-service serve",
+        "serve:laosu": "set NODE_ENV=laosu  vue-cli-service serve",
+        "dev": "set NODE_ENV=dev  vue-cli-service serve",
+        "build": "set NODE_ENV=prd vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint"
       },
@@ -190,3 +190,40 @@ module.exports = {
 // vue-cli 在你创建cli时，启动项目后， 项目启动时，会自动读取这个文件相关的配置文件； 
 // 如果读取到相关配置文件，就会去执行；  不是我们自己控制 的，所以
 // 这个文件的名字不可以改变； 
+
+// 面试内容为，至今天所学的所有东西  包括项目
+
+// 浩爽
+// 缺少对项目的介绍    我之前做过xxx，xxxxxx,xxxx,
+// 表达不完善；     
+// 能详细的说一下你刚才说的文章模块吗？  从大的方面往小的方面说；  我们这个项目是一个电商类型的项目，在这个项目中，有一个文章模块，是用来让供应商发布一些文章，方便在c端的用户进行查看，通常文章的内容都是一些商品介绍 ，方便用户进行查看
+//  文章模块是用的富文本，我直接人傻了；
+// 表达所作内容时，要表达出来，为什么要做这个项目，这个项目是给谁来用的；
+// 如何实现的。
+// slot 的使用   插槽在哪里使用，如何使用，应用场景是什么？
+
+// 如何表达你所做的模块？
+// 要表达出来，为什么要做这个项目，这个项目是给谁来用的；其中牵到了哪些知识点；
+
+// 我做了一个商品分类模块，该模块可以对商品进行分类，分类分为多级分类，我们可以手动新增分类，分类的类型可以是子分类，也可以是主分类；
+// 服装 =》  男装    boy分类
+                    // 中年人分类
+//      =》  女装
+
+// 该分类用于在C端 分类页面，展示对应的类目，方便用户直接进行分类查询；
+// 通常情况下，分类一般分为主分类和子分类两大类
+// 比如 酒类   下面会有 红洒  白酒   等分类；
+//  
+
+// 项目搭建
+//  登录模块， xx专模块了，  还做过一些动态路由的配置等...
+// 详细的说一下动态路由
+// 我们项目刚开始时，是前端做动态路由，因为我们的项目中最后增加了一个动态添加角色 管理的这个功能；
+// 所以我们把路由改成了 后端动态路由， 也就是 服务端把路由的相关配置发到前端 ；
+// 我们在接收到服务端的路由数据后，用addRouter方法，对路由和权限进行动态处理；
+
+
+// 我们路由也可以由后台的管理人员进行动态配置，
+// 配置完以后，通常获取路由接口，前端进行动态路由的生成；
+
+// 权限管理 动态路由 登录  商品管理， 店铺管理  订单管理；
