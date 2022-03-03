@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 渲染列表  和修改 -->
+    <!-- <div id="app">
+        <div class="list">
+            <div class="item" v-for="item in list">
+                <div>{{item.title}}</div>
+                <div @click="edit(item)">编辑</div>
+            </div>
+        </div>
+
+        <div class="pop" v-show="popStatus">
+            <div>
+                <label for="">标题</label>
+                <input type="text" placeholder="请输入文章的标题" :value="editTarget.title">
+            </div>
+            <button @click="submit">确认</button>
+        </div>
+    </div> -->
+
+
+    <div id="app2">
+        <div>
+            <label for="">商品名称：</label>
+            <input type="text">
+        </div>
+        <div class="params">
+            <div v-for="param in categoryParams" >
+                <div  v-if="param.type == 1">
+                    <label for="">{{param.label}}</label>
+                    <input >
+                </div>
+                <div v-else="param.type == 3">
+                    <label for="">{{param.label}}</label>
+                    <div v-for="active in param.checkbox" >
+                        <label for="">{{active.label}}</label>
+                        <input type="checkbox" name="" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // cms后台管理系统增删改查规则：
+    // 1。  前置条件：你理解了数据结构， 知道一个页面中如何定义一个什么样的数据结构； 一般情况下，增删改查几乎都是数组嵌套json;
+    // const orderlist = [
+    //     {
+    //         orderId:1,
+    //         orderNo:123890123123,
+    //         orderStatus:3, 
+    //         orderStatusName: "待支付"
+    //     },
+    //     {
+    //         orderId:2,
+    //         orderNo:123890123123,
+    //         orderStatus:4, 
+    //         orderStatusName: "已支付"
+    //     },
+    // ]
+
+    // 如果你们明白了上面这种数据格式，那么就可以正常的模拟出所有的列表数据格式，不管是文件列表，还是订单列表，还是数据统计列表，还是其他的任何列表，只要你看到列表，就是这种数据结构；
+    // 查 
+    // 调用服务端的获取列表接口，把获取到的列表数据展示在页面中；
+    // 通常情况下，前端不做分页处理，只需要告诉服务端，给我第几页（pageNum）的数据，并且给我几条(pageSize)就够了，前端所传的入参接口定义格式为：
+    // const params = {
+    //     pageNum:1,  //
+    //     pageSize:10,
+    //     orderId:1,  // 查询 订单id为1且 orderNo = 1231231231  的数据；
+    //     orderNo:1231231231,
+    // }
+    // 通常情况下，通常的接口出参是
+    // const res = {
+    //     status:1,
+    //     msg:'success',
+    //     data:[
+
+    //     ]
+    // }  
+
+    // 通常情况下，每一个列表数据中，几乎都会有 条件查询 
+    //  条件查询 和  获取列表数据接口，是一个接口；  
+    // 这个页面中用几个接口呢？  查询 一个接口， 分页一个接口， 获取列表是一个接口？  这是错错错错错错错错错错错错错错错错错错错错错错错错错错错错错错错错的；
+    // 正确正确正确正确正确正确正确 的是  ：  按条件查询 ，和列表渲染， 和分页，都是同一个接口；
+
+    // 增 
+    // 点击增加按钮
+    //  输入 添加的 内容   文章：标题，类型，文章内容 点击提交， 
+    // 调用服务端的接口，
+    // 如果添加成功，服务端会告诉你添加成功
+    // 成功后提示给用户，
+    // 自动跳转到文章详情/文章列表页面
+    // 文章类型添加的话，用到了一个技术栈  富文本编辑器
+    //  一般情况下，如果你在cms后台管理的项目中，遇到一些技术难点的情况下，一般情况下，都会出现在这个地， 有多难？ 你可以问一下胜利；
+
+    // 比如： 新增一个商品
+    // 商品可以选则类目，
+    // 根据不同的类目，渲染不出不同的规格参数，
+    // 根据不同的规格参数，填不同的值 ，
+    // 根据不同的规格参数，进行不同的值的校验；
+    // 就连动态渲染的参数中，还需要动态渲染  input框  或者  单选框呀， 或者说多选的呀，或者是下拉框呀，你能想到的element-ui中所有form表单的东西，都可以被动态判断出来；
+    // 这就有点复杂性了；
+    // 如果根据不同的商品，来计算不出不同的商品类型的图片，
+    // 还要根据某一个规则 去动态的 生成不同大小的商品的图；
+
+    // 删
+    // 点击当前行的列表数据，点击删除按钮，提示用户是否删除当前行内行，选则是  则把当前数据的id传给服务端， 如果选否 则 隐藏提示框  流程结束 
+
+    // 改
+    // 用户点击当前列表中的行内的更改或者叫编辑按钮，弹出弹层 或 跳转到详情页面 通过query或者params把对应的id传过来， 获取到当前列表数据，复显数据内容，修改对应的值；，
+    // 修改完毕后，点击修改按钮，把id及修改的值传给服务端；
+
+
+    // 列表渲染 和 修改；
+    // var vm = new Vue({
+    //     el: "#app",
+    //     data: {
+    //         list: [],
+    //         popStatus: false,  // 编辑弹层是否可见  
+    //         editTarget: {}
+    //     },
+    //     async created() {
+    //         this.getArticles();
+    //     },
+    //     methods: {
+    //         getArticles() {
+    //             // 获取服务端的第一页的数据，获取10条；
+    //             // let list = await this.getArticleList({
+    //             //     pageSize:10,
+    //             //     pageNum:1
+    //             // });
+    //             // list结构类似于：
+    //             let list = {
+    //                 status: 1,
+    //                 msg: 'success',
+    //                 data: [
+    //                     {
+    //                         id: 1,
+    //                         title: '第一篇文章'
+    //                     },
+    //                     {
+    //                         id: 2,
+    //                         title: '第二篇文章'
+    //                     },
+    //                 ]
+    //             }
+    //             this.list = list.data;
+    //             alert('重新获取文章列表成功')
+    //         },
+    //         edit(item) {
+    //             // 你准备在弹层中编辑的目标
+    //             this.editTarget = item;
+    //             // 展示编辑的弹层；
+    //             this.popStatus = true;
+    //         },
+    //         // 修改文章
+    //         async submit() {
+    //             // let res = await editArticle({
+    //             //     id:1,
+    //             //     title:this.editArticle.title
+    //             // });
+
+    //             let res = {
+    //                 status: 1,
+    //                 msg: 'success',
+    //                 data: []
+    //             }
+
+    //             if (res.status == 1) {
+    //                 alert('修改成功')
+    //                 // 隐藏弹层
+    //                 this.popStatus = false;
+    //                 // 如果页面不需要跳转，就重新获取一下服务端的数据；
+    //                 this.getArticles();
+    //             // 跳转到对应的页面去
+    //             // window.location.href = 'article/list'
+    //         } else {
+    //                 alert(res.msg);
+    //             }
+
+    //         }
+    //     }
+    // })
+
+    // 动态渲染数据   新增商品页面
+    // 用户输入商品名称，手动利用下拉框来选择商品所在的类目；
+    // 根据不同的类目，去渲染不同的 input框  单选框，  多选框；
+    let vm = new Vue({
+        el:"#app2",
+        data: {
+            form: {},
+            categoryParams:[]
+        },
+        async created() {
+            // 服务端会把类目的种类全部发给你；
+            // let categorys = await this.getCategoryList();
+            // let categorys = {
+            //     status: 1,
+            //     msg: 'success',
+            //     data: [
+            //         {
+            //             id: 1,
+            //             value: '手机'
+            //         },
+            //         {
+            //             id: 2,
+            //             value: '台式电脑',
+            //         },
+            //         {
+            //             id: 3,
+            //             value: '笔记本电脑',
+            //         },
+            //         {
+            //             id: 4,
+            //             value: '游戏机',
+            //         }
+            //     ]
+            // }
+            // 这个是直接模拟 动态渲染 html ，只是为了模拟
+            this.selected();
+            console.log(this.categoryParams)
+        },
+        methods: {
+            //手动选择对应的类目
+            async selected(category) {
+                // let category = {
+                //     id: 4,
+                //     value: '游戏机',
+                // }
+                // 获取类目列表对应的规格参数接口
+                // let categoryParams = await this.getCategoryParams({
+                //     categoryId:category.id
+                // });
+
+                let categoryParams  = {
+                    status:1,
+                    msg:'success',
+                    data:[
+                        {
+                            label:'尺寸',
+                            type:1,  // 如果是1渲染的是input框  2：单选框， 3：多选框
+                        },
+                        {
+                            label:'耳机插孔',
+                            type:3,  // 如果是1渲染的是input框  2：单选框， 3：多选框
+                            checkbox:[
+                                {
+                                    id:1,
+                                    label:'3.5mm',
+                                },
+                                {
+                                    id:2,
+                                    label:'type-c',
+                                },
+                                {
+                                    id:3,
+                                    label:'type-c-3.0',
+                                },
+                                {
+                                    id:4,
+                                    label:'type-c 优化版',
+                                },
+                            ]
+                        },
+                    ]
+                }
+
+                this.categoryParams = categoryParams.data;
+            }
+        }
+    })
+</script>
+
+</html>
