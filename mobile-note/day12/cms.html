@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        .wrap{
+            width:100vw;
+            height:100vh;
+        }
+
+        .header{
+            height:80px;
+            background:red;
+            line-height: 80px;
+        }
+        .container{
+            height:calc(100vh - 80px);
+            display:flex;
+        }
+        .aside{
+            width:200px;
+            background:pink;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">xx后台管理系统</div>
+        <div class="container">
+            <div class="aside">
+                <div>
+                    <a href="#" data-nav="a.html" class="route">订单模块</a>
+                </div>
+                <div>
+                    <a href="#" data-nav="b.html" class="route">b模块</a>
+                </div>
+                <div>
+                    <a href="#" data-nav="c.html" class="route">c模块</a>
+                </div>
+                <div>
+                    <a href="#" data-nav="a.html" class="route">d模块</a>
+                </div>
+                <div>
+                    <a href="#" class="route">e模块</a>
+                </div>
+                <div>
+                    <a href="#" class="route">f模块</a>
+                </div>
+            </div>
+            <div class="main">
+                <iframe id="main" width="800" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var oIframe = document.getElementById('main');
+    var oWrap = document.querySelectorAll('.wrap')[0];
+    var oAside = document.querySelector('.aside');
+    console.log(oWrap.offsetWidth)
+    console.log(oAside.offsetWidth)
+    oIframe.width = oWrap.offsetWidth - oAside.offsetWidth;
+    var routes = document.querySelectorAll('.route');
+
+    // jquery声明事件；
+    // $('.route').forEach(el=>{
+    //     $(this).on("click",function(){
+
+    //     })
+    // })
+
+    // 事件委托；
+    // $(".aside").on('click','.route',function(){
+    //     console.log('')
+    // })
+
+
+    // 原生js声明
+    Array.from(routes).forEach(el =>{
+        el.onclick = function(){
+            // 如果你学过微信小程序的化，就会非常了解这个dataset
+            oIframe.src = this.dataset.nav;
+        }
+    })
+    
+
+    
+</script>
+</html>
