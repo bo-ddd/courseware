@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+    // this 指向问题
+    // 在js中，谁调用我，this就是谁；
+    // dom :元素 
+    // onclick: 点击事件   
+    // dom.onclick = function(){
+    //     console.log(this);  // dom;
+    // }
+
+    // json对象
+    var obj = {
+        username: 'xiaoming',
+        getName() {
+            console.log(this);
+            return this.username;
+        }
+    }
+    // 
+    // console.log(obj.getName());
+    // let name = obj.getName();  //  xiaoming  
+    var username = 'window.xiaoming';
+    let getName = obj.getName;
+
+
+    // window.getName()  console.log(this.name)  // window  window.username ?  所以是undefined;
+    console.log(getName());  //  因为 现在调用他的人， 其实是window.   window.getName();
+
+    Array.prototype.newFn = function () {
+        console.log(this)  // 就是被实例的那个对象； [ 1,2,3,4,5,6,7]
+    }
+
+    var arr = [1, 2, 3, 4, 5, 6, 7];
+    console.log(arr.newFn())
+
+
+    class Fn {
+        constructor() {
+            console.log(this);  // 谁调用就是谁；
+        }
+        run() {
+            console.log(this)  // 依然是谁调用就是谁；
+        }
+    }
+
+    var fn = new Fn();  // this ==   fn;   
+    fn.run()  // this == fn;
+
+
+    //  call  apply   bind  可以改变指向；
+    // 
+    // Login.vue  登录页面
+    var login = new Vue({
+        data: {
+            userinfo:{},
+            username: '',
+            password: '',
+            captcha: '',
+        },
+        methods: {
+            submit() {
+                validate.exec.call(this, 'username'); //我要校验username ，如果失败，后面的代码不执行；
+                validate.exec.call(this, 'password');
+                validate.exec.call(this, 'captcha');
+            }
+        },
+        created(){
+            //
+        }
+    })
+    // 声明vue实例的时候发生的事件
+    // new 了一个vue的实例
+    // 该实例会走钩子函数相关的流程
+    // 走到created()钩子后，会执行其中所的逻辑，比如调用接口；
+
+
+    // Register.vue  注册页面
+    import validate from './Validate';
+    var register = new Vue({
+        data: {
+            username: '',
+            password: '',
+            captcha: '',
+        },
+        methods: {
+            submit() {
+                console.log(this)  // vue的实例； 通常情况下我们想给他加一个方法，但这个方法，又不想挂载到全局的时候，我们可以用到call;
+                // this  vue中的实例
+                validate.define.call(this, 'username'); //我要校验username ，如果失败，后面的代码不执行；
+                validate.define.call(this, 'password');
+                validate.define.call(this, 'captcha');
+                validate.exec();
+            }
+        },
+        created() {
+
+        }
+    })
+
+    // Validate.js  校验类
+    const valid = {
+        username: function () {
+            if (this.username.length < 6) {
+                alert('用户名不能小于6')
+                return false;
+            }
+            return true;
+        }
+    }
+    let store = [];
+    class Validate {
+        constructor() {
+            this.result = false;  //默认是校验不通过
+        }
+        // 执行校验
+        define(key) {
+            store.push(valid[key].bind(this));  // 目前是有三个个   
+            console.log(this)  // 这个其实指的是 Register.vue 中的 vue的实例
+        }
+        exec() {
+            for (let i = 0; i < store.length; i++) {
+                let result = item();
+                if (!result) break;
+            }
+        }
+
+    }
+    var validate = new Validate();
+    export default validate;
+
+    // 这两个页面中都会有校验相关的部分  都要校验 账号， 都要校验密码  校验验证码；
+</script>
+
+</html>
