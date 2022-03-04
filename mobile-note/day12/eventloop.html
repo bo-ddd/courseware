@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 作用域    事件环
+    // 作用域:  被花括号包含的区域就是一个单独的作用域
+    // 作用域链: console.log一个变量,他优先会在当前的花括号中去找,
+    // 事件环:   js的代码会从上到下执行,优先执行同步任务,他会把遇到的异步任务放在事件环中
+    // 如果同步任务执行完成以后,js引擎会针对 这个事件环进行无限循环   
+    // 这个事件环在js底层,我们看不见,但是你可以理解成一个你看不见的数组  
+    //  宏任务, 微任务;  先同后异,先微后宏
+    // const eventloop = [let timeout1 = setTimeout(function(){
+    //     console.log(i)  
+    //     console.log(arr[i])
+    // },2000)]
+    // 如果换成let就行了,为什么呢? 
+    // 答案是, let 有作用域的概念;
+    var arr = [1, 2, 3];
+    for (let i = 0; i < arr.length; i++) {
+        // 如果满足条件就会执行此方法;
+        // 如果不满足条件就不执行;
+        // console.log(i)  //  0,1,2;
+        setTimeout(function () {
+            console.log(i)
+            // console.log(arr[i])
+        }, 2000)
+    }
+
+    // for循环中,如果用let ,就相当于声明了多个代码块,因为let存在于某个作用块之内;
+    // {   
+    //     let i = 0;
+    //     // 如果满足条件就会执行此方法;
+    //     // 如果不满足条件就不执行;
+    //     // console.log(i)  //  0,1,2;
+    //     setTimeout(function () {
+    //         // console.log(i)
+    //         // console.log(arr[i])
+    //     }, 2000)
+    // }
+
+    // {   
+    //     let i = 1;
+    //     // 如果满足条件就会执行此方法;
+    //     // 如果不满足条件就不执行;
+    //     // console.log(i)  //  0,1,2;
+    //     setTimeout(function () {
+    //         // console.log(i)
+    //         // console.log(arr[i])
+    //     }, 2000)
+    // }
+
+    // {   
+    //     let i = 2;
+    //     // 如果满足条件就会执行此方法;
+    //     // 如果不满足条件就不执行;
+    //     // console.log(i)  //  0,1,2;
+    //     setTimeout(function () {
+    //         // console.log(i)
+    //         // console.log(arr[i])
+    //     }, 2000)
+    // }
+
+
+
+    // 因为setTimeout回调函数中,是没有i的,所以 当前i因为作用域链的原因,他会向他的上级去找;
+    // 如果是这样的话, 他就去找他的上级,window, 此时,他发现是没有这个值 的,undefined;
+    // setTimeout(function () {
+    //     console.log(i)   //  window  3
+    //     console.log(arr[i])
+    // }, 2000)
+
+
+    // 在js底层他会无限循环这个数组,看看到底哪一个执行完了,
+    // const eventloop = [timeout1]
+    // 两秒钟以后,他会去执行timeout1
+    // setTimeout(function () {
+    //     console.log(i)
+    //     console.log(arr[i])
+    // }, 2000)
+    // function a(){
+
+    // }
+
+    // {
+
+    // }
+
+    // var obj = {
+
+    // }
+
+
+
+</script>
+
+</html>
