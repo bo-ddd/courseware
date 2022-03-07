@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 今天重点关注的人员： -->
+    <!-- 紧张： 老苏 -->
+    <!-- 表达能力： 浩爽，小智，佳煊， 小鹿， -->
+    <!-- 基础的js有问题的：  静静，鑫鑫 -->
+    <!-- ok： 文浩，鑫华，郑则 -->
+    <!-- 表达能力基本ok，缺少题量：胜利，阿凯,小帆帆  -->
+    <!-- 炸弹类型的： 青松  问啥不答啥，思考的问题和别人不一样 -->
+    <!-- 核潜艇 ： 景田阳 -->
+    
+
+    <!-- vuex -->
+   <!-- 在你的vue项目中，咱已经讲过了组件的概念，及组件封装的维度 -->
+   <!-- 组件的维度分为类的维度，一种是多态的维度 -->
+   <!-- 在项目中，通常情况下，我们初始时，优先封装的是以类为维度,还可以说，该组件的类型是非业务组件 -->
+   <!-- 但是在开发的过程中，随着需求不断的变更，越来越复杂，此时出现了，需要把非业务组件在更行业务组件的封装 -->
+
+
+   <!-- 封装组件的维度： 把class中的类的维度，封装成组件， 多态的类名变成组件的属性 -->
+   <!-- <style>
+       .icon{
+           width:24px;
+           height:24px;
+       }
+       .icon-search{
+           background:url('icon-search.png')
+       }
+   </style> -->
+   <!-- 举例： <i class="icon  icon-search"></i> -->
+   <!-- <Icon type="search"></Icon> -->
+
+
+   <!-- src/components/common/Banner.vue -->
+   <!-- Banner.vue -->
+    <template>
+        <div class="banner">
+            <!-- 这个箭头图标，他是动态变的，随着业务逻辑的变化，而变化 -->
+            <!-- 假设有以下逻辑： 如果是home页面，就展示 右箭头图标， 如果是 购物车页面，就展示左箭头 -->
+            <Icon :type="iconType"></Icon>
+        </div>
+    </template>
+
+    <script>
+        export default{
+            props:['iconType'],
+            data(){
+                return {
+
+                }
+            },
+        }
+    </script>
+
+
+   <!-- 页面调用 -->
+   <!-- Home.vue -->
+   <!-- <Banner title="Deviliey to Home" desc="street to 14.no" btnName="2.4km"></Banner> -->
+   <Delivery  iconType="arrow-right"></Delivery>
+   <!-- Cart.vue -->
+   <!-- <Banner title="Deviliey to Home" desc="street to 14.no" btnName="2.4km"></Banner> -->
+   <Delivery iconType="arrow-left"></Delivery>
+   <!-- 因为这些非业务组件，他们的业务逻辑，完全一样，此时，我们为了满足复用，我们需要把这些组件进行二次封装，把他变成业务维度 -->
+   <!-- 在这个组件，我们把调用服务端的接口，和点击事件相关的所有的业务逻辑全都封装在这个组件中，这样就同时满足的两个页面的使用 -->
+   <Delivery></Delivery>
+
+   <!-- 截止目前为止，组件变成了这样 -->
+   <!-- 这种props传参方法，有一个弊端 -->
+   <!-- 麻烦是其中之一， 语意化不明显，导致可读性变差，如果项目复杂，会造成极其难维护-->
+   <!-- 第二：他会破坏非业务组件，如果你按照这个传法，所有的非业务组件，因都会拿他的子组件中的某一个参数，就会丢失扩展性 -->
+   <!-- 为了解决这个问题，出现了一种技术栈，这个技术栈叫vuex -->
+   <!-- vuex的核心思想是： 不管组件嵌套多少层，我可以让所有的组件 都访问到我这一层 -->
+   <Delivery  iconType="arrow-right" iconType2="arrow-right-white" data="props.data" list="list" iconType="arrow-right" data="props.data" list="list" iconType="arrow-right" data="props.data" list="list"> 
+       <Banner  iconType="props.iconType" data="props.data"  list="props.list">
+           <Icon iconType="props.iconType" data="props.data">
+               <GoodsList data="props.data"></GoodsList>
+           </Icon>
+           <Icon iconType="props.iconType2"></Icon>
+       </Banner>
+   </Delivery>
+
+   <!-- vuex实现了以下的方案 -->
+   <!-- vuex在一个类似全局变量的函数中，接收这些存取的值 -->
+   var store = {
+    iconType:'search',
+   }
+<!-- 假设是Delivery这个组件，想要传参 -->
+<!-- store.iconType = 'search' -->
+   <Delivery > 
+    <Banner>
+        <!-- icon组件  => 如何拿到 store.iconType   console.log(store.iconType)  -->
+        <Icon iconType="">
+            <GoodsList data=""></GoodsList>
+        </Icon>
+        <Icon iconType=""></Icon>
+    </Banner>
+</Delivery>
+
+   <!-- Delivery.vue 组件 -->
+   <!-- <template>
+       <div>
+           <Banner :title="data.title" : :desc="title.desc" :btnName="data.distance" @click="handleClick"></Banner>
+       </div>
+   </template>
+   <script>
+       export default{
+           data(){
+               return {
+                   data:{}   // 获取送货信息数据
+               }
+           },
+           async created(){
+                //获取送货信息数据
+                let deliveryInfo = await this.getDeliveryInfo();
+                //  deliveryInfo的数据结构
+                // let deliveryInfo = {
+                //     status:1,
+                //     msg:'success',
+                //     data:{
+                //         title:'Deviliey to Home',
+                //         desc:'street to 14.no',
+                //         distance:'2.4'
+                //     }
+                // }
+                this.data =  deliveryInfo.data;
+           },
+           methods:{
+            handleClick(){
+                //跳转到送货详情页面，该页面中包含了 快递员相关的信息，还有几分钏到达 ，及送货的详情信息，还有送货员的联系电话等相关信息；
+                // 在进入送货页面时，需要传给送货详情页面一个参数，为什么要传呢？
+                // 答案： 因为一个客户，有可能同时有多个商品进行快递；
+                // 所以，我们要按照快递编号去查询当前商品的快递详情信息
+                this.$router.push({
+                    name:'delivery/detail',
+                    query:{
+                        deliveryId:100,  //快递编号 
+                    }
+                })
+            }
+           }
+       }
+   </script> -->
+
+<!-- // 送货详情页面的逻辑实现； -->
+<!-- // DeliveryDetail.vue -->
+   <!-- <template>
+       <div class="delivery-detail">
+       </div>
+   </template>
+   <script>
+       export default {
+           data(){
+                data:{}
+           },
+           async created(){
+                //获取到用户的送货信息；
+                // this.$route.query.deliveryId 此方法可以获取到 this.$router.push({path:'', query:{devliveryId:100},params:{abc:'xiaoming'}})  
+                // this.$route.query.deliveryId   =  100；
+                // this.$route.params.abc   =  'xiaoming';
+                // let deliveryDetail = await getDeliveryDetailInfo({
+                //     deliveryId:this.$route.query.deliveryId
+                // });
+                // 注： 这其中的逻辑比较复杂；
+                // 举例  ： 这种快递方案是 京东快递，  
+                //  韵达快递？ 我的接收字段 和 页面展示 的逻辑和京东不一样；
+                //  美团快递？  我和上边的快递业务逻辑还不一样？
+                // 。。。。。我现在有30家快递公司，逻辑都不一样
+                // 你想一下，这个逻辑处理起来，就比较复杂了；
+                // 
+                let deliveryDetail = {
+                    status:1,
+                    msg:'success',
+                    data:{
+                        title:'Deviliey to Home',
+                        desc:'street to 14.no',
+                        distance:'2.4',
+                        deliveryPersonName:'小刘',
+                        deliveryPersonNo:'MT1000001',
+                        productInfo:[
+                            {
+                                value:"手机1",
+                                attr:'白色',
+                                price:'$1889'
+                            },
+                            {
+                                value:"手机2",
+                                attr:'白色',
+                                price:'$1889'
+                            },
+                            {
+                                value:"手机3",
+                                attr:'白色',
+                                price:'$1889'
+                            },
+                            {
+                                value:"电脑",
+                                attr:'白色',
+                                price:'$1889'
+                            },
+                        ],
+                        // step:步骤，一般在快递中指的是  你的快递经过了哪几站 
+                        // 临汾    北京-临汾   北京-石家庄物流运输站- 山西太原分站 - 临汾总检测站 -  临汾北企互联周边的那个站 -  北企互联门口蜂巢快递站；
+                        step:[
+                            {
+                                addr:'北京',
+                                addrId:'JCZ1123001231' ,  // 检测站的id;
+                                status: 1,   //  如果当前status是一，那么说明当前运输到了北京；  如果返回一个0，就是已接收， 2， 检测中，3：待检测， 4。运输错误
+                            },
+                            {
+                                addr:'石家庄物流运输站',
+                                addrId:'JCZ1123001231' ,  // 检测站的id;
+                                status: 1,
+                            },
+                            {
+                                addr:'山西太原分站',
+                                addrId:'JCZ1123001231' ,  // 检测站的id;
+                                status: 1,
+                            },
+                            {
+                                addr:'临汾总检测站',
+                                addrId:'JCZ1123001231' ,  // 检测站的id;
+                                status: 1,
+                            },
+                            {
+                                addr:'临汾北企互联周边的那个站',
+                                addrId:'JCZ1123001231' ,  // 检测站的id;
+                                status: 1,
+                            },
+                        ]
+                    }
+                }
+                this.data = deliveryDetail.data;
+           }
+       }
+   </script> -->
+</body>
+</html>
