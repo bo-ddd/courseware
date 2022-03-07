@@ -70,9 +70,9 @@ console.log(person1 === person2)   //false; 因为他们不是一个实例；
 
 #### 简单说一下vuex的作用？
 
-#### 简单的说一下vuex中actions的作用？
+#### 简单说一下vuex中的几个入参，及作用？
 
-答：
+答： state, mutations, actions,modules,getter
 
 
 
