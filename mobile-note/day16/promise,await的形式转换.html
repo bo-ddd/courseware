@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+
+    // getUserInfo().then(res=>{
+    //     console.log('我成功了：')
+    //     console.log(res);
+    // }).catch(err=>{
+    //     console.log('我报错了,报错的信息是：')
+    // })
+
+    (async function () {
+        let getUserInfo = function () {
+            // return axios.post('/user/info')
+            return new Promise((resolve, reject) => {
+                let res = {
+                    status: 0,
+                    msg: 'success',
+                    data: {
+                        username: 'xiaoming',
+                        age: 18,
+                        price: 200
+                    }
+                }
+                setTimeout(function () {
+                    if (res.status == 1) {
+                        resolve(res);
+                    }
+                }, 1000)
+            })
+        }
+        // 知识点： await getUserInfo 是 promise.then的一个语法糖，就是另一种写法；
+        // await getUserInfo   ==    getUserInfo().then(res=>{})
+        let userInfo = await getUserInfo();
+        console.log(userInfo);
+    })()
+</script>
+
+</html>
