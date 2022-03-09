@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //获取类目列表；
+    function getCategoryList(){
+        return new Promise((resolve,reject)=>{
+            let res = {
+                status:1,
+                msg:'success',
+                data:[]
+            }
+            setTimeout(function(){
+                resolve(res);
+            },1000)
+        })
+    }
+
+    function getGoodsAttrList(){
+        return new Promise((resolve,reject)=>{
+            let res = {
+                status:1,
+                msg:'success',
+                data:[]
+            }
+            setTimeout(function(){
+                resolve(res);
+            },1000)
+        })
+    }
+
+    function getProductList(){
+        return new Promise((resolve,reject)=>{
+            let res = {
+                status:1,
+                msg:'success',
+                data:[]
+            }
+            setTimeout(function(){
+                resolve(res);
+            },1000)
+        })
+    }
+
+    // 用promise方法来调用接口：
+    // getCategoryList().then(res=>{
+    //     //这个类目列表服务端用了一秒钟的时间来返回到前端；
+    //     console.log('这是promise写法的返回值')
+    //     console.log(res);
+    // })
+
+    //await async 是promise。then的一个语法糖；  说白了，这两种写法是相等的；
+    // 如何转换promise.then的写法呢？
+    // 1。把then方法删除；
+    // 2. 把该方法进行赋值操作； 
+    // 3. 在该方法前加上await语法糖
+    // 4.  await语法糖中的父级函数必须有async关键字；
+    async function getCategorys(){
+        let categorys = await getCategoryList({
+            keyword:'苹果笔记本电脑'
+        })
+        console.log(categorys)
+    }
+
+    async function getGoodsAttrs(){
+        //获取商品属性列表
+        const goodsAttr = await window.getGoodsAttrList({
+            keyword:'苹果笔记本电脑'
+        });
+        console.log(goodsAttr);
+    }
+
+    async function getProducts(){
+        //获取商品列表；
+        let products = await window.getProductList({
+        	keyword:'苹果平板电脑'
+    	});
+        console.log(products);
+    }
+
+    // 这种方案是我非常推荐的方案；
+    // 因为在写逻辑时，这种把方法抽离成单独的一个方法，他的复用性会非常的高；
+    // (async function(){
+    //     getCategorys();
+    //     getGoodsAttrs();
+    //     getProducts();
+    // })()
+
+    // export default {
+    //     data(){
+    //         return {
+
+    //         }
+    //     },
+    //     async created(){
+    //         // 获取类目列表；
+    //         getCategorys();
+    //         // 获取商品属性列表；
+    //         getGoodsAttrs();
+    //         //获取商品列表；
+    //         getProducts();
+    //     }
+    // }
+
+
+    // (async function(){
+    //     let categorys = await getCategoryList({
+    //         keyword:'苹果笔记本电脑'
+    //     })
+    //     console.log(categorys)
+        
+    //     //获取商品属性列表
+    //     const goodsAttr = await window.getGoodsAttrList({
+    //         keyword:'苹果笔记本电脑'
+    //     });
+    //     console.log(goodsAttr);
+        
+    //     //获取商品列表；
+    //     let products = await window.getProductList({
+    //     	keyword:'苹果平板电脑'
+    // 	});
+    //     console.log(products)
+    // })()
+
+    // 解决方案二： Promise.all的应用场景；
+    // promise.all 的入参是传入一个数组，数组中接收promise方法，该方法接收一个then方法；
+    // 如果数组中所有的方法全部执行完毕，且全部成功，才会走then方法，如果有一个失败，则不走；
+    // 降低复用性，也会降低扩展性，
+    // 通常这种方法在nodejs中非常的常用，但是在前端的项目中，其实这种方法，也可以在这个地方用，但是，复用性，
+    // 他也可以完美的解决这种性能问题；
+    Promise.all([getCategoryList(),getGoodsAttrList(),getProductList()]).then(res=>{
+        console.log('promise.all方法执行成功了')
+        console.log(res);
+    })
+
+    
+</script>
+</html>
