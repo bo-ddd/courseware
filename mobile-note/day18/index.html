@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // Promise中有两个静态方法，一个是 resolve方法，一个是reject方法；
+    // 在使用Promise时，Promise接收的是一个回调函数 ，该回调函数有两个形参，第一个形参是 Promise.resolve,Promise.reject
+    function Promise1(fn) {
+        fn(Promise1.resolve, Promise1.reject);
+    }
+
+    Promise1.resolve = function(){
+        console.log("我执行的是resolve方法")
+    }
+    
+    Promise1.reject = function(){
+        console.log("我执行的是reject方法")
+    }
+
+    let getUserInfo = function () {
+        // resovle, reject方法，本身就是通过闭包传过来的两个静态方法；
+        return Promise1(function (resolve, reject) {
+            setTimeout(function(){
+                reject();
+            },2000)
+        })
+    }
+
+    getUserInfo();
+</script>
+
+</html>
