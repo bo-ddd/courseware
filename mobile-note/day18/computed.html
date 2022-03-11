@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>性别： {{sexName}}</div>
+        <div>性别Id:{{sex}}</div>
+        <div>喜欢：{{like}}</div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data: {
+            sex: 1,
+            sexName:'',
+            like:'',
+        },
+        // computed: {
+        //     sexName() {
+        //         return this.sex == 1 ? '男' : '女'
+        //     },
+        //     like(){
+        //         return this.sex == 1 ? '足球' : '裙子' 
+        //     }
+        // },
+        watch:{
+            sex(val){
+                this.sexName = val == 1 ? '男' : '女';
+                this.like = val ? '足球' : '裙子' 
+                //是没有返回值的；
+            }
+        },
+        created(){
+            setTimeout(()=>{
+                this.sex = 0;
+            },2000)
+        }
+    })
+
+    // js 中 getter  setter 
+
+    // let json = {
+    //     sex:1,
+    //     get sexName(){
+    //         return this.sex == 1 ? '男' : '女'
+    //     }
+    // }
+
+    // console.log(json.sexName);
+    
+    // json.sex = 0;
+    // console.log(json.sexName);
+    
+    // Object.defineProperty 是数据劫持
+    // 这个方法中暴漏两个方法 一个是setter  一个是getter
+    // getter方法是如果当前对象的这个值发生变化，那么优先会走到这个get方法中；
+    // 
+
+    let obj = {
+        username:'xiaoming'
+    }
+
+    //只要访问这个对象中的属性，就会被数据支持
+    // 因为下面这行代码是同步代码
+    // 所以虽然会被支持，但如果在劫持的代码中写异步，他是完全不会等你的
+    // 因为当前代码是同步；
+    //2000ms 
+    //因为computed的底层就是用的Object.defineProperty
+    // 所以computed也不支持异步；
+    obj.username
+    console.log('1')
+
+
+    // 现在我们进入商城
+    // 此时我们是未登录的状态
+    // 我们进入到一款商品页面（iphone13）
+    // 我们把这个iphone13添加到购物车；  
+    // 本身我们的购物车列表应该加入到服务端的数据库中； 当我们访问购物车列表的时候，我们可以直接从服务端来拿到这个iphone13;
+    //  但是现在我们没有登录 ，
+    // 你如果想把当前的iphone13加入到购物车，服务端是有要求的， 你必须要告诉你，是谁把这个iphone13加入到购物车中；
+    // 此时，你会发现，我们没有办法将当前的数据存到服务器中；
+    // 所以，我们前端的解决方案是，把当前的iphone13相关的数据 存到我们本地的localStorage中去；
+    // 在这个iphone13中，我们要详细的说明 你准备买几个，要什么颜色的，什么套餐的数据；都要在这个localStorage中存储；
+
+    // 如果我们现在登录的状态
+    // 我看上一款 switch游戏机；
+    // 我们可以直接告诉服务端，我是谁，我要把xxx商品加入到购物车中，服务端就可以正常的把我们的购物车数据进行存储；
+    // 此时我们的switch游戏机，是被加载到服务端的数据库中去的；
+
+    // 当我们进入到购物车页面时
+    // 正常情况下，我们的购物车，一定要展示两个商品，  一个是 iphone13 另一个是 switch游戏机
+    // 但是，如果你直接去服务端 中取购物车数据 的话，只能看见一个商品，这个商品是 switch游戏机；
+    // 所以我们需要做一个并车操作   
+    // 并车： 合并购物车
+
+
+    // 获取本地购物车商品列表
+    let  localCartList = localStorage.getItem('cartList');
+    // 如果用户登录，则调用服务端的接口；
+    if(token){
+        let  cartList = await .this.getCartList();
+        localCartList = Object.assign(JSON.parse(localCartList),cartList);
+    }
+    // 把
+    this.cartList = localCartList;
+
+
+    // 逻辑二：（极度推荐方案二）
+    // 当打开购物车页面时，
+    // 前端判断用户是否登录，
+    // 如果已登录，则把本地购物车的商品加入到服务端的购物车中；
+    // 获取服务端的购物车列表，
+    // 直接把获取到的列表进行渲染；
+
+    let localCartlist = ['iphone13']
+    let cartList = ['switch游戏机']
+    //判断是否登录
+    if(token){
+        //我把你本地的 iphone13 存到服务端中去；
+        await this.addCart({
+            product:'iphone13'
+        });
+        //  [’switch游戏机','iphone13']
+    }
+    // 获取服务端中的购物车列表；
+    let list = getCartList();
+    this.cartList = list.data;  //[’switch游戏机','iphone13']
+
+    // 极度推荐方案二：
+    // 原因是，如果你用方案一，在你手动加车后，你在某种情况下必须要更换一台电脑 ，则localStorage中的数据就拿不到了；
+    // 就会造成本地加车的数据丢失的问题，这种场景下是影响客户体验的；
+    // 虽然这种场景比较极端，但是还是存在这些问题；
+</script>
+
+</html>
