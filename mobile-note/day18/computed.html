@@ -11,40 +11,55 @@
 
 <body>
     <div id="app">
-        <div>性别： {{sexName}}</div>
+        <!-- <div>性别： {{sexName}}</div>
         <div>性别Id:{{sex}}</div>
-        <div>喜欢：{{like}}</div>
+        <div>喜欢：{{like}}</div> -->
+
+        <!-- filter使用方法 -->
+        <!-- <div>{{sex | sexName}}</div> -->
     </div>
 </body>
 <script>
-    var vm = new Vue({
-        el:'#app',
-        data: {
-            sex: 1,
-            sexName:'',
-            like:'',
-        },
-        // computed: {
-        //     sexName() {
-        //         return this.sex == 1 ? '男' : '女'
-        //     },
-        //     like(){
-        //         return this.sex == 1 ? '足球' : '裙子' 
-        //     }
-        // },
-        watch:{
-            sex(val){
-                this.sexName = val == 1 ? '男' : '女';
-                this.like = val ? '足球' : '裙子' 
-                //是没有返回值的；
-            }
-        },
-        created(){
-            setTimeout(()=>{
-                this.sex = 0;
-            },2000)
-        }
-    })
+    // filter
+    // var vm = new Vue({
+    //     el:"#app",
+    //     data:{
+    //         sex:1,
+    //     },
+    //     filters:{
+    //         sexName(val){
+    //             return val == 1 ? '男' : '女'
+    //         }
+    //     }
+    // })
+    // var vm = new Vue({
+    //     el:'#app',
+    //     data: {
+    //         sex: 1,
+    //         sexName:'',
+    //         like:'',
+    //     },
+    //     // computed: {
+    //     //     sexName() {
+    //     //         return this.sex == 1 ? '男' : '女'
+    //     //     },
+    //     //     like(){
+    //     //         return this.sex == 1 ? '足球' : '裙子' 
+    //     //     }
+    //     // },
+    //     watch:{
+    //         sex(val){
+    //             this.sexName = val == 1 ? '男' : '女';
+    //             this.like = val ? '足球' : '裙子' 
+    //             //是没有返回值的；
+    //         }
+    //     },
+    //     created(){
+    //         setTimeout(()=>{
+    //             this.sex = 0;
+    //         },2000)
+    //     }
+    // })
 
     // js 中 getter  setter 
 
@@ -65,9 +80,9 @@
     // getter方法是如果当前对象的这个值发生变化，那么优先会走到这个get方法中；
     // 
 
-    let obj = {
-        username:'xiaoming'
-    }
+    // let obj = {
+    //     username:'xiaoming'
+    // }
 
     //只要访问这个对象中的属性，就会被数据支持
     // 因为下面这行代码是同步代码
@@ -76,8 +91,8 @@
     //2000ms 
     //因为computed的底层就是用的Object.defineProperty
     // 所以computed也不支持异步；
-    obj.username
-    console.log('1')
+    // obj.username
+    // console.log('1')
 
 
     // 现在我们进入商城
@@ -104,14 +119,14 @@
 
 
     // 获取本地购物车商品列表
-    let  localCartList = localStorage.getItem('cartList');
-    // 如果用户登录，则调用服务端的接口；
-    if(token){
-        let  cartList = await .this.getCartList();
-        localCartList = Object.assign(JSON.parse(localCartList),cartList);
-    }
-    // 把
-    this.cartList = localCartList;
+    // let  localCartList = localStorage.getItem('cartList');
+    // // 如果用户登录，则调用服务端的接口；
+    // if(token){
+    //     let  cartList = await .this.getCartList();
+    //     localCartList = Object.assign(JSON.parse(localCartList),cartList);
+    // }
+    // // 把
+    // this.cartList = localCartList;
 
 
     // 逻辑二：（极度推荐方案二）
@@ -121,24 +136,67 @@
     // 获取服务端的购物车列表，
     // 直接把获取到的列表进行渲染；
 
-    let localCartlist = ['iphone13']
-    let cartList = ['switch游戏机']
-    //判断是否登录
-    if(token){
-        //我把你本地的 iphone13 存到服务端中去；
-        await this.addCart({
-            product:'iphone13'
-        });
-        //  [’switch游戏机','iphone13']
-    }
-    // 获取服务端中的购物车列表；
-    let list = getCartList();
-    this.cartList = list.data;  //[’switch游戏机','iphone13']
+    // let localCartlist = ['iphone13']
+    // let cartList = ['switch游戏机']
+    // //判断是否登录
+    // if(token){
+    //     //我把你本地的 iphone13 存到服务端中去；
+    //     await this.addCart({
+    //         product:'iphone13'
+    //     });
+    //     //  [’switch游戏机','iphone13']
+    // }
+    // // 获取服务端中的购物车列表；
+    // let list = getCartList();
+    // this.cartList = list.data;  //[’switch游戏机','iphone13']
 
     // 极度推荐方案二：
     // 原因是，如果你用方案一，在你手动加车后，你在某种情况下必须要更换一台电脑 ，则localStorage中的数据就拿不到了；
     // 就会造成本地加车的数据丢失的问题，这种场景下是影响客户体验的；
     // 虽然这种场景比较极端，但是还是存在这些问题；
+
+
+    // js基础语法
+
+    // js基础  问题有点严重       http ajax axios
+    // 鑫鑫 静静
+    // js :   ajax,  
+    // 胜利： vue知识点   vue.config.js
+    // 景田阳： http ajax
+    // 李佳煊： js基础 + 项目描述       (js基础)
+    // 小帆帆： js正向提问会，反向就不会； ajax axios
+    // 凯：  vue  promise  跨域
+    // 乔:  项目表达(细节)  +  js基础 
+    
+    // 请求拦截器
+    // 正常情况下，给人一种感觉，
+    // 此接口是去访问服务端的， 
+    // 服务端拿到数据以后返给前端；
+
+    // 调用post接口去请求服务端，
+    // 但是在还没有到达服务端的时候，被一个叫请求拦截器的东西给拦截住了；
+    // 如果在当前的拦截器中，返回一个false，则服务端永远无法被访问到；
+    // axios.post("/buy/goods")  =>  先要出校门 => 可以去买商品了；
+    // axios.post('/user/info',{},{
+    //     headers:{
+    //         authorization:'asdjfklasjdfkljasdklfjkl'
+    //     }
+    // })
+
+    // 服务端把user/info的接口返回给前端
+    // 在前端还没有拿到数据时，先走的是响应拦截器
+    // if(status == 401){  跳转到登录页}
+
+
+
+    // token是不是一个身份证， 也是一个身份标识 ；
+    // 我们在出校门时，让看门的老大爷，给我们一张身份标识 ，我们身上带着标识 ，就可以去外面买东西；
+    // axios.expieasdf.erquest.fn = function(config){
+    //     config.headers.authorization = 'asdjfklasdfjklasdjfklasdf'
+    // }
+
+    // 你买东西要回来；  如果说你身上写着401,正常情况下，要跳转到登录页面上去；
+
 </script>
 
 </html>
