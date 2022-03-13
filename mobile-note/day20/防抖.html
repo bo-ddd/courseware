@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>提交订单</button>
+</body>
+<script>
+    var flag = false;
+    // 防抖
+    document.querySelector('button').onclick = function(){
+        if(flag) return;
+
+        flag = true;
+        setTimeout(function(){
+            flag = false;
+        },2000)
+
+        console.log('hello world!')
+    }
+
+    // 防抖： xxxms之内只执行一次；
+    // 截流： xxxms之内执行x次；
+
+    // 截流  截省流量；
+    // 应用场景： 一般情况下，是用在 resize事件后  rem适配时
+    // resize事件是当你屏幕的宽发生变化时做的操作；
+
+    // 在一些频繁调用方法，通常情况下，我们不需要在几ms的时间范围之内，就调用好多次某些方法；
+    // 此时，我们就可以用到截流；
+    // 我们可以让在xxxxms之内，只执行几次该方法的调用；
+    // 设置一个缓存数组 ；  把频繁调用的事件，都放在这个数组中
+    //  如果数组的长度满足截流次数
+    // 那么就停止后面方法的执行，只 执行当前缓存数组中所有的方法；
+    // var cache = [];
+    // var flag2 = false;
+    // window.onresize = function(e){
+    //     function cb(){
+    //         console.log(e);
+    //     }
+    //     if(flag2) return;
+    //     if(cache.length < 5) {
+    //         console.log('hello world')
+    //         cache.push(cb);
+    //         console.log(cache)
+    //     }else{
+    //         flag2 = true;
+    //         setTimeout(function(){
+    //             flag = false;
+    //             cache.forEach(cb=>{
+    //                 cb();
+    //             })
+    //         },2000);
+    //         return;
+    //     }
+    // }
+
+    // 在调用resize事件时，200ms之内只能执行一次；
+    var cache = [];
+    var flag2 = false;
+    window.onresize = function(e){
+        if(flag2) return;
+        flag2 = true;
+        setTimeout(function(){
+            console.log(e);
+            flag2 = false;
+        },200)
+    }
+
+    // 两种截流： 第一种截流是 只要前5次的事件  
+    // 第二种截流是： xxxms之内只执行一次；  应用场景： 动画
+
+    // let eventloop = [setTimeout,setTimeout]
+</script>
+</html>

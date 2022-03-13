@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /***
+     * ajax: 
+     * 概念：基于XMLHttpRequest实现的异步js
+     * 用处：局部刷新页面数据，而不需要刷新整个页面；
+    */
+
+    /**
+     * XMLHttpRequest
+     * 是原生js自带的请求的异步方法，通常情况下用来请求服务端接口
+     * XMLHttpRequest有几个重要的方法，open,onload send
+     * */  
+    
+    //  ajax的封装
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET','www.baidu.com',false);
+    xhr.onload = function(){
+        // xhr.status 状态码
+        if(xhr.status == 200){
+            let res = JSON.parse(xhr.responseText);
+            console.log(res)  //这就服务端发的数据
+        }
+    }
+    //如果open方法中用POST方法请求，则send中接收的参数就是传给服务端的参数；
+    xhr.send()
+
+</script>
+</html>

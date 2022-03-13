@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,div{
+            margin:0;
+        }
+/* 
+        .wrap{
+            border:10px solid yellow;
+        }
+
+        .wrap .item{
+            width:100px;
+            height:100px;
+            background:red;
+            margin:20px 20px;
+            float:left;
+        } */
+
+        img{
+            width:100px;
+            display: block;
+        }
+
+        .flex{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- 这种当浮动后，两个元素的边距会重叠的现象就是基于BFC出现的边距折叠现象 -->
+    <!-- width +  height 那么这个元素就有了z轴的高度 -->
+    <!-- margin-top : 20px -->
+    <!-- margin:你离我多远 -->
+    <!-- 边距塌陷 -->
+    <!-- 这种边距塌陷就是基于bfc造成的 -->
+    <!-- 如何解决： overflow:hidden; -->
+    <!-- <div class="wrap">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div> -->
+
+    <!-- BFC : 块格式化上下文  人是根本听不懂的 -->
+    <!-- border这个属性是有高度  他在z轴中是有高度的 -->
+    <!-- 王文浩 景田阳 刘青松 许胜利 乔彦智 李佳煊 浩爽 鑫鑫 小帆帆 静静-->
+
+    <!-- 老苏 鑫华 -->
+
+    <!-- 已经拿过： 郑则，凯，小璐 -->
+        <div class="flex">
+            <img src="1.jpg" alt="">
+            <img src="1.jpg" alt="">    
+        </div>
+<!-- 
+        <a href="">asdf</a>
+        <a href="">asdf</a>
+        <a href="">asdf</a>
+        <a href="">asdf</a>
+        <a href="">asdf</a>
+        <a href="">asdf</a> -->
+        <!-- ajax -->
+</body>
+</html>
