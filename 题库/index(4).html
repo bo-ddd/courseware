@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{name}}
+        <div>
+            <span id="name">{{name}}</span>
+            <div>{{name}}</div>
+            <ul>{{name}}
+                <li>{{name}}</li>
+            </ul>
+        </div>
+    </div>
+
+<!--    <div id="app2">-->
+<!--        {{ name }}-->
+<!--    </div>-->
+</body>
+<script>
+
+    var json = {
+      name:'xiaoming',
+      age:18,
+      sex:'男'
+    }
+    // // 如果想渲染 {{name}} {{age}} {{sex}};
+    // //  第一步， 找到 #app2;
+    // var el = document.querySelector("#app2");
+    // // console.log(el)
+    // //  第二步循环#app2中所有的元素；
+    // Array.from(el.childNodes).forEach(node=>{
+    //   //nodeType  1:元素节点  div span ul li  3：文本节点
+    //   if(node.nodeType == 3){
+    //     // console.log(node);
+    //     //  第三步 拿到每一个元素的html;
+    //     let textContent = node.textContent;
+    //     //  第四步  正则匹配 大胡子语法（Moustach）{{}};
+    //     let reg = /\{\{\s*(\S*)\s*\}\}/;  // {{ (name) }}
+    //     // test 这个是匹配字符串是否满足正则的要求，如果匹配成功，返回true 否则 是false;
+    //     console.log(reg.test(textContent))  // name;
+    //     if(reg.test(textContent)){
+    //       console.log("(S*)的值是：")
+    //       // $1 你表的是正则中第一个小括号中的内容  $2 代表第二个小括号的内容；
+    //         console.log(RegExp.$1);
+    //        node.textContent = json[RegExp.$1];
+    //     }
+    //     // s代表空格  S:非空格  .代表的是任何字符   *：0个或多个；  正则中的 . + {} ^& 属于转义字符；如果想匹配这些字符 ，需要在前面加\
+    //   }else if(node.nodeType == 1){
+    //     console.log(node);
+    //   }
+    // })
+
+    //  第五步  把 花括号中的name ,age ,sex 替换成 this.data.name;
+    // console.log(el);
+    // Object.keys(json).forEach(key=>{
+    //   let node = Object
+    //   node.innerHTML = item;
+    //   el.appendChild(node);
+    // })
+    class Dep{
+      constructor(){
+        this.subs = [];  //就是存放 所有 name的容器；
+      }
+
+      add(sub){
+        this.subs.push(sub); //
+        console.log(this.subs);
+      }
+
+      notify(newValue){
+        console.log("notify");
+        console.log(this.subs)
+        // notify : 通知；   老大爷通知晚上8点教学楼熄灯；
+        this.subs.forEach(sub=>{
+           sub.update(newValue)  //  通知给 教官；
+        })
+      }
+    }
+    //教官；监听到数据是否变化；name 值 进行监听；
+    class Watcher{
+      constructor (vm,reg,cb) {
+        console.log('vm + reg');
+        console.log(vm);
+        console.log(reg);
+         Dep.target = this;
+         // 只要是调用 this._data.name 就会走到 get方法中去；
+         vm._data[reg];
+         this.cb = cb;
+         Dep.target = null;
+        //vm 就是那个实例对象 this._data.name；
+        //reg  就是 name   age   sex;  this._data[key];
+        //cb   callback 回调函数 ；
+      }
+
+      update(newValue){
+        console.log('我收到了老大爷传给我的通知，他的通知是：' + newValue);
+        this.cb(newValue);
+      }
+    }
+
+    // 操作DOM  正则匹配  递规
+    class Vue{
+      constructor (props) {
+        this.el = document.querySelector(props.el);
+        this._data = props.data;
+        this.created = props.created;
+        this.mounted = props.mounted;
+        // Object.assign(this,this._data);
+        // this._data = { name:'xiaoming'}  this.name = xiaoming;
+        //数据还没有渲染到dom之前加数据支持；
+        this.observer(this._data); // 观察者=> 数据劫持  观察数据有没有变化；    22种设计模式  最经典的就是单例 ，一个叫观察者，订阅者；
+        this.init();
+      }
+      observer(data){
+        // 第一步 ，创建一个老大爷；
+        Object.keys(data).forEach(key =>{
+          let dep = new Dep();  // 现在这个老大爷 他没有人可通知； key = name;
+          let val = data[key]; //  xiaoming   18;
+          Object.defineProperty(data,key,{
+            get(){
+              // name 来了， 创建一个教官；
+              // Dep.target 就代表的是 教官；
+              if(Dep.target){
+                console.log("dep target is ok")
+                 dep.add(Dep.target);  //Dep.target // new Watcher();
+              }
+              console.log("我走到了 get方法中来");
+              return val;
+            },
+            set(newVal){
+              console.log('我走到了set方法中来');
+              val = newVal;
+              //找到页面中6个html文本标签(node.textContent) {{name}} 元素；
+              // 教官 收到信息了；
+              dep.notify(newVal);
+            }
+          })
+        })
+      }
+
+
+
+      init(){
+        if(this.created){
+          this.created();
+        }
+
+        this.compiler(this.el); //元素渲染完成；
+        if(this.mounted){
+          this.mounted();
+        }
+      }
+
+      // 一个Dep 管理当前页面中所有 {{name}}元素； 6个；
+      compiler(node){
+        const childNodes = node.childNodes;
+        Array.from(childNodes).forEach(node=>{
+          //nodeType  1:元素节点  div span ul li  3：文本节点
+          if(node.nodeType == 3){  //第二次进来了； name 值 还是name;
+            // console.log(node);
+            //  第三步 拿到每一个元素的html;
+            let textContent = node.textContent; // {{name}} {{age}}
+            //  第四步  正则匹配 大胡子语法（Moustach）{{}};
+            let reg = /\{\{\s*(\S*)\s*\}\}/;  // {{ (name) }}
+            // test 这个是匹配字符串是否满足正则的要求，如果匹配成功，返回true 否则 是false;
+            // console.log(reg.test(textContent))  // name;
+            if(reg.test(textContent)){
+              // console.log("(S*)的值是：")
+              // $1 你表的是正则中第一个小括号中的内容  $2 代表第二个小括号的内容；
+              // console.log(RegExp.$1);
+              // this._data.name = 'asdbc'
+              node.textContent = this._data[RegExp.$1];  // name  age;  this._data.name;
+              new Watcher(this,RegExp.$1,function(val){
+                // val: 就是教官发送的通知；
+                console.log('我收到了您的通知');
+                //
+                node.textContent = val;
+              })
+            }
+            // s代表空格  S:非空格  .代表的是任何字符   *：0个或多个；  正则中的 . + {} ^& 属于转义字符；如果想匹配这些字符 ，需要在前面加\
+          }else if(node.nodeType == 1){
+            // console.log(node);
+          }
+
+          if(node.childNodes.length){
+            this.compiler(node);
+          }
+        })
+      }
+    }
+
+    var vm = new Vue({
+      el:"#app",
+      data:{
+        name:'xiaoming',
+        age:18
+      },
+      created(){
+        console.log(this._data.name); //xiaoming;
+        console.log(this._data.age); // 18
+        console.log("created方法还没有渲染到dom")
+        console.log(document.getElementById('name').innerHTML)
+      },
+      mounted(){
+        // mounted方法调用时，已经挂载完成dom;
+        console.log("mounted方法已渲染到dom")
+        console.log(document.getElementById('name').innerHTML)
+        this._data.name = 'abcd';
+        console.log("this._data:")
+        console.log(this._data)
+      }
+    })
+</script>
+</html>
