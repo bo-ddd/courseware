@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="name">
+        {{username}}
+    </div>
+</body>
+<script>
+    var oName = document.querySelector('.name');
+    let textContent = oName.textContent;
+    console.log(textContent);  //
+    let reg = /\{\{(\S+)\}\}/g;
+
+    let obj = {
+        username:'xiaoming'
+    }
+    oName.textContent = textContent.replace(reg,(item,$1,$2)=>{
+        // 在正则中，被 小括号包起来的值，叫分组；
+        console.log($1);
+        // $1 就是被正则中小括号包起来的值；
+        return obj[$1]
+    });
+</script>
+</html>
