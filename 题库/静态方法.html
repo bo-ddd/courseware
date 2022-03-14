@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 万物皆对象
+    // 对象就有key 和 value;
+    class Dep{
+        constructor(){
+
+        }
+        // 声明静态方法二：
+        static run(){
+            console.log('我跑了起来')
+        }
+    }
+    // 声明静态方法一：
+    Dep.num = 1;
+    
+    Dep.run();  
+
+    console.log(Dep.num)  //1;
+</script>
+</html>

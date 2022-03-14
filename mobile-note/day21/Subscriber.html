@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订阅者模式</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // Dep: 销售；
+    class Dep {
+        constructor() {
+            // 房源信息；
+            this.subs = [];
+        }
+        // notify:通知
+        notify(rule, info) {
+            this.subs.forEach(sub => {
+                // sub: laosu;
+                // rule: 200
+                // 如果你发布的房源信息是200W的房子
+                // 那么我就把这条信息发布给laosu;
+                if (rule == sub.rule) {
+                    console.log('我发布了消息')
+                    //laosu接收到房子以后的反馈；
+                    sub.update(info);
+                }
+            })
+           
+        }
+        // 添加房源信息；
+        addSub(sub) {
+            //我把购房的人 laosu  添加到我的信息中；
+            this.subs.push(sub);
+        }
+    }
+
+    // 发布给谁  想要购房的人；
+    class Watcher {
+        constructor(rule) {
+            this.rule = rule;  //200
+        }
+        // 当我接收到销售房源的时候，我要做的一些逻辑操作
+        update(info) {
+            // 我接收到了你发的信息；
+            // 我订票去北京马上购买；
+            console.log('我接收到了你发的信息')
+            console.log("你发的信息是：")
+            console.log(info);
+        }
+    }
+
+    // 如你所见， 什么叫订阅者？
+    // 微信发消息： 
+    // 通常会看见一种情况： 微商， 不管认识不认识你，就给你推东西，我明明是男生， 你给我推很裙子的链接；
+    // 非常影响用户心里；
+    // 此时，就出现另外一种假设；
+    // 说：能不能 根据某些条件来进行推荐？
+    // 这种模式的实现方案，就叫订阅者
+    // 从订阅者这个文字来读取意思
+    // 你可以想象一种应用场景？
+    // 你去买房子，找到了一个售房的销售
+    // 你说你想买房子，
+    // 结果这个销售，把价值2亿的房子推给你，推了好多，你心态都甭了；
+    // 售房的销售说：你把你的标准给我说：
+    // 你要是要200W左右的房子，我就只给你推荐200W的；
+    // 这样从用户的角度来说，体验就会比较好；
+
+    // 在这个例子中， 订阅的是销售的信息    销售的作用是发布信息；
+    // computed   watch 
+    // Watcher  监听者， 监视者  这个监视者目前是销售, 
+    // 这个销售要去监视房子的来源；
+    // 假设这个监听者的名字叫小红；
+    // 那么，他用面象对象的思维来写，就变成了这样：
+
+    // 现在缺少的是，发布给谁
+    let laosu = new Watcher('200');  // 依赖  dependent
+
+    let haoshuang = new Watcher('200')
+
+    // 小红是一个销售
+    let xiaohong = new Dep();
+    // 小红登记了老苏的买房需求；
+    xiaohong.addSub(laosu)
+
+    xiaohong.addSub(haoshuang);
+    // 小红发布了一 条200万房子的信息； 信息内容是 北京市朝阳区1环xxx街；
+    xiaohong.notify('200', '北京市朝阳区1环xxx街')
+    // 这个销售在拿到消息时，一定要给订阅200W房子的人，发布消息；
+    // 销售拿到的消息  销售拿到的房源信息，一定是多种信息源，他一定是一个数组  subs来接收当前销售的房源信息；
+    // 发布消息；   发布 是一个动作，所在一定是一个方法；
+    // 现在缺少的， 房源信息；
+
+    // 现在订阅的是房子的信息； 如果监听到有房子的信息，就发给客户 客户去做自己的逻辑；
+    // 订阅的是data下面所有的key的值, 如果有人修改了这个信息，就把 对应的 元素 的html更改；
+    // 利用Object.defineProperty进行数据监听，
+    // 如果数据发生变化，就通知对应的元素进行html内容的更改；
+    // 数据变化时 set 
+</script>
+
+</html>

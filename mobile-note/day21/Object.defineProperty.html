@@ -1,170 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
-    <div class="wrap" id="wrap">
-        <div class="item">
-            <div>
-                <div>
-                    <div class="id"></div>
-                    <div class="productName">{{productName}}</div>
-                </div>
-                <div class="id"></div>
-                <div class="productName"></div>
-                <div class="productName"></div>
-            </div>
-        </div>
-    </div>
-    <button>下一页</button>
+    <div id="username"></div>
 </body>
 <script>
-    var oWrap = document.querySelector('.wrap');
-    var oItem = oWrap.querySelector(".item");
-    oItem.remove();
-
-
-    let num = 1;  //pageNum; 第几页的数据；
-    // let goodsList = getGoodsList();
-    //默认展示第一页的数据；
-    // render('wrap','.item',goodsList);
-    renderGoodsList();
-
-    function renderGoodsList() {
-        // 
-        let goodsList = getGoodsList();
-        //默认展示第一页的数据；
-        // 我的vue的初衷是，所有的逻辑都写在vue中，
-        Vue({
-            el: '#wrap',
-            template: '.item',
-            data: {
-                goodsList,
-            },
-            render() {
-                return this.goodsList;
-            }
-        });
+    // 默认json对象设置方法；
+    var obj = {
+        username:'xiaoming'
     }
+    obj.username = 'xiaohong'
 
-    // 一个方法需要解耦，一个方法只有一个效果；
-    // goodsList.forEach(item => {
-    //     var cloneNode = oItem.cloneNode(true);
-    //     cloneNode.innerHTML = item.productName;
-    //     oWrap.appendChild(cloneNode);
-    // })
-
-    // document.querySelector('button').onclick = function () {
-    //     num = num == 1 ? 2 : 1;
-
-    //     // 清空原来页面上的数据；
-    //     Array.from(oWrap.querySelectorAll('.item')).forEach(item=>{
-    //         item.remove();
-    //     })
-    //     //获取goodslist数据；
-    //     goodsList = getGoodsList();
-    //     //
-    //     goodsList.forEach(item => {
-    //         var cloneNode = oItem.cloneNode(true);
-    //         cloneNode.innerHTML = item.productName;
-    //         oWrap.appendChild(cloneNode);
-    //     })
-    // }
-
-    document.querySelector('button').onclick = function () {
-        num = num == 1 ? 2 : 1;
-        //封装方法的维度；
-        renderGoodsList();
-    }
-
-    //把 el, template, data   咱把这三个参数通过一个obj的格式当成入参；
-    function Vue(options) {
-        let { template, data, render } = options;
-
-        // 清空原来页面上的数据；
-        let oParent = document.querySelector(options.el);
-        Array.from(oParent.querySelectorAll(template)).forEach(item => {
-            item.remove();
-        })
-        //渲染到页面上；
-        let $data = render.call(options.data);
-
-        $data.forEach(item => {
-            var cloneNode = oItem.cloneNode(true);
-            renderItem(cloneNode, item);
-            oParent.appendChild(cloneNode);
-        })
-
-        function renderItem(el, data) {
-            // el  :  当前的那个元素  
-            // data: 代表的是我想渲染哪些东西；
-            // let data = {
-            //     id:1,
-            //     productName:'苹果'
+    // es6新出的一个方法；
+    // Object: 对象
+    // define ： 定义
+    // property:  属性
+    // 给哪个对象，定义一个什么样的属性，他的值是多少
+    var value = null;
+    // 数据劫持；
+    Object.defineProperty(obj,'sex',{
+        // 当你去设置obj.sex给这个值重新赋值时，那么会走这个set方法；
+        set(newValue) { 
+            console.log("----------我进了set方法-----------")
+            // 场景约束  || 逻辑约束
+            // if(newValue != 1 || newValue != 0) {
+            //     value = 1;
+            // }else{
+            //     value = newValue; 
             // }
-
-            // let data = {
-            //     id: 2,
-            //     productName: "梨"
-            // }
-
-            // 判断当前元素中是否有 data[key] 这个类名，如果有，我们就把这个dom.innerHTML = data[key]
-            // moustache语法  大胡子语法  
-            // 一开始在前端发展的时候，都是根据这个元素的类名来渲染的；
-            // 但是为什么现在都用这种mustache语法呢？
-            // vue为了照顾服务同学；
-            // 因为服务端中有一个东西叫模板引擎的东西；
-            // 这个模板引擎渲染的方式，就是 {{title}}
-
-            // 在起初，几乎所有的项目都没有前后端分离，
-            // 很多小型公司都没有前端
-            // 后端只会用模板引擎的方法；
-            // 所以vue最后采取的就是 模板引擎渲染方法；
-            Object.keys(data).forEach(key=>{
-                let className = '.' + key;
-                let elements = el.querySelectorAll(className); 
-                Array.from(elements).forEach(element=>{
-                    console.log("----------")
-                    element.textContent = data[key];
-                })
-            })
+            // 当obj.sex进行修改的时候，就会进入set方法，我们就要把这个id为username的元素的html给修改掉；
+            document.querySelector("#username").innerHTML = newValue;
+            value = newValue; 
+        },
+        // 当你访问obj.sex时才会走这个方法，默认他是不执行的；
+        get(){
+            console.log('----------我进了get方法--------------')
+            return  value;
         }
-    }
+    })
 
-    function getGoodsList() {
-        let data = [
-            {
-                id: 1,
-                productName: '苹果'
-            },
-            {
-                id: 2,
-                productName: "梨"
-            }
-        ]
+    // obj.sex = 'asdjfklasdf'
+    // obj.sex;
 
-        let data2 = [
-            {
-                id: 3,
-                productName: '香蕉'
-            },
-            {
-                id: 4,
-                productName: "西瓜"
-            }
-        ]
-
-        return num == 1 ? data : data2;
-    }
-
-
-
+    obj.sex = 1 // 1 ： 0 ；
+    console.log(obj);
 </script>
-
 </html>

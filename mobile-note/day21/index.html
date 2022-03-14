@@ -1,15 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vue底层实现原理</title>
 </head>
+
 <body>
-    
+    <div id="app">
+        {{username}}
+        <div>
+            <span>{{username}}</span>
+            <div>{{ username }}</div>
+            <div>
+                {{ username }}
+            </div>
+            <div>
+                <div>
+                    <span>{{age}}</span>
+                    <div>{{ age }}</div>
+                    <div>
+                        {{ age }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
-    // 
+    class Dep {
+        constructor() {
+            this.subs = [];
+        }
+        notify(rule, info) {
+            this.subs.forEach(sub => {
+                if (rule == sub.rule) {
+                    sub.update(info);
+                }
+            })
+
+        }
+        addSub(sub) {
+            this.subs.push(sub);
+        }
+    }
+
+    // 必须先有Watcher   node;
+    // 在去进入到Dep方法中；
+    // Dep才可以去添加watcher;  dep.add(Watcher)
+
+    class Watcher {
+        constructor(data,key) {
+            // data   vue:  this.data;
+            // 如果constructor方法执行；
+            // 那么说明一定有被实例；
+            // 说明一定会有一个watcher对象；
+            Dep.watcher = this;  
+        }
+        update(info) {
+            console.log(info);
+        }
+    }
+    // vue希望你把所有的逻辑都写到这个vue函数中；
+    // 所以vue提供了很多个钩子函数；
+    // beforeCreate   created    beforeMounte mounted;
+    // beforeCreate 是data还没有加载；
+    // created  dom还没有加载完成，但是数据已经挂载到data中了；
+    // beforeMounte  挂载dom之前；
+    // mounted dom已挂载完毕 
+    class Vue {
+        constructor(props) {
+            this.el = props.el;  // #app;
+            this.element = document.querySelector(this.el);
+
+            //挂载beforeCreate钩子；
+            this.beforeCreate = props.beforeCreate;
+            this.beforeCreate();  //  通常是写一些vue插件时，会在这个方法中写；
+
+            //挂载data；
+            this.data = props.data;   // {username:'xiaoming'}
+            // Object.assign(this,this.data);
+            console.log(this); // this.username  this.age;
+            //挂载created钩子；
+            this.created = props.created;
+            this.created()
+
+            // 钩子函数；
+            this.beforeMounte = props.beforeMounte;
+            this.beforeMounte();
+
+            //数据劫持   observer:观察者   在设计模式中，目前我们学了单例，这是第二种设计模式，观察者模式
+            // 观察者模式：
+            // 观察数据有没有变化，如果变化了，就xxxx；
+            this.observer(this.data);
+
+            //渲染dom;
+            // this.compiler(this.element);
+            this.mounted = props.mounted;
+            this.mounted();
+        }
+
+        observer(data) {
+            // {username:'xiaoming', age:18}
+            Object.keys(data).forEach(key => {
+                //key:  username   age;
+                var value = data[key];    //data.username  data.age     get();  
+                let dep = new Dep();
+                // 数据劫持；
+                Object.defineProperty(data, key, {
+                    // setter
+                    set(newValue) {
+                        // 假设现在你修改的是data.username 
+                        // 我们需要把data.username 中所有的包含{{username}}的元素给全部替换掉；
+                        // document.querySelector("#username").innerHTML = newValue;
+                        // var nodes = [el,el,el,el];
+                        // nodes.forEach(el=>{
+                        //     el.textContent = newValue;
+                        // })
+                        // 我们想在这里进行修改大胡子语法中的内容；想把{{username}}给修改掉；
+                        // 我不知道哪一个元素是中用到了这个username;我不知道把哪一个标签给改掉；
+                        // 通知所有对应的元素，username的值发生了变化，他变化的值是：newValue;
+                        dep.notify('username', newValue);
+                        //watcher对象，就该填加到哪？   watcher： node
+                        // watcher.textContent = newValue;
+                        // watcher对象在哪里添加
+                        // let node = new Watcher();
+                        // dep.addSub(new Watcher());
+                        value = newValue;
+                    },
+                    // getter
+                    get() {
+                        console.log('----------我走了get方法--------------');
+                        return value;
+                    }
+                })
+            })
+            console.log(data);
+        }
+
+        compiler(el) {
+            // dom 有很种类型的节点：  文本节点，  注释节点，标签节点， 属性节点
+            //循环el中所有的子节点
+            let childNodes = el.childNodes;
+
+            Array.from(childNodes).forEach(node => {
+                // console.log(node);
+                //如何判断节点的类型？
+                // node.nodeType == 3 文本   1：元素；
+                let nodeType = node.nodeType;
+                if (nodeType == 3) {
+                    //在这里用正则去匹配大胡子语法；
+                    let reg = /\{\{(\s*)(\S+)(\s*)\}\}/; // 只是把一个正则赋值给了变量；
+                    let textContent = node.textContent;
+                    if (reg.test(textContent)) {
+                        let key = RegExp.$2;
+                        // 如果你访问data对象中的一个key，他就会走到get方法中，username
+                        //node    Watcher(); 
+                        let watcher = new Watcher();
+                        node.textContent = this.data[key];
+
+                        
+                    }
+                }
+                // 如果你现在是一个文本节点  {{username}}
+                // 如果你现在是一个元素节点 <div>{{username}}</div>
+                // 递规查询
+
+                // 如果当前节点（<div>）有子节点（{{username}}），那么我就把当前节点(div)给传过去  <div>{{username}}</div>
+                // console.log("-----------------")
+                // console.log(node.childNodes);
+                if (node.childNodes.length) {
+                    this.compiler(node)
+                }
+            })
+            //判断当前节点是否是文本节点  <div>{{username}}</div>
+
+        }
+    }
+    // 下午讲的东西，是告诉你，如何去渲染页面，
+    // 如何去根据大胡子语法去改html中的值；
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            username: 'xiaoming',
+            age: 18,
+        },
+        beforeCreate() {
+            // console.log('this is before create');
+            // console.log(this.data);
+        },
+        created() {
+            // console.log('this is created');
+            this.data.username = 'xiaohong'  //xiaohong;
+        },
+        beforeMounte() {
+            // console.log('this is beforeMounte');
+        },
+        mounted() {
+            this.data.username = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+            // console.log('this is mounted');
+        }
+    })
 </script>
+
 </html>

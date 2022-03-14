@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="name">
-        {{username}}
+        {{age}}
+        <div>
+            {{  username }}
+            <div> {{  age }}</div>
+        </div>
     </div>
 </body>
 <script>
+    // 循环当前所有的子元素，判断子元素中，哪一个节点复合大胡子语法，如果符合，就把this.data中的那个key的值 给替换掉；
     var oName = document.querySelector('.name');
     let textContent = oName.textContent;
     console.log(textContent);  //
-    let reg = /\{\{(\S+)\}\}/g;
+    let reg = /\{\{(\s*)(\S+)(\s*)\}\}/g;
 
     let obj = {
-        username:'xiaoming'
+        age: 'xiaoming'
     }
-    oName.textContent = textContent.replace(reg,(item,$1,$2)=>{
+    oName.textContent = textContent.replace(reg, (item) => {
         // 在正则中，被 小括号包起来的值，叫分组；
-        console.log($1);
+        let key = RegExp.$2
+        console.log(RegExp.$2);
         // $1 就是被正则中小括号包起来的值；
-        return obj[$1]
+        return obj[key]
     });
 </script>
+
 </html>
