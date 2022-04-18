@@ -12,7 +12,7 @@
     <div id="app">
         {{username}}
         <div>
-            <span>{{username}}</span>
+            <span  v-for="item in items"  :key="item.id">{{username}}</span>
             <div>{{ username }}</div>
             <div>
                 {{ username }}
@@ -30,19 +30,26 @@
     </div>
 </body>
 <script>
+    // Dep 一共有两种
+    // 一种是  username　类型的ｄｅｐ
+    // 一种是 age 类型的 dep;
     class Dep {
         constructor() {
             this.subs = [];
         }
-        notify(rule, info) {
+        notify(newValue) {
             this.subs.forEach(sub => {
-                if (rule == sub.rule) {
-                    sub.update(info);
-                }
+                // subs 
+                sub.update(newValue);
             })
-
         }
         addSub(sub) {
+            // sub:      let node = new Watcher();
+            // subs:  [node1,node2,node3,node4]
+            // node1   {{username}}  
+            // node2  {{ username }}
+            // node3  {{ username }}
+            // node4  {{ username }}
             this.subs.push(sub);
         }
     }
@@ -51,16 +58,42 @@
     // 在去进入到Dep方法中；
     // Dep才可以去添加watcher;  dep.add(Watcher)
 
+    // 咱现在已经可以正常的把this.data中的值都渲染到页面中去了；
+    // 但是当this.data[key]如果发生变化时，他是不会更改的；
+    // 如果想在this.data[key]更改时，我们的页面发生变化
+    // 那么就必须用到Object.defineProperty这个方法；
+    // 因为Dep方法的作用就是派发消息；
+    // 所以Dep方法就必须写在Object.defineProery方法中；
+    // 所以证明出 Dep就可以进行兼听数据的变化，
+    // Dep这个方法就是数据劫持；他可以知道页面中哪一个值发生变化；
+    // let dep = new Dep();
+    // dep.notify('username','newValue');
+
+    // let node = new Watcher('username');
+    // dep.addSub(node)
+    // // Watcher 你把他想象成一个node节点;这个node节点的textContent包含了大胡子语法;  {{username}}
+
+    // 一个方法,他实现的功能应该是独立的;
     class Watcher {
-        constructor(data,key) {
-            // data   vue:  this.data;
+        constructor(vm,key,cb) {
+            this.cb = cb;
             // 如果constructor方法执行；
             // 那么说明一定有被实例；
             // 说明一定会有一个watcher对象；
-            Dep.watcher = this;  
+            // vm :  vue的实例:
+            // key: username;  username username  username  age age age;
+            // 正常情况下,是你在data.username发生变化的时候就去通知他;
+            Dep.target = this;    // let node = Watcher;
+
+            // watcher对象添加一次就够了;
+            // 销售 200W房子,  正常来说一条房子的需求,给我发N条信息就够了;
+            vm.data[key]  // this.data.username  this.data.age;
+            Dep.target = null;
         }
-        update(info) {
-            console.log(info);
+        update(newValue) {
+            console.log('我收到了你的消息,你的消息是:');
+            console.log(newValue);
+            this.cb(newValue)
         }
     }
     // vue希望你把所有的逻辑都写到这个vue函数中；
@@ -97,7 +130,7 @@
             this.observer(this.data);
 
             //渲染dom;
-            // this.compiler(this.element);
+            this.compiler(this.element);
             this.mounted = props.mounted;
             this.mounted();
         }
@@ -107,11 +140,13 @@
             Object.keys(data).forEach(key => {
                 //key:  username   age;
                 var value = data[key];    //data.username  data.age     get();  
-                let dep = new Dep();
+                let dep = new Dep();  // 出现了两个Dep;
                 // 数据劫持；
                 Object.defineProperty(data, key, {
                     // setter
                     set(newValue) {
+                        // xxxxxxxxxxxxxxxxxxxxxxxx;
+                        // dep.addSub(Dep.target);
                         // 假设现在你修改的是data.username 
                         // 我们需要把data.username 中所有的包含{{username}}的元素给全部替换掉；
                         // document.querySelector("#username").innerHTML = newValue;
@@ -122,7 +157,7 @@
                         // 我们想在这里进行修改大胡子语法中的内容；想把{{username}}给修改掉；
                         // 我不知道哪一个元素是中用到了这个username;我不知道把哪一个标签给改掉；
                         // 通知所有对应的元素，username的值发生了变化，他变化的值是：newValue;
-                        dep.notify('username', newValue);
+                        dep.notify(newValue);
                         //watcher对象，就该填加到哪？   watcher： node
                         // watcher.textContent = newValue;
                         // watcher对象在哪里添加
@@ -133,6 +168,11 @@
                     // getter
                     get() {
                         console.log('----------我走了get方法--------------');
+                        // 一个页面中要访问多次 this.data.username  
+                        // 只有在第一次new Watcher时,才把这个对象添加进来;
+                        if(Dep.target){
+                            dep.addSub(Dep.target);
+                        }
                         return value;
                     }
                 })
@@ -155,14 +195,18 @@
                     let reg = /\{\{(\s*)(\S+)(\s*)\}\}/; // 只是把一个正则赋值给了变量；
                     let textContent = node.textContent;
                     if (reg.test(textContent)) {
-                        let key = RegExp.$2;
+                        let key = RegExp.$2; 
                         // 如果你访问data对象中的一个key，他就会走到get方法中，username
                         //node    Watcher(); 
-                        let watcher = new Watcher();
+                        // var vm = new Vue();
+                        let watcher = new Watcher(this,key,function(newValue){
+                            // 用这种高阶函数实现了解耦;
+                            node.textContent = newValue;
+                        });
                         node.textContent = this.data[key];
-
-                        
                     }
+                }else if(nodeType == 1){
+                    // 元素;
                 }
                 // 如果你现在是一个文本节点  {{username}}
                 // 如果你现在是一个元素节点 <div>{{username}}</div>
@@ -198,11 +242,16 @@
         beforeMounte() {
             // console.log('this is beforeMounte');
         },
-        mounted() {
-            this.data.username = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        mounted() { 
+            // 因为this.data有数据劫持;
+            // 所以他就会走到set方法;
+            setInterval(()=>{
+                this.data.username = Math.random();
+            },1000)
             // console.log('this is mounted');
         }
     })
+
 </script>
 
 </html>
