@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+</body>
+
+<script>
+    class Vue {
+        // 
+        constructor(options) {
+            this.el = document.querySelector(options.el);
+            this.data = options.data;  // options.data.navs
+            let navs = options.data.navs  // [{id:1,},{id:2}]
+            console.log(this) // 
+            this.render();
+        }
+
+        render() {
+            // 在实例中,正常情况下,this指向指的都是 当前的实例;
+            console.log("fn中的this:")
+            console.log(this.data) // 
+        }
+    }
+
+    // Vue 中所有的属性和方法都会被 Vue所访问,但是 options和 Vue本身没有任何关系;
+    let vm = new Vue({
+        el: '#app2',
+        data: {
+            name: 'tuzi',
+            navs: [
+                {
+                    id: 1,
+                }, {
+                    id: 2
+                }
+            ]
+        }
+    }) //
+
+    console.log(vm.el)  // #app2 的dom元素;
+    console.log(vm.data)  // [1,2,3,4,5]
+
+
+    // var num = 1;
+
+    // var _num = 1;
+
+    // var obj  = {
+    //     num:1,
+    //     $num:1,
+    //     _num:1
+    // }
+
+    // 一个构造函数在执行并调用时,优先会执行 prototype.constructor方法;
+    // 每一个构造函数的原型(prototype)下面都会有一个constructor方法;
+    // 默认情况下, constructor方法就是你这个方法体本身;
+    // function Fn(){
+    //     var a = 1;
+    // }
+
+    // Fn.prototype.constructor = function(){
+    //     var a = 1;
+    // }
+
+
+    // class Fn {
+    //     // es6的 class 只是换了一种写法,在调用的时候,依然会去先走constructor()方法;
+    //     constructor() {
+
+    //     }
+
+    //     run() {
+
+    //     }
+    // }
+
+    // Fn.prototype.constructor = function () {
+
+    // }
+
+    // Fn.prototype.run = function () {
+
+    // }
+
+
+</script>
+
+</html>

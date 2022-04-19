@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="nav">
+        <template>
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+
+<script>
+    class Vue {
+        constructor(options) {
+            // options.el :   #nav;
+            this.$el = document.querySelector(options.el);  // nav;
+            this.$data = options.data;
+            
+            this.$temp = this.$el.querySelector("template").content.querySelector('.item');
+            // 所有方法,全部应该声明到prototype中去
+            this.render(this.$el, this.$temp, this.$data.navs);
+        }
+
+        // class中所有的方法的this都指向的是当前的实例;
+        render(el, temp, data) {
+            data.forEach(item => {
+                let cloneNode = temp.cloneNode(true);
+                cloneNode.innerHTML = item.value;
+                el.appendChild(cloneNode);
+            })
+        }
+    }
+
+    // 我们想实现的东西先写出来;
+    // 封装这个渲染模板的理念:是渲染所有的列表数据;
+    // 并且把所有的逻辑都放在这个vm中;
+    // 第一步:我们要实现这个列表的渲染;
+
+    // 类似于Vue的渲染的效果;
+    var vm = new Vue({
+        el:'#nav',
+        data: {
+            navs: [{
+                id: 1,
+                value: '文档',
+            }, {
+                id: 2,
+                value: '教程',
+            }, {
+                id: 3,
+                value: '博客',
+            }, {
+                id: 4,
+                value: '社区',
+            }]
+        }
+    });
+
+</script>
+
+</html>
