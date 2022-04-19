@@ -1,0 +1,94 @@
+/* 在css中,目前来说,包含5大类的功能 */
+/* 第一个,是初始化默认样式 */
+
+/* 不能用*号，性能问题，此处只可以写标签名 */
+body {
+    margin: 0;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+
+/* 第二种:公共样式,就算你换一个项目,也可以用到这种样式,叫做全局的公共样式 */
+.scale-1-2 {
+    transform: scale(1.2);
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+
+/* 第三种: 项目相关,他只能在当前项目中使用,这种公共的样式,叫做 项目中的公共样式 */
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* 声明人的可视区范围 */
+/* 所以不应该包含其它的样式，或者布局问题 */
+.wrap {
+    width: 80%;
+    min-width: 800px;
+    margin: 0 auto;
+}
+
+
+/* 第四种:变量的声明 */
+/* 根元素 */
+/* 声明变量的方法：  --开头加变量名 */
+/* :root 如果你把他想成是js的话，他相当于window */
+/* js:  var headerHeight = '60px' */
+/* css 为了和js不冲突，所以以 --开头 */
+:root {
+    --header-height: 60px;
+}
+
+/* 第五种： 就是当前页面中要用到的样式 */
+/* 写样式的时候，先写布局Layou,指的是整个的页面框架的大小 */
+/* 变量的使用  var(--header-height) */
+/* var heightHeight */
+.header {
+    height: var(--header-height);
+    background: #20232A;
+    padding: 0 20px;
+}
+
+.header .main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+.header .item {
+    padding: 8px 12px;
+}
+
+.header .ipt-search {
+    background-image: url('../../assets/images/icon-search.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-color: #20232A;
+    background-position-y: center;
+    text-indent: 20px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.ipt-search:focus {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+/* 在样式中，如果一个值的变化发生变化，另外一个值也应该随之变化时，那么，我们应该把这个值，声明成变量 */
+.container {
+    height: calc(100vh - var(--header-height));
+}

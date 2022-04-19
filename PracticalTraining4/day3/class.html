@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 总结:
+    //  0. 面向对象的思维;
+    //  1. es6中class的写法;
+    //  2. this指向的问题;
+    //  3.  class 中方法应该写到Prototype中
+    //  4. 属性应该定义在constructor中; 
+
+    // class
+    // 1. class在js中是最核心的东西;
+    // 2. 第二核心的是function;    函数在js中是一等公民... 
+
+    // class 其实就是 构造函数 ;
+
+    // es5
+    // this指向的问题?
+    // 谁调用 this就是谁;
+    // 结论: 
+    // 在构造函数中,所有的方法中,共用的this都指向实例 ,
+    // 除了用call,apply,bind之外;
+
+    // 技巧:
+    // 在你们没有3年开发经验之内;
+    // 你们需要用到的法则是:
+    // 任何构造函数的属性,都声明到constructor中;
+    // constructor 指的就是当前的函数本身;
+    // 任何动作或者是行为都需要挂载到 prototype中;
+    function Animal(name, type) {
+        this.name = name;
+        this.type = type;
+        this.height = height;
+        this.weight = weight;
+        this.like = []  //这些东西,都不会动, 所以要声明到constructor中; 
+        //this.eat() // 不行; 如果是一个动作,必须声明到 prototype中; 原因是,你每new 一个构造函数 ,就会创建一个这样的方法,会消耗内存;
+        // 但是如果挂载到prototype中,则所有的实例,公用一个方法; 这样性能会非常好;
+    }
+    Animal.prototype.run() = function () {
+        console.log(`${this.name}is run`)
+    }
+
+    Animal.prototype.eat = function () {
+        console.log(`${this.name} is eatting`)
+    }
+
+    let animal = new Animal('tutu', '兔子');
+    console.log(animal.type)  // 兔子
+    animal.run() //  tutu is run
+    animal.eat(); //
+
+
+    // es6的class的写法,其实就是构造函数;
+    // 所以 在js中,构造函数就是类,类就是构造函数; 
+    // 只不过一个是es5版本,一个是es6版本;
+    class Animal {
+        constructor(name, type) {
+            this.name = name;
+            this.type = type;
+        }
+        eat() {
+            console.log(`${this.name} is eatting`)
+        }
+        run() {
+            console.log(`${this.name}is run`)
+        }
+    }
+
+    // 这种代码思维,叫面向对象;
+    // 一个程序员写的Bug多不多,就完全看 面向对象的思维;
+    // 如果没有搞过开发, 一般情况下,需要1-2年的时间来转换这个面向对象的思维;
+    // 面向对象是什么? 就是只关注调用这个方法就实现某些功能,而不去关注他,如何实现;
+
+    // 比如xhr
+    // let xhr = new XMLHttpRequest();
+    // xhr.open();
+    // xhr.onload = function(){
+
+    // }
+    // xhr.send(); //
+
+
+    // let date = new Date() //
+    // date.getFullYear()  //我只需要关注这个方法可以获取我想要的值 ;
+    // 但是不需要去关注他是如何获取到的;
+    // 这种思维叫面向对象;
+</script>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./doc.css">
+    <script>
+        window.onload = function () {
+            // 数据结构： 在工作中，几乎服务端返回的所有数据都是这种数组套json的格式
+            // 通常情况下，这种格式叫 application/json;
+            // 他的结构为： 
+            // 这种结构的有一共性，就是在data层中，所有的对象，他的结构完全一样；
+            // let res = {
+            //     status: 1,
+            //     msg:'success',
+            //     data: [{
+            //         id: 1,
+            //         value: '文档',
+            //     }, {
+            //         id: 2,
+            //         value: '教程',
+            //     }, {
+            //         id: 3,
+            //         value: '博客',
+            //     }, {
+            //         id: 4,
+            //         value: '社区',
+            //     },]
+            // }
+            var data = [{
+                id: 1,
+                value: '文档',
+            }, {
+                id: 2,
+                value: '教程',
+            }, {
+                id: 3,
+                value: '博客',
+            }, {
+                id: 4,
+                value: '社区',
+            },]
+
+            // 操作dom;
+            // 命名规范：  如果是对象，开头应该以小写o为开头 代表的是obj
+            let oNav = document.querySelector('.nav');  //  查询
+            let oTemplate = oNav.querySelector('.item');  //  查询
+            oTemplate.remove(); // 删除
+            // 如果是多个，  可以用a开头 代表的是数组  arr;
+            // let aNav =  document.querySelectorAll('.nav');  // 伪数组
+
+            function render(oNav,oTemplate,data) {
+                data.forEach(item => {
+                    // 克隆节点，也叫复制节点；
+                    // 这个方法接收一个boolean，如果填true，则复制当前节点下所有的子节点，且复制对应节点的事件；
+                    let cloneNode = oTemplate.cloneNode(true);
+                    cloneNode.innerHTML = item.value;
+                    // 增
+                    oNav.appendChild(cloneNode);
+                })
+            }
+
+            // 你在封装任何一个方法的时候，考虑的都是复用性；
+            render(oNav,oTemplate,data);
+
+            var links = [{
+                id: 1,
+                value: 'v18.0.0',
+            }, {
+                id: 2,
+                value: '多语言',
+            }, {
+                id: 3,
+                value: 'GitHub',
+            }]
+
+            let oLink = document.querySelector('.links');
+            let oTeamp = oLink.querySelector('.item');
+            oTeamp.remove();
+            render(oLink,oTeamp,links);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 重点： css的划分  如何用css实现高复用性 -->
+    <!-- 学习写样式时候的顺序 -->
+    <!-- 还有就是我在样式中遇到问题时，如何去解决问题 -->
+    <!-- class的维度是css中最核心的东西 -->
+
+    <!-- 在写一个页面的时候，要在最外层包一层div,他的名字就代表当前页面 -->
+    <div class="doc">
+        <div class="header align-center">
+            <!-- wrap 代表着人的可视区 -->
+            <div class="wrap main">
+                <!-- logo -->
+                <div class="scale-1-2 align-center">
+                    <img class="icon  mr-5"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K"
+                        alt="">
+                    <span>React</span>
+                </div>
+
+                <!-- nav 是跳转的意思  -->
+                <!-- 如果一个列表中,有多个子项,且他们的样式都相同,那么这个class命名应该叫 item -->
+                <div class="nav align-center">
+                    <div class="item"></div>
+                </div>
+
+                <div>
+                    <input class="ipt-search scale-1-2" type="text" placeholder="搜索">
+                </div>
+
+                <div class="links align-center">
+                    <div class="item">v18.0.0</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+
+        </div>
+    </div>
+</body>
+
+</html>
