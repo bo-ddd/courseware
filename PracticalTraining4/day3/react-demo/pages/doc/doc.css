@@ -11,6 +11,10 @@ input {
     border: none;
 }
 
+::-webkit-scrollbar{
+    width:0;
+    height:0;
+}
 
 /* 第二种:公共样式,就算你换一个项目,也可以用到这种样式,叫做全局的公共样式 */
 .scale-1-2 {
@@ -37,7 +41,7 @@ input {
 /* 所以不应该包含其它的样式，或者布局问题 */
 .wrap {
     width: 80%;
-    min-width: 800px;
+    padding:0 80px;
     margin: 0 auto;
 }
 
@@ -57,10 +61,10 @@ input {
 /* 变量的使用  var(--header-height) */
 /* var heightHeight */
 .header {
-    height: var(--header-height);
+    min-height: var(--header-height);
     background: #20232A;
-    padding: 0 20px;
 }
+
 
 .header .main {
     display: flex;
@@ -91,4 +95,38 @@ input {
 /* 在样式中，如果一个值的变化发生变化，另外一个值也应该随之变化时，那么，我们应该把这个值，声明成变量 */
 .container {
     height: calc(100vh - var(--header-height));
+    display: flex;
+}
+
+.container .main{
+    flex:2.5;
+    overflow-x: hidden;
+}
+
+.container .title{
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.container .aside{
+    background:#f7f7f7;
+    min-width:200px;
+    flex:1;
+}
+
+@media screen and (max-width:900px){
+    .header .links{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .aside{
+        display: none;
+    }
+}
+
+@media screen and (max-width:700px){
+    .header .search{
+        display: none;
+    }
 }
