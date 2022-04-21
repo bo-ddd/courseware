@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="list">
+
+    </div>
+</body>
+<script>
+    // 
+    var data = [
+        {
+            id: 1,
+            type: 0,  // 0  : p   1: h1 2:h2;
+            value: 'this is text page'
+        },
+        {
+            id: 2,
+            type: 1,
+            value: 'this is main title page',
+            data: [
+                {
+                    type: 2,
+                    value: 'this is  h2 tag'
+                }
+            ]
+        }
+    ]
+
+    // 概要设计：
+    // 1。循环data数组；
+
+    // 渲染html，如果数据中，有子数据，则在去渲染子数据；
+    // 
+    function render(data,node) {
+        data.forEach(item => {
+            // type  :  item.type  //  1
+            // 2。根据type值，渲染不同的元素el；
+            let el = createNode(types[item.type]);
+            el.innerHTML = el.value;
+
+            if(item.data.length){
+                render(item.data, el);
+            }
+
+            // 5。 把el放到 .list中；
+            node.appendChild(el);
+        })
+    }
+
+    render(data,document.querySelector('.list'));
+
+    // create 创建  Node 节点    创建一个节点   type:类型     根据不同的类型，创建不同的节点；
+    // 检查这个方法是否标准：
+    // 1。一个方法只实现一个功能；
+    // 2。入参和方法名是否语义化；
+    function createNode(type) {
+        // item {id:1, type:0, value:'sdjfkalsd'}   item.type   == 0;
+        let types = ['p', 'h1', 'h2'];
+        return document.createElement(types[item.type]);
+    }
+
+    // 3。 如果当前item中的data有length 就去渲染对应的元素childEl；
+    // 4。 把渲染出来的元素childEl渲染放到el中；
+    // 5。 把el放到 .list中；
+
+
+
+    // 在工作中， 在你去开发一个业务需求时；
+    // 第一步是要写一个文档；
+    // 这个文档的名字叫做概要设计：
+
+
+    // 分析需求：
+    // 1.  根据数据结构（data）
+    // 2。 渲染不同的元素， 并放到 页面(.list)中；
+
+    // 1。因为data是一个数组，所以我们要进行循环；
+    // data.forEach(item=>{
+    // // 2。 在循环时，创建一个元素，
+    //     var node = createNode(item.type);  //  不知道什么时候创建方法？
+    //     var el = document.createElement(node);
+    //         // 3。 设置这个元素相应的html；
+    //         el.innerHTML = item.value;
+    //         // 4。  放入页面（.list）中；
+    //         document.querySelector('.list').appendChild(el);
+    // })
+
+    // function createNode(type){
+    //     let types = ['p','h1'];
+    //     return document.createElement(types[type]);
+    // }
+
+
+
+
+
+
+</script>
+
+</html>
