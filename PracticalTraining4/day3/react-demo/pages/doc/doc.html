@@ -270,37 +270,92 @@
         ]
     }
 ]
+// 郭帅奇 （1）
+// 郭朝伟  （1）
+// 程浩  （1）
+
+// 卫正阳   陈泽锦  （。5）
+
+// 
+class Article{
+    constructor(data){
+        this.data = data;
+        this.fragment = document.createDocumentFragment();
+        this.types = ['p','h1','a','h2','h3','section'];
+        this.el = this.generatorElement(data);
+    }
+
+    generatorElement(data){
+        var el =  data.type !== undefined ? this.createNode(data) : undefined;
+        this.enum(data)
+        return el;
+    }
+
+    createNode(data){
+        let el = document.createElement(this.types[data.type]);
+        el.innerHTML = data.title || data.value;
+        return el;
+    }
+
+    enum({data}){
+        if(data && data.length){
+            data.forEach(item=>{
+                let el = this.createNode(item);
+                this.fragment.appendChild(el);
+                this.enum(item);
+            })
+        }
+    }
+
+    append(node){
+        if(this.el)node.appendChild(this.el)
+        node.appendChild(this.fragment)
+    }
+}
+
 
 var oContainer = document.querySelector('.container');
 var oMain = oContainer.querySelector('.main');
 var oWrap = oMain.querySelector('.wrap');
 var temp = oWrap.querySelector('.article');
 temp.remove();
-// 循环数据；
 data.forEach(item=>{
-    // 克隆元素
-    var cloneNode = temp.cloneNode(true);
-    // 根据不同的item.type ，渲染不同的元素； 
-    // //0：默认文本  1:主标题  2: links 3: 二级标题 4：三级标题 5:描述；
-    var { type } = item;
-    var types = ['p','h1','a','h2','h3','section'];
-    if(type !== undefined ){
-        var el = document.createElement(types[type]);
-        el.innerHTML = item.title || item.value;
-        cloneNode.appendChild(el);
-    };
-
-    if(item.data.length){
-        item.data.forEach(item=>{
-            console.log(item);
-            var el = document.createElement(types[item.type]);
-            el.innerHTML = item.title || item.value;
-            cloneNode.appendChild(el);
-        })
-    }
-    
+    let cloneNode = temp.cloneNode(true);
+    let article = new Article(item);
+    article.append(cloneNode);
     oWrap.appendChild(cloneNode);
 })
+
+// var oContainer = document.querySelector('.container');
+// var oMain = oContainer.querySelector('.main');
+// var oWrap = oMain.querySelector('.wrap');
+// var temp = oWrap.querySelector('.article');
+// temp.remove();
+// // 循环数据；
+// data.forEach(item=>{
+//     // 克隆元素
+//     var cloneNode = temp.cloneNode(true);
+//     // 根据不同的item.type ，渲染不同的元素； 
+//     // //0：默认文本  1:主标题  2: links 3: 二级标题 4：三级标题 5:描述；
+//     var { type } = item;
+//     var types = ['p','h1','a','h2','h3','section'];
+//     if(type !== undefined ){
+//         var el = document.createElement(types[type]);
+//         el.innerHTML = item.title || item.value;
+//         cloneNode.appendChild(el);
+//     };
+
+//     if(item.data.length){
+//         item.data.forEach(item=>{
+//             console.log(item);
+//             var el = document.createElement(types[item.type]);
+//             el.innerHTML = item.title || item.value;
+//             cloneNode.appendChild(el);
+//         })
+//     }
+    
+//     oWrap.appendChild(cloneNode);
+// })
 
 
 // 方法的抽离：
@@ -312,7 +367,7 @@ data.forEach(item=>{
 //     temp.remove();
 //     // 循环数据；
 //     data.forEach(item => {
-//         // 克隆元素
+//         // 克隆元素  
 //         var cloneNode = temp.cloneNode(true);
 //         // 根据不同的item.type ，渲染不同的元素； 
 //         // //0：默认文本  1:主标题  2: links 3: 二级标题 4：三级标题 5:描述；
@@ -323,11 +378,11 @@ data.forEach(item=>{
 //     // 生成Node节点； 这个Node节点包含子节点；
 //     function generatorNode(item, cloneNode) {
 
-//         if (item.type !== undefined) appendChild.call(cloneNode, item);
+//         if (item.type !== undefined) appendChild(cloneNode, item);
 
 //         if (item.data.length) {
 //             item.data.forEach(item => {
-//                 appendChild.call(cloneNode, item);
+//                 appendChild(cloneNode, item);
 //             })
 //         }
 
@@ -335,14 +390,28 @@ data.forEach(item=>{
 //     }
 
 //     // 把元素放到节点中； 
-//     function appendChild(item) {
+//     function appendChild(cloneNode,item) {
 //         var types = ['p', 'h1', 'a', 'h2', 'h3', 'section'];
 //         var { type } = item;
 //         var el = document.createElement(types[type]);
 //         el.innerHTML = item.title || item.value;
 
-//         this.appendChild(el);
+//         cloneNode.appendChild(el);
 //     }
 
+// append:     child:  
+// if (item.type !== undefined) appendChild.call(cloneNode, item);
+
+// call是改变this指向；
+// call  apply  bind;
+// appendChild.call(cloneNode,item)
+
+
+// if (item.type !== undefined) appendChild(cloneNode, item);
+
+
+// 1。 根据需求写概要设计
+// 2。 application/json数据格式的转换
+//   [{}]  数组套json;
 </script>
 </html>
