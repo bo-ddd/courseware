@@ -57,6 +57,24 @@
     // 还要把 样式效果和 业务逻辑分离；
     // 跳转页面  点击 nav 进行跳转； 
     // 跳转的地分别为 #1-4
+
+
+    let  nav = new Tab({
+        el:'.header .nav',
+        item:'.item',
+        activeClassName:'abc'  //如果不传 默认情况下是active; 非必填项
+    })
+
+    Array.from(aItem).forEach(el=>{
+        el.onclick = function(){
+            window.location.href = '#1' 
+        }
+    })
+
+    // 
+    // onclick事件， 
+    // 1. 切换active的ui效果
+    // 2. 跳转
 </script>
 
 </html>

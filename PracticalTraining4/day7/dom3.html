@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom</title>
+    <style>
+        .active{
+            background:red;
+        }
+
+        .links .active{
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+    </div>
+
+    <div class="links">
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+    </div>
+
+    <div class="box">
+        <span>box1</span>
+    </div>
+</body>
+<script>
+    var oLink = document.querySelector('.links');
+    var aItem = oLink.querySelectorAll('.item');
+
+
+
+
+
+    // 改变样式;
+    oLink.addEventListener('click',handleClick,false);
+
+    // 这个e是必须存在的
+    function handleClick(e){
+        console.log(e); //  是事件的对象;
+        // e.target  点击的那个元素   .item;
+        console.log(e.target); // .item;
+        e.target.classList.add('active');
+    }
+
+    // 要把 ui 效果  和业务效果分享;
+    oLink.onclick = function(e){
+        console.log('这是我的跳转逻辑')
+        // console.log(e.target.parentNode.querySelectorAll('*'))
+    }
+
+
+
+    // var oBox = document.querySelector('.box');
+
+    // // this  e.target;
+    // // this:谁调用,this就是谁;  this ==  oBox;
+    // oBox.onclick = function(e){
+    //     // e.target   target:目标
+    //     // 是你点击的那个元素(目标);
+    //     console.log(this) //
+    //     console.log(e.target)
+    //     if(e.target == 'span'){
+    //         console.log('//那么,我就执行我的active相关的逻辑')
+    //     }
+    // }
+</script>
+</html>
