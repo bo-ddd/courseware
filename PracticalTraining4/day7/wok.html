@@ -5,39 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./tab.js"></script>
-    <style>
-        .active{
-            background:yellow;
-        }
-    </style>
 </head>
 <body>
-    <div class="nav">
-        <div class="item">item</div>
-        <div class="item">item</div>
-        <div class="item">item</div>
-        <div class="item">item</div>
-        <div class="item">item</div>
-    </div>
+    
 </body>
 <script>
-     var nav = new Tab({
-         el:'.nav',
-         item:'.item',
-         defaultActive:window.location.hash.substring(1)
-     })
-
-    //  BOM 
-    // 浏览器对象模型;
-    // hash: 这种在浏览器的url地址中,后缀以#开始后的所有的值,都是hash值;
-    console.log(window.location.hash)
-
-    // history
-    // window.location.href;
-
-
-    // 作业:
+        // 作业:
     // 页面中一个列表;
     // 列表中展示的是当前页面的数据;
     // 默认返回5条数据; 
@@ -61,8 +34,5 @@
     pre.onclick = function(){
         // 上一页效果;
     }
-
-
-
 </script>
 </html>
