@@ -10,13 +10,13 @@
     <div class="list">
         <div class="item"></div>
     </div>
-    <div>当前第1页</div>
+    <div class="current-page">当前第1页</div>
     <div>共多少页</div>
     <div>上一页</div>
     <div>下一页</div>
 </body>
 <script>
-        // 作业:
+    // 作业:
     // 页面中一个列表;
     // 列表中展示的是当前页面的数据;
     // 默认返回5条数据; 
@@ -27,18 +27,55 @@
     // 一个是下一页
     // 点击上一页,列表数据换成上一页的数据;
     // 点击 下一页,列表数据换成是下一页数据;
+
+    class Pagination{
+        constructor(){
+            this.pageNum = 3;
+        }
+
+        get data(){
+            return 
+        }
+    }
+
     let pagination = new Pagination({
-        pageSize:5,  // 一页展示几条;
-        pageNum:2, //返回第几页的数据
+        pageSize:10,  // 一页展示几条;
+        pageNum:1, //返回第几页的数据
         data:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     });
 
+    // pagination ：分页：
+    // current 当前 
+    // page  页：
+    // 获取当前页面是第几页面；
+    // pagination.currentPage  //获取到当前页面；
+
+    // total 总条数；
+    // pagination.total //  页面总条数；
+
+    // data数据   分页中当前页面的数据；
+    // pagination.data   //   当前页面的数据
+
     next.onclick = function(){
         // 下一页的效果
+        // 获取到下一页的数据，然后渲染页面；
+        render(pagination.data) 
+        // 获取当前是第几页，并渲染页面；
+        document.querySelector('.current-page').innerHTML = pagination.currentPage;  // 高吗？  是不是比你写的高？  
+        // 获取 一共几页，并渲染页面；
+        document.querySelector('.current-page').innerHTML = pagination.totalPage;  // 高吗？  是不是比你写的高？
+
     }
 
     pre.onclick = function(){
         // 上一页效果;
     }
+
+
+    // 作业二： 
+    // 自己写application/json的数据：这个数据是 course的数据；
+    // 根据  hash值来动态渲染数据结构 
+    // hash == 'doc'   //展示  doc的页面；
+    //  hash == 'course'  // 课件页面的数据；
 </script>
 </html>

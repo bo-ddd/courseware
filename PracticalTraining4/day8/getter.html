@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getter</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // get方法使用注意事项
+    // 不要在get方法中去改变其它任何的(全局)变量;
+    // 必须有返回值;
+    let person = {
+        username:'xiaoming',
+        sex:0,  //男  0:女
+        // 调用的时候,就把 这个方法想成是 实例 的一个属性;
+        get like(){
+            // 不要改变其它的变量
+            // this.sex = 'a'; // 特别忌讳
+            
+            //局部作用域内的变量可以改;
+            // var a = 1;
+            // a = 2;
+            if(this.sex == 1){
+                return '篮球'
+            }else{
+                return '裙子'
+            }
+        }
+    }
+
+    person.sex = 1;
+    let res = person.like;  // 爱号本身就是一个属性, 他不是动作;   like()
+    console.log(res)  // 篮球;
+
+
+    class Arr{
+        constructor(arr){
+            this.data = arr;
+            console.log(this.data);
+            console.log(this.length);//
+            // get的调用方法和你调用属性的时候是一个样子的;
+            // this.length = this.data.length;  // 代码健壮性差
+
+            // var a = getA();
+            // var b = getB(); 
+            // console.log(getA() + getB());// 3;
+        }
+
+        getLength(){
+            return this.data.length;
+        }
+
+        // get方法应用场景:  如果a发生变化 ,那么b也会随着a的变化而变化 ,那么这个b就应该用get来实现;
+        get length(){
+            return this.data.length;
+        }
+    }
+
+    let arr = new Arr([1,23,4,5,12,3,123,1,2,3,12,3,12,3,1,23,123]);
+
+
+    arr.data = [1,2,3,4,5]  //  
+    console.log(arr.getLength());  //17;
+
+
+</script>
+</html>
