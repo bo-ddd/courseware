@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    // obj.get 底层实现就是 利用  Object.definePropery来实现的；
+    // 因为在Object.definePropery中有一个  getter 和 setter方法；
+    // 但是通常情况下；
+    // 我们在 {} 中用get方法时，不会修改其它数据；
+    // 但是在Object.definePropery中会修改其它的数据；
+    // 这个语法，叫数据劫持
+
+
+
+
+    var obj = {
+        sex: 1,
+        get sexName() {
+            this.sex = 2;
+            console.log('我进到sexName属性中来了')
+            return this.sex == 1 ? '男' : '女';
+        }
+    };
+
+    obj.name = 'xiaoming';
+
+    // 在get方法中，不要去更改其它作用域的属性的值；
+    // obj.sexName //
+
+
+    // 但是通常情况下，没有人这么用；
+    // 更加牛点的作用，
+    // 因为通常情况下，这个属性，可以有另外的作用：
+    // 数据劫持；   
+    // 通常情况下： 这个方法就是要改变其它作用域的值 ；
+    var age = 18;
+    Object.defineProperty(obj, 'age', {
+        get() {
+            return age;
+        },
+        set(newValue) {
+            document.querySelector('.box').innerHTML = newValue;
+            age = newValue;
+        }
+    })
+
+    // 获取这个属性的时候， 他会去走get方法；
+    obj.age
+    // 在设置这个属性的时候， 他会去走 get方法；
+    obj.age = 'xiaoming';
+
+    console.log(obj);
+</script>
+
+</html>

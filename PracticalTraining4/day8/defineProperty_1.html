@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let obj = {
+        // 
+        get(){
+
+        }
+    };
+
+
+    // let userInfo = getUserInfo() //get获取  一定要有返回值；
+    // setActiveStatus() //设置选中状态；
+
+    // 如果要用set进行数据劫持，一般情况下要和get连用；
+    // 如果只用get，那可以不用 set;
+
+    let sex = 1;  // 1  0:女
+    Object.defineProperty(obj,'sex',{
+        get(){
+            return sex;
+        },
+        set(newValue){
+            // newValue : 1; 2; hello world;
+            // this  :  obj   obj.username  this.username
+            // 如果有人调用 obj.username = xxx时 ,那么他就会走到set方法中来
+            // this.username = newValue; 栈溢出；报错；无限循环；
+
+            // 约束  如果说你给我传不男也不女 ，我就默认让你是男；
+            if(newValue !== 0 || newValue !== 1){
+                sex = 1;
+            }else{
+                sex = newValue;
+            }
+        }
+    })
+
+    // get  是 只要去调用 obj.username 就会去走get方法；
+
+    // set  只要你去执行 obj.username = xiaohong 的时候 那么他就走set方法；
+
+    obj.sex = 'hello world'; 
+    console.log(obj.sex);
+</script>
+</html>
