@@ -3,3 +3,9 @@ console.log('this is home page js')
 
 
 console.log(Article); 
+
+
+const Pagination  = require('pagination');//  浏览器会告诉你， 没有requre这个方法；;
+window.onload = function (){
+
+}
