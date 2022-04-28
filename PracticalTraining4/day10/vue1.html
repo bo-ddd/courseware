@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue的基本使用</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div>账号:</div>
+        <div @click="handleClick">{{username || phone}}</div>
+        <div>{{ food.name }}</div>
+        <div>{{ food.weight }}</div>
+        <div>{{ arr }}</div> -->
+
+        <!-- 循环 -->
+        <!-- <div class="list" v-for="item in arr">
+            <div>{{ item }} </div>
+        </div> -->
+
+        <!-- 循环数组中嵌套对象 application/json -->
+        <!-- <div>----------循环数组中嵌套对象 application/json-----------</div>
+        <div class="list" v-for="item in data">
+            <div>{{ item.id }}</div>
+            <div>{{ item.username }} </div>
+            <div v-for="like in item.like">
+                <div>爱号id: {{like.id}}</div>
+                <div>爱号名称: {{like.value}}</div>
+            </div>
+        </div> -->
+
+        <!-- 在vue中 ,渲染页面的语法就是  {{  }} -->
+        <!-- 这种花括号叫 大胡子语法 -->
+        <!-- <div>用户信息:</div>
+        <div>用户名: {{username}}</div>
+        <div>性别: {{sexName}}</div> -->
+
+
+        <!-- 用户信息列表 -->
+        <div>用户信息列表</div>
+        <div v-for="item in userInfoList">
+            <div>用户id:{{ item.id }}</div>
+            <span>用户名:{{item.username}}</span>
+            <div>性别: {{ getSexName(item.sex) }}</div>
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            userInfo:{},
+            username: 'xiaoming',
+            phone: 1555555555,
+            email: '814151789@qq.com',
+            food: {
+                name: '面包',
+                weight: '1kg'
+            },
+            userInfoList:[
+                {
+                    id:1,
+                    username:'xiaoming',
+                    sex:1,
+                },
+                {
+                    id:2,
+                    username:'xiaogang',
+                    sex:0
+                }
+            ],
+            arr: [1, 2, 3, 4, 5],  //通常数组都是需要循环到页面上的;
+            data: [
+                {
+                    id: 1,
+                    username: 'xiaoming',
+                    like: [
+                        {
+                            id: 1,
+                            value: '打篮球'
+                        },
+                        {
+                            id: 2,
+                            value: '踢足球'
+                        },
+                    ]
+                },
+                {
+                    id: 2,
+                    username: 'xiaogang',
+                    like: [
+                        {
+                            id: 1,
+                            value: '打游戏'
+                        },
+                        {
+                            id: 2,
+                            value: '上课睡觉'
+                        },
+                    ]
+                },
+            ]
+        },
+        methods:{
+            //你定义的所有方法,都可以定义到这个methods中;
+            // 点击事件的声明 是在 标签元素上添加一个 @click的属性
+            // 方法的声明是在 methods对象中进行声明;
+            handleClick(){
+                console.log('hello world')
+                console.log(this.username)  // xiaoming;
+            },
+            getUserInfo(){
+                return {
+                    username:'xiaoming',
+                    sex:0
+                }
+            },
+            getSexName(sex){
+                return sex == 1 ? '男' : '女';
+            }
+        },
+        // 就是人们理解 的 get 
+        computed:{
+            sexName(){
+                return this.sex == 1 ? '男' : '女';
+            }
+        },
+        // created:  钩子函数的概念
+        // 当你打开页面的时候,如果直接需要做一些逻辑操作,那么你就可以在这个钩子函数中去写;
+        created() {
+            // this.handleClick() // helloworld;
+            // 不管后端 给你什么,如果他给你的数据可以直接渲染到页面上,那你就直接用;
+            // 如果他给不了你,他给你啥,你都要转成自己想要的结构 并渲染到页面上;
+            // [string]  {obj} 
+            // 5json   一数组套json;
+            // this.data = JSON.parse(res.data);
+            // 这种逻辑是错的:
+            // 如果用户有用户名, 那我展示  用户名, 如果没有用户名,那我展示  手机号;
+            // this.username =  this.username ? this.username : this.phone;
+
+            // this.arr.forEach(item=>{
+            //     document.querySelelctor('.list').innerHTML += `<div> ${  item } </div>`;
+            // })
+
+            // 概要设计:
+            // 1. 当用户进入a.html中时, 首先要访问服务端,获取用户信息列表;然后在xxx;
+            // vue钩子函数 :  beforeCreate  created  beforeMounte  mounted  updated  beforeUpdate  destroy
+
+            // 假设我们调服务端的接口;
+            // var userInfo = this.getUserInfo(); // 
+            // this.username = userInfo.username;
+            // this.sex = userInfo.sex;
+            // this.sexName = this.sex == 1 ? '男' : '女';
+            //如用用户修改了性别 , sex = 0  => 1;
+            // sexName
+            // this.userInfoList.forEach(item=>{
+            //     item.sexName =  item.sex == 1 ? '男' : '女'
+            // })
+        }
+    })
+</script>
+
+</html>

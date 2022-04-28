@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button >跳转到a页面</button>
+        <div>页面b 内容</div>
+    </div>
+</body>
+<script>
+    // 模块化   
+    import Home from './home.html';
+    import Mine from './mine.html';
+    let hash = window.location.hash.substring(1)  //  localhost:8080#home;  #home home   #mine  mine
+    if(hash ==  'home'){
+        document.getElementById('app').innerHTML = Home;
+    }else if(hash = 'mine'){
+        document.getElementById('app').innerHTML = Mine;
+    }
+    document.querySelector('button').onclick = function(){
+        window.location.hash = 'mine';
+    }
+</script>
+</html>

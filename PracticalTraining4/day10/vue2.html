@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="handleClick">count++</button>
+        <div>{{ count }}</div>
+
+
+        <button @click="show">显示</button>
+        <button @click="hidden">隐藏</button>
+        <button @click="handleSwitchClick">开关</button>
+        <div v-if="articleShowStatus">文章列表及内容纟xxxxxx</div>
+        <div v-show="articleShowStatus">文章列表及内容纟xxxxxx show</div>
+    </div>
+</body>
+<script>
+    // v-if  v-show的应用场景?
+    // 如果一个页面需要频繁的去展示 和隐藏,那么应该用v-show 否则用 v-if;
+    // v-if相当于创建和销毁元素
+    // if(articleShowStatus){
+    //     var cloneNode = el.cloneNode(true);
+    //     oApp.appendChild(cloneNode) ; //
+    // }else{
+    //     el.remove();
+    // }
+    // v-show 相当于 display:none   display:block;
+
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            count:1,
+            articleShowStatus:true
+        },
+        methods:{
+            handleClick(){
+                this.count++;
+            },
+            show(){
+                this.articleShowStatus = true;
+            },
+            hidden(){
+                this.articleShowStatus = false;
+            },
+            handleSwitchClick(){
+                this.articleShowStatus = !this.articleShowStatus;
+            }
+        }
+    })
+</script>
+</html>

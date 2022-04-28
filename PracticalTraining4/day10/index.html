@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+
+<script>
+    $(function(){
+        // 所以  jquery 还是 mvc;
+        // jquery 在全球使用占比  100%；  前端  后端 ==> 100%;
+        // jquery  真的是 因为  代码写的少一点 就 火遍全球的吗？ 
+        // 答： 不是；
+
+        // jquery火的原因，是因为 当时  世界上 浏览器分为两种， 一种ie， 一种叫非ie;
+        // 他们使用的浏览器内核 一点都不一样；
+        //  导致 js好多语法，不可以在每个浏览器上兼容；
+        // 几乎任何一个行js 都不兼容；
+        if(document.querySelector){
+            document.querySelector('.box').innerHTML = 'hello world';
+        }else {
+            document.getElementByClassName()
+
+            if(document.getElementByClassName){
+                // .........
+            }
+        }
+
+        $(".box").html() //
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+
+        }
+        xhr.send();
+
+        //5 行就可以；
+        // 前端难？  难在， 你需要做各浏览器的适配？
+        ajax({
+            type:"POST",
+            url:"/user/info",
+            data:{
+
+            },
+            success:function(res){
+
+            }
+        })
+
+        $.ajax({
+            type:"POST",
+            url:"/user/info",
+            data:{
+
+            },
+            success:function(res){
+
+            }
+        })
+
+        // $(".box").html('hello world')
+
+
+        // // Array.from('elname').forEach  //  Array.from   =》  不好使；
+        // $(".list").forEach(item=>{
+
+        // })
+
+        // let aItems = document.querySelectorAll('.items');
+
+        // Array.prototype.forEach = function(cb){
+        //     for(let i = 0; i < this.length; i++){
+        //         let item = this[i]  // ['xiaoming','xiaohong','xiaogang']
+        //         cb(this[i],i)
+        //     }
+        // }
+
+        // arr.forEach(item,i=>{
+
+        // })
+        
+        // Array.prototype.slice.call(aItems).forEach = {
+
+        // }
+
+
+
+
+        // 这种时代一直发展的， 随着js的更新  es5，es6;
+        // js =>  发现了很多语法；
+        // forEach()  filter  await  async  map set get Object.definePropery()  Object.assign() //
+        // es6根本没人用；   =>   用的都jqurey 
+        
+
+        // 直到有一天，开发界的人，所有的人都放弃了这种开发模式；
+        // 微软就是 罪魁祸首   =》  原因是， 在当时那个年代， 几乎所有的不兼容，都来自 ie8及ie8以下； ie3 ie4 ie5 ie6 ie7 ie8;
+
+        // 好多公司投诉  =》  开发太难了；
+        // 微软=》  window
+        // 直到有一天，  微软开发浏览器的人， 自己说，维护不下去了；
+        // 微软=》 低头了
+        // 向全世界宣布 ：
+        // ie8及 ie8以下浏览器不在维护；
+        // 也就是说 宣告死亡；
+        // 以后如果有哪个用户在用ie8及以下，出现问题，概不负责；
+
+            // 发出声明的第二天：
+            // angular  vue  react  
+            // jquery => 100%;
+            // jquery 30%;
+            // 一个月的时间不到 几乎所有的新项目 都用 的是  angular  vue react;
+        
+
+            // 你微软宣布 ie死亡,但是用户又不能不用ie;
+            // window ie浏览器;
+            // window浏览器 分为两个;
+
+            // edge   :   chrome内核  ==  
+
+
+            //  ie  怪异盒模型
+
+
+            // common.css
+            // body,p,div,h1,h2,h3,h4{margin:0; box-sizeing:border-box;}
+
+
+            // angular  vue react;
+
+            // angular 80%;
+            // 但是这个框架太重了;  学习成本比较高  因为当时 都是jquery类型的项目;
+
+
+            // vue 
+            // 50个页面 jquery;
+            // 51 => vue;   vue使用非常简单；  70%；=》   10 => 3 react  => vue; 
+            // vue渐近式框架  =》 你可以在用jquery的时候 去用vue;  他的目的是 让你渐渐的放弃jquery 
+            // 不代表的着混着用比较好；  
+
+            // vue  ：  不建议你去操作dom;   document.getElementById('box');
+
+
+            // 故事告诉我们：
+            // angular  vue  react => 不兼容ie8及以下浏览器；
+            // 如果你们找那军工项目 =》 2级涉密 他呢，不会用这种新型的框架 说是为了安全性；  jquery; 
+            // jquery  =>  官网 几乎都是jquery ;
+            // seo; 搜索引擎；  你用jquery写出的项目，可以更好的被百度查出来；
+
+            // vue;  mvvm   react all in js    react  所有的东西全部扔到js中；
+
+            // vue的理念： 是不操作dom; 数据变，视图变，   视图变=》数据变；
+            // jquery   :   操作dom比较简单
+            // js在前端的本质就是操作dom来渲染页面；
+            // 有可能 你现在 用不到这些增删改；
+
+            // 但 vue  =>  不火; 10倍   2W;
+            // javascript =>   es6  但凡出一个新语法
+
+            // 你们刚进社会时,是依赖vue的, 但是工作一段时间以后,想要拿到20-30-40-50;
+            // 他要的原生js;
+            // document.querySelelctor()  //但是我明确的说明;在vue的项目中,还是要用的;
+            // vue是不推荐你用dom去渲染元素;
+
+
+            // 导出excel  
+            // let excel = new Execel({
+            //     el:document.querySelector('.tabl')
+            // })
+
+            // excel.el.cloneNode() //
+            // excel.el.querySelector('.operator').remove();
+
+
+            // 模块化  =>  webpack  =>  nodejs  
+            // vue-cli  =>  webpack  => nodejs;
+
+            // webpack  vite 替换掉  vite 速度比 webpack100倍;
+            // 原因是  es6新出一个语法,这个语法去开发的vite 打包速度就是比nodejs要快;
+
+            // es6是原生js
+    })
+</script>
+</html>
