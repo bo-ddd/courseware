@@ -46,3 +46,14 @@
    1. 自己可以手动创建vue-cli项目
    2. 可以实现自己创建公共样式
    3. 知道在哪个地方写页面，写逻辑，写样式；
+7. 今天学习内容梳理
+   1.  npm  install  安装依赖
+   2. npm  uninstall  卸载依赖
+   3. npm run serve  启动 vue的项目；
+   4. 在HomeView.vue 中写第一个页面，js,css,html都写在一个页面中； 
+   5. 样式写在template标签中
+   6. js写在script标签中
+   7. css写在style中
+   8. 每次写项目都需要npm run serve 启动项目后才可以开发；
+   9. element-ui不需要懂他是如何写的，只要能粘对就ok;
+   10. 用什么组件就去elementui中找；
