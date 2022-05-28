@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="nav">
+        <template>
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+<script>
+    // 总结：
+    // 优化点1： 用 template 标签可以减少重绘和回流的次数，提高性能；
+    // 优化点2: 利用 闭包，实现不污染全局变量，的作用；
+
+    // 这就形成了一个闭包；
+    //  闭包的应用场景
+    function getNavList() {
+        // 这里边有三个变量  oNav, oTemplate,  data
+        // 闭包优点是不会污染全局变量；
+        // 但是会存在内存泄漏的问题
+        // 思考题： 那么这三个变量会导致内存泄漏吗？
+        // 答： 不会；
+        // 因为如果这三个变量如果用作全局变量，
+        // 这几个变量因为被其它的函数所调用，
+        // 依然不会被垃圾回收机制所回收；
+        let oNav = document.querySelector('.nav');  //  查询
+        let oTemplate = oNav.querySelector('template');  //  查询
+        var data = [{
+            id: 1,
+            value: '文档',
+        }, {
+            id: 2,
+            value: '教程',
+        }, {
+            id: 3,
+            value: '博客',
+        }, {
+            id: 4,
+            value: '社区',
+        }]
+        return function () {
+            return render(oNav, oTemplate.content.querySelector('.item'), data);
+        }
+    }
+
+    // 闭包的应用场景？
+    let renderNavList = getNavList();
+
+    renderNavList();
+
+    function render(oNav, oTemplate, data) {
+        data.forEach(item => {
+            let cloneNode = oTemplate.cloneNode(true);
+            cloneNode.innerHTML = item.value;
+            oNav.appendChild(cloneNode);
+        })
+    }
+</script>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./doc.css">
+    <script>
+        window.onload = function () {
+            (function(){
+                // 数据结构： 在工作中，几乎服务端返回的所有数据都是这种数组套json的格式
+            // 通常情况下，这种格式叫 application/json;
+            // 他的结构为： 
+            // 这种结构的有一共性，就是在data层中，所有的对象，他的结构完全一样；
+            // let res = {
+            //     status: 1,
+            //     msg:'success',
+            //     data: [{
+            //         id: 1,
+            //         value: '文档',
+            //     }, {
+            //         id: 2,
+            //         value: '教程',
+            //     }, {
+            //         id: 3,
+            //         value: '博客',
+            //     }, {
+            //         id: 4,
+            //         value: '社区',
+            //     },]
+            // }
+            var data = [{
+                id: 1,
+                value: '文档',
+            }, {
+                id: 2,
+                value: '教程',
+            }, {
+                id: 3,
+                value: '博客',
+            }, {
+                id: 4,
+                value: '社区',
+            },]
+
+            // 操作dom;
+            // 命名规范：  如果是对象，开头应该以小写o为开头 代表的是obj
+            let oNav = document.querySelector('.nav');  //  查询
+            let oTemplate = oNav.querySelector('.item');  //  查询
+            oTemplate.remove(); // 删除
+            // 如果是多个，  可以用a开头 代表的是数组  arr;
+            // let aNav =  document.querySelectorAll('.nav');  // 伪数组
+
+            function render(oNav, oTemplate, data) {
+                data.forEach(item => {
+                    // 克隆节点，也叫复制节点；
+                    // 这个方法接收一个boolean，如果填true，则复制当前节点下所有的子节点，且复制对应节点的事件；
+                    let cloneNode = oTemplate.cloneNode(true);
+                    cloneNode.innerHTML = item.value;
+                    // 增
+                    oNav.appendChild(cloneNode);
+                })
+            }
+
+            // 你在封装任何一个方法的时候，考虑的都是复用性；
+            render(oNav, oTemplate, data);
+
+            var links = [{
+                id: 1,
+                value: 'v18.0.0',
+            }, {
+                id: 2,
+                value: '多语言',
+            }, {
+                id: 3,
+                value: 'GitHub',
+            }]
+
+            let oLink = document.querySelector('.links');
+            let oTeamp = oLink.querySelector('.item');
+            oTeamp.remove();
+            render(oLink, oTeamp, links);
+            })()
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 重点： css的划分  如何用css实现高复用性 -->
+    <!-- 学习写样式时候的顺序 -->
+    <!-- 还有就是我在样式中遇到问题时，如何去解决问题 -->
+    <!-- class的维度是css中最核心的东西 -->
+
+    <!-- 在写一个页面的时候，要在最外层包一层div,他的名字就代表当前页面 -->
+    <div class="doc">
+        <div class="header align-center">
+            <!-- wrap 代表着人的可视区 -->
+            <div class="wrap main">
+                <!-- logo -->
+                <div class="scale-1-2 align-center">
+                    <img class="icon  mr-5"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K"
+                        alt="">
+                    <span>React</span>
+                </div>
+
+                <!-- nav 是跳转的意思  -->
+                <!-- 如果一个列表中,有多个子项,且他们的样式都相同,那么这个class命名应该叫 item -->
+                <div class="nav align-center">
+                    <div class="item"></div>
+                </div>
+
+                <div class="search">
+                    <input class="ipt-search scale-1-2" type="text" placeholder="搜索">
+                </div>
+
+                <div class="links align-center">
+                    <div class="item">v18.0.0</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="main">
+                <div class="wrap">
+                    <div class="article"></div>
+                    <!-- <div class="article">
+                        <h1>开始</h1>
+                        <section>这是一个 React 文档及相关资源的概览页面。</section>
+                        <p>React 是一个用于构建用户界面的 JavaScript 库。你可以在首页或教程中学习什么是 React。</p>
+                    </div> -->
+                    <!-- <div class="article">
+                        <ul class="nav">
+                            <li class="item"><a href="#">体验 React</a></li>
+                            <li class="item"><a href="#">体验 React</a></li>
+                            <li class="item"><a href="#">体验 React</a></li>
+                            <li class="item"><a href="#">体验 React</a></li>
+                            <li class="item"><a href="#">体验 React</a></li>
+                            <li class="item"><a href="#">体验 React</a></li>
+                            <li class="item"><a href="#">体验 React</a></li>
+                        </ul>
+                    </div>
+                    <div class="article">
+                            <h2>体验 React</h2>
+                            <p>React 从诞生之初就是可被逐步采用的，因而你可以按需引入或多或少的 React 特性。不管你是想体验下 React，用它给简单的 HTML
+                                页面增加一点交互，还是要开始一个完全由 React 驱动的复杂应用，该章节内容里的链接都能帮你快速开始。</p>
+                            <h3>在线体验</h3>
+                            <p>如果你对体验 React 感兴趣，可以尝试在线代码编辑器。从 CodePen，CodeSandbox，或者 Stackblitz 开始一个 React 版本的 Hello World
+                                模板。</p>
+                            <p>如果你喜欢使用自己的文本编辑器，也可以下载这个 HTML
+                                文件，然后编辑文件内容，最后再用浏览器从本地文件系统打开文件，预览页面效果。注意：这个文件中包含一个低效率的运行时代码转换脚本，所以我们推荐仅在简单的演示项目中使用。</p>
+                    </div> -->
+                </div>
+            </div>
+            <aside class="aside">
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+                <div>sadjfklasdf</div>
+            </aside>
+        </div>
+    </div>
+</body>
+<script>
+    // applilcation /  arr obj   obj=> 
+    var data = [
+    {
+        id: 1,
+        type: 1, //0：默认文本  1:主标题  2: links 3: 二级标题 4：三级标题 5:描述；
+        title: '开始',
+        data: [
+            {
+                type: 5,
+                value: '这是一个 React 文档及相关资源的概览页面。',
+                tag: []
+            },
+            {
+                type: 0,
+                value: 'React 是一个用于构建用户界面的 JavaScript 库。你可以在首页或教程中学习什么是 React。',
+                tag: [
+                    {
+                        type: 1,
+                        keyword: 'React',
+                        index: [1]  // 匹配value的个数，让对应的所引值 加粗 ；  
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        id: 2,
+        data: [
+            {
+                type: 2,
+                title: '体验React',
+                path: '#route1',
+            },
+            {
+                type: 2,
+                title: '学习 React',
+                path: '#route2',
+            },
+            {
+                type: 2,
+                title: '获取最新消息',
+                path: '#route3',
+            },
+            {
+                type: 2,
+                title: '版本化文档',
+                path: '#route4',
+            },
+            {
+                type: 2,
+                title: '找不到想要的？',
+                path: '#route5',
+            },
+        ]
+    },
+    {
+        id: 3,
+        type: 3,
+        title: '体验 React',
+        data: [
+            {
+                type: 0,
+                value: 'React 从诞生之初就是可被逐步采用的，因而你可以按需引入或多或少的 React 特性。不管你是想体验下 React，用它给简单的 HTML 页面增加一点交互，还是要开始一个完全由 React 驱动的复杂应用，该章节内容里的链接都能帮你快速开始。',
+                tag: [
+                    {
+                        type: 1, //
+                        keyword: '你可以按需引入或多或少的 React 特性',
+                        index: [1]  // 匹配value的个数，让对应的所引值 加粗 ；  
+                    }
+                ]
+            },
+            {
+                type: 4,
+                title: '在线体验',
+                data: [
+                    {
+                        type:0,
+                        value: '如果你对体验 React 感兴趣，可以尝试在线代码编辑器。从 CodePen，CodeSandbox，或者 Stackblitz 开始一个 React 版本的 Hello World 模板。',
+                        tag: [
+                            {
+                                type: 2, // 1.bold  2:links;
+                                keyword: 'CodePen',
+                                path:'#CodePen',
+                            },
+                            {
+                                type: 2,
+                                keyword: 'CodeSandbox',
+                                path:'#CodeSandbox'
+                            }
+                        ]
+                    },
+                    {
+                        type:0,
+                        value: '如果你喜欢使用自己的文本编辑器，也可以下载这个 HTML 文件，然后编辑文件内容，最后再用浏览器从本地文件系统打开文件，预览页面效果。注意：这个文件中包含一个低效率的运行时代码转换脚本，所以我们推荐仅在简单的演示项目中使用。',
+                        tag: []
+                    }
+                ]
+            }
+        ]
+    }
+]
+// 郭帅奇 （1）
+// 郭朝伟  （1）
+// 程浩  （1）
+
+// 卫正阳   陈泽锦  （。5）
+
+// 
+class Article{
+    constructor(data){
+        this.data = data;
+        this.fragment = document.createDocumentFragment();
+        this.types = ['p','h1','a','h2','h3','section'];
+        this.el = this.generatorElement(data);
+    }
+
+    generatorElement(data){
+        var el =  data.type !== undefined ? this.createNode(data) : undefined;
+        this.enum(data)
+        return el;
+    }
+
+    createNode(data){
+        let el = document.createElement(this.types[data.type]);
+        el.innerHTML = data.title || data.value;
+        return el;
+    }
+
+    enum({data}){
+        if(data && data.length){
+            data.forEach(item=>{
+                let el = this.createNode(item);
+                this.fragment.appendChild(el);
+                this.enum(item);
+            })
+        }
+    }
+
+    append(node){
+        if(this.el)node.appendChild(this.el)
+        node.appendChild(this.fragment)
+    }
+}
+
+
+var oContainer = document.querySelector('.container');
+var oMain = oContainer.querySelector('.main');
+var oWrap = oMain.querySelector('.wrap');
+var temp = oWrap.querySelector('.article');
+temp.remove();
+data.forEach(item=>{
+    let cloneNode = temp.cloneNode(true);
+    let article = new Article(item);
+    article.append(cloneNode);
+    oWrap.appendChild(cloneNode);
+})
+
+// var oContainer = document.querySelector('.container');
+// var oMain = oContainer.querySelector('.main');
+// var oWrap = oMain.querySelector('.wrap');
+// var temp = oWrap.querySelector('.article');
+// temp.remove();
+// // 循环数据；
+// data.forEach(item=>{
+//     // 克隆元素
+//     var cloneNode = temp.cloneNode(true);
+//     // 根据不同的item.type ，渲染不同的元素； 
+//     // //0：默认文本  1:主标题  2: links 3: 二级标题 4：三级标题 5:描述；
+//     var { type } = item;
+//     var types = ['p','h1','a','h2','h3','section'];
+//     if(type !== undefined ){
+//         var el = document.createElement(types[type]);
+//         el.innerHTML = item.title || item.value;
+//         cloneNode.appendChild(el);
+//     };
+
+//     if(item.data.length){
+//         item.data.forEach(item=>{
+//             console.log(item);
+//             var el = document.createElement(types[item.type]);
+//             el.innerHTML = item.title || item.value;
+//             cloneNode.appendChild(el);
+//         })
+//     }
+    
+//     oWrap.appendChild(cloneNode);
+// })
+
+
+// 方法的抽离：
+// 学习的东西： 什么时候该去抽离；
+// var oContainer = document.querySelector('.container');
+//     var oMain = oContainer.querySelector('.main');
+//     var oWrap = oMain.querySelector('.wrap');
+//     var temp = oWrap.querySelector('.article');
+//     temp.remove();
+//     // 循环数据；
+//     data.forEach(item => {
+//         // 克隆元素  
+//         var cloneNode = temp.cloneNode(true);
+//         // 根据不同的item.type ，渲染不同的元素； 
+//         // //0：默认文本  1:主标题  2: links 3: 二级标题 4：三级标题 5:描述；
+//         cloneNode = generatorNode(item, cloneNode);
+//         oWrap.appendChild(cloneNode);
+//     })
+
+//     // 生成Node节点； 这个Node节点包含子节点；
+//     function generatorNode(item, cloneNode) {
+
+//         if (item.type !== undefined) appendChild(cloneNode, item);
+
+//         if (item.data.length) {
+//             item.data.forEach(item => {
+//                 appendChild(cloneNode, item);
+//             })
+//         }
+
+//         return cloneNode;
+//     }
+
+//     // 把元素放到节点中； 
+//     function appendChild(cloneNode,item) {
+//         var types = ['p', 'h1', 'a', 'h2', 'h3', 'section'];
+//         var { type } = item;
+//         var el = document.createElement(types[type]);
+//         el.innerHTML = item.title || item.value;
+
+//         cloneNode.appendChild(el);
+//     }
+
+// append:     child:  
+// if (item.type !== undefined) appendChild.call(cloneNode, item);
+
+// call是改变this指向；
+// call  apply  bind;
+// appendChild.call(cloneNode,item)
+
+
+// if (item.type !== undefined) appendChild(cloneNode, item);
+
+
+// 1。 根据需求写概要设计
+// 2。 application/json数据格式的转换
+//   [{}]  数组套json;
+</script>
+</html>

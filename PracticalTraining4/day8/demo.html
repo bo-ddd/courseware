@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var a = 1;
+    var b = 2;
+    var arr = [1,23,4,5,6,7,7,2123123];
+    // 如果一个方法你要在当前屏幕中看到;那最好用 var fn = function(){}
+
+    // 如果这个方法
+    var fn = function(){
+        return arr.slice();
+    }
+    // 函数声明
+    // 什么时候 var fn   什么时候用 function(){}
+    // 哪个代码可读性高就看哪一个;
+    // 通常情况下 function 是要写到页面最下面的; 
+
+
+    var obj = {
+        a,
+        b,
+        arr,
+        fn:function(){
+            return this.slice();
+        }
+    }
+    console.log(obj.a);
+    console.log(obj.b);
+    console.log(obj.arr);
+
+
+</script>
+</html>

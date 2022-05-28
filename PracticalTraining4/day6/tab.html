@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="item active">item1</div>
+        <div class="item">item2</div>
+        <div class="item">item3</div>
+        <div class="item">item4</div>
+    </div>
+</body>
+<script>
+    var oNav = document.querySelector('.nav')
+    var aItem = oNav.querySelectorAll('.item');  // 这种dom的集合，并不是数组，只是伪数组；
+    // 需求： nav中的item加一个实景色；
+    // 概要设计：
+    // 1。 给所有nav中的item填加点击事件； 
+    // 循环所有的item;
+    // forEach是 数组中的方法， 
+    // 数组中有一个方法 Array.from()  //将伪数组转换成数组
+    Array.from(aItem).forEach(el => {
+        // 2. 给所有的item添加点击事件；
+        el.onclick = function () {
+            // 3。 把所有的item中的active class给消除掉；
+            Array.from(aItem).forEach(el => {
+                el.classList.remove('active');
+            })
+            // 4。 给当前这个class 增加一个 active的样式；
+            this.classList.add('active');
+        }
+    })
+
+    // 需求： nav中的item加一个实景色；
+    // 概要设计：
+    // 1。 给所有nav中的item填加点击事件；
+    // 循环所有的item;
+    // 2. 给所有的item添加点击事件；
+    // 3。 把所有的item中的active class给消除掉；
+    // 4。 给当前这个class 增加一个 active的样式；
+
+    // Array.from()  
+
+
+    // 除了实现active效果之外； 
+    // 还要把 样式效果和 业务逻辑分离；
+    // 跳转页面  点击 nav 进行跳转； 
+    // 跳转的地分别为 #1-4
+
+
+    let  nav = new Tab({
+        el:'.header .nav',
+        item:'.item',
+        activeClassName:'abc'  //如果不传 默认情况下是active; 非必填项
+    })
+
+    Array.from(aItem).forEach(el=>{
+        el.onclick = function(){
+            window.location.href = '#1' 
+        }
+    })
+
+    // 
+    // onclick事件， 
+    // 1. 切换active的ui效果
+    // 2. 跳转
+</script>
+
+</html>

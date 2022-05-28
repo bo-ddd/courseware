@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="list">
+
+    </div>
+</body>
+<script>
+    // function  class
+    // 第一步，用人类思考的过程去写代码，他会让你的逻辑去更加的清晰 
+    // 第二步， 封装方法时，一定要利用好return这个值；
+
+    var data = [
+        {
+            id: 1,
+            type: 1,  //  1: h1   2: h2   3:h3
+            value: 'h1开始',
+        },
+        {
+            id: 2,
+            type: 2,  //  1: h1   2: h2   3:h3
+            value: 'h2开始',
+        },
+        {
+            id: 3,
+            type: 3,  //  1: h1   2: h2   3:h3
+            value: 'h3开始',
+        }
+    ]
+
+    // 在刚开始学习方法的封装的时候； 几乎不要用到下面这种封装方法；
+    // 在刚开始学习时，这种风格的封装，你们还把控不了；
+    // fn1();
+    // fn2();
+
+    let oList = document.querySelector('.list')
+
+    data.forEach(item => {
+        // item   {id:1,:type:1,value:''}
+        // 根据需求，你会发现， 这个标签是动态变的，所有这个标签的值 ，一定是一个变量；
+        // 这种过程叫做 方法的抽离 ，一个方法只有一个功能；
+        // 这种方法的封装可读性会很高；
+        var el = createElement(item.type);
+        el.innerHTML = item.value;
+        oList.appendChild(el);
+    })
+    
+
+
+
+    function createElement(type) {
+        var types = ['h3', 'p', 'span'];
+        var el = document.createElement(types[type - 1]);
+        return el;
+    }
+
+
+
+
+
+    function fn(type){
+        var types = ['div','span'];
+        // 如果 type == 1   div    arr[type - 1]  =  span;
+        // 如果 type ==2    span   arr[type - 1]  = undefined;
+        // var el = arr[type - 1]  //  'span'  arr[type] = div   arr[2] = span;
+        return document.createElement(types[type - 1]);
+    }   
+
+    let res = fn(2)   // undefined;  'hello';  DOM.div;
+</script>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 加的都标签 */
+        body{
+            margin:0;
+        }
+
+        /* css变量 */
+        /* :root 代表根节点  html标签 */
+        :root{
+            --header-height:100px;
+        }
+
+        .header{
+            height:var(--header-height);
+            background:#373940;
+            display: flex;
+            align-items: center;
+        }
+
+        /* calc 计算属性 */
+        /* 100vh => 代表的是屏幕的高 */
+        .container{
+            height: calc(100vh - var(--header-height));
+        }
+
+        .wrap{
+            width:1200px;
+            margin:0 auto;
+        }
+
+        .icon-logo{
+            width:20px;
+            height:20px;
+            background:red;
+        }
+
+        .header .logo{
+            color:#fff;
+            display: flex;
+        }
+
+
+        .nav{
+            display: flex;
+        }
+
+        .nav .item{
+            padding:6px 12px;
+        }
+
+        /* .nav .item{
+            width:200px;
+            height:40px;
+            line-height: 40px;
+            text-align: center;
+        } */
+    </style>
+</head>
+<body>
+    <!-- <div class="doc">
+        <div class="header">
+            <div class="wrap">
+                <div class="logo">
+                    <div class="icon-logo"></div>
+                    <span>React-router-dom</span>
+                </div>
+            </div>
+        </div>
+        <div class="container"></div>
+    </div> -->
+
+    <!-- button -->
+    <div class="nav">
+        <div class="item">Home</div>
+        <div class="item">Cart</div>
+        <div class="item">Mine</div>
+        <div class="item">Category</div>
+        <div class="item">GoodsDetail</div>
+    </div>
+
+    <style>
+        /* 基类 */
+        /* .icon-logo{
+            width:20px;
+            height:20px;
+        }
+
+        .icon-search{
+            width:20px;
+            height:20px;
+        }
+
+        .icon-text{
+            width:20px;
+            height:20px;
+        } */
+
+        /* 因为他们都公用这相同的属性，所以他们应该有一个公共的基类base/父类parent/超类（super） */
+        .icon{
+            width:20px;
+            height:20px;
+        }
+    </style>
+
+    <img class="icon icon-logo" src="./icon-logo.png" alt="">
+    <img class="icon icon-search" src="./icon-logo.png" alt="">
+    <img class="icon icon-text" src="./icon-logo.png" alt="">
+
+    <!-- 样式中的继承 和  类的维度   -->
+    <div class="flex align-center"></div>
+</body>
+
+<script>
+    //  class 不管是样式， 还是js中的class 或者构造函数 
+    // 他们都有一个统的一特性；
+    // 就是要对 class的维度有认知；
+    // 维度：
+    // icon-search  =>  icon;     search是icon图；
+    // ipt-search   =>  input    search是input框
+
+    // js
+    // Animal   Dart();     鸭子 所属  动物；
+
+    // 这种最外及的维度叫 基类； 也叫超类；也叫父类；
+</script>
+</html>

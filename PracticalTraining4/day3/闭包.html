@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 闭包:
+    // 在你们见到的闭包中,几乎都是一个方法return另外一个方法,那么这个方法就可以称为闭包;
+
+    //return: 一个方法中，如果没有return一个具体的值 ，那么这个方法默认返回一个undefined;
+    // 闭包的概念是： 如果一个方法中，返回一个方法，那么这个方法就可以简单的理解为他是一个闭包；
+    // 闭包： 如果这个fn中的变量，被fn1方法所使用；
+    // 因为作用域链的原因；
+    // 这个变量num 就是使用到了闭包； 
+
+    // 垃圾回收机制；
+    // 我们js代码，有可能在你的工作中，一个js写了10万行； 
+    // 但是，他为了有更好的性能，会把其中很多个不用的变量给清除掉,这个删除不用的代码的过程叫垃圾回收；
+    // eg:
+    // var a = 1;
+
+    function fn(cb) {
+        var num = 1;
+        return function fn1() {
+            // js作用域的概念及应用;
+            cb(num);
+        }
+    }
+
+    // 闭包
+    // e也不是全局变量，他也是在局部就有的；
+    // dom.onclick = function(e){
+    //     console.log(e)  // 这个e就是通过闭包传过来的；
+    // }
+
+    // 他不是全局变量，他是只存在闭包中的
+    let res = fn(function (e) {
+        console.log("我拿到fn给我传过来的那个num值了，他是：")
+        console.log(e)  //e :  1
+    });
+
+    // let res = function fn1(num) {
+    //         cb(num);
+    //     }
+    // }
+    // 如果一个方法返回一个方法；
+    // 那么这个方法就可以被 执行；
+
+    res();
+
+
+    // function handle(cb) {
+    //     console.log(cb);
+    //     // a.push(6);
+
+    //     // console.log(a.toString()) // Object.prototype.toString 
+
+    //     // a = function () {
+    //     //     console.log(1)
+    //     // }
+
+    //     cb();  //
+    // }
+
+
+    // handle('hello world')  // hello.world;
+    // handle([1, 2, 3, 4, 5])  // [1,2,3,4,5];
+    // handle({ username: 'xiaoming' })
+    // handle(function () {
+    //     console.log()
+    // })
+
+
+
+</script>
+
+</html>

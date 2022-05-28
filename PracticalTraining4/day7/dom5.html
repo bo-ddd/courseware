@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./tab.js"></script>
+    <style>
+        .active{
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+    </div>
+</body>
+<script>
+     var nav = new Tab({
+         el:'.nav',
+         item:'.item',
+         defaultActive:window.location.hash.substring(1)
+     })
+
+    //  BOM 
+    // 浏览器对象模型;
+    // hash: 这种在浏览器的url地址中,后缀以#开始后的所有的值,都是hash值;
+    console.log(window.location.hash)
+
+    // history
+    // window.location.href;
+
+    // 这个tab切换学完以后达到的要求：
+    // 要求学的  开发思想和思路
+    // 类的基本概念，  this
+    // 如何改变this指向
+    // addEventListener的应用场景 
+    // 在这个tab类中， 你需要把什么样的方法进行封装，
+    // 面向对象的思想， 这个思想其实不是特别好转换；
+    // 面向过程的开发， 开发成本会很高； 
+    // elementui  vant 插件；
+    // 你可以把这种思想应用到的业务层去；
+    // 
+
+
+
+
+</script>
+</html>

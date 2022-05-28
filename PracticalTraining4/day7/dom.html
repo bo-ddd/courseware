@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom</title>
+    <style>
+        .active{
+            background:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+    </div>
+</body>
+<script>
+    // 新手，刚开始写逻辑的时候，写一个小功能，就看一下控制台，查看是否有效果；
+    // 
+    var oNav = document.querySelector('.nav');
+    var aItem = oNav.querySelectorAll('.item');
+    console.log(aItem) // 
+    Array.from(aItem).forEach((el,index) =>{
+        el.onclick = function(){
+            Array.from(aItem).forEach(el=>{
+                el.classList.remove('active')
+            })
+            this.classList.add('active');
+            window.location.href = '#' + index;
+        }
+    })
+</script>
+</html>

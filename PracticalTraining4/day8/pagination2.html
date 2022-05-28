@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="example">
+        <div class="list">
+            <div class="item"></div>
+        </div>
+        <div class="current-page">当前第1页</div>
+        <div class="total-page">共多少页</div>
+        <div class="pre">上一页</div>
+        <div class="next">下一页</div>
+    </div>
+</body>
+<script>
+    // 目前为止: 发现
+    // 方法有可能会封装,但不是知道什么时候该去封装;
+    // 面向对象的思维不太明确,局限性比较大;
+    // 面向对象的思想: 我不需要关注 这个方法如何实现,只需要调用这个方法就能实现我想要的东西;
+
+
+    var data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    // var pageSize = 5;  //一页展示多少条数据;
+    // var pageNum = 1;  // 当前第几页;
+    // // slice: 这个数组的方法是返回一个新的数组;
+    // var currentData =  pagination.();
+    
+    var pagination = {
+        pageSize: 5,
+        pageNum: 1,
+        data:data.slice(),
+        getCurrentData: function () {
+            //获取当前页面的数据;
+            // 偏移量: 从第几条开始拿数据;
+            var offset = (this.pageNum - 1) * this.pageSize
+            return this.data.slice(offset, offset + this.pageSize);
+        },
+        getTotalPage: function () {
+            // 获取总共多少页;
+            return Math.ceil(this.data.length / this.pageSize);
+        },
+        // 获取当前是第几页;
+        getCurrentPage: function () {
+            return this.pageNum;
+        }
+    }
+
+    // 概要设计:
+    // 1. 根据data值,渲染数据列表;
+    // 2. 给 上一页添加点击事件, ;
+    var oPre = document.querySelector('.pre');
+    oPre.onclick = function () {
+        pagination.pageNum--;
+        if (pagination.pageNum <= 0) pagination.pageNum = 1;
+        handleTabPageClick()
+    }
+
+    // 3. 给 下一页添加点击事件, ;
+    var oNext = document.querySelector('.next');
+    oNext.onclick = function () {
+        pagination.pageNum++;
+        // 如果当前页面 > 总页面数,  让当前页面等于最后一页;
+        let totalPage = pagination.getTotalPage();
+        if (pagination.pageNum > totalPage) {
+            pagination.pageNum = totalPage;
+            // 优化
+            return;
+        }
+        handleTabPageClick()
+    }
+
+    // 渲染列表;
+    var oList = document.querySelector(".list");
+    var oItem = oList.querySelector(".item");
+    oItem.remove();
+
+    // 在打开页面的时候,直接去渲染这个元素;
+    handleTabPageClick()
+
+    function handleTabPageClick() {
+        // 只需要去动态的获取到这个currentData;
+        //获取data值,然后渲染列表
+        let currentData = pagination.getCurrentData();
+        render(currentData);
+        // 3. 获取一共有多少页
+        let totalPage = pagination.getTotalPage();
+        document.querySelector('.total-page').innerHTML = `共${totalPage}页`;
+        // 4. 获取当前是第几页;
+        let currentPage = pagination.getCurrentPage();
+        document.querySelector('.current-page').innerHTML = `当前第${currentPage}页`;
+    }
+
+    // 渲染
+    function render(data) {
+        oList.innerHTML = '';
+        data.forEach(item => {
+            var cloneNode = oItem.cloneNode(true);
+            cloneNode.innerHTML = item;  // 1,2,3,4,5;
+            oList.appendChild(cloneNode);
+        })
+    }
+
+</script>
+
+</html>

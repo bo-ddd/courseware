@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            height: 500px;
+            background: red;
+        }
+
+        /* 媒体查询简单的可以理解成 js if  else */
+        /* screen : 屏幕 */
+        /* max-width : 最大宽 */
+        /* 屏幕的最大宽是 900px 范围之内时 */
+        /* 屏幕的宽小于 900px 时 */
+        @media screen  and (max-width:900px) {
+            .box{
+                background-color: blue;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+</body>
+<script>
+    // 
+    var oBox = document.querySelector('.box');
+    window.onresize = function () {
+        let width = oBox.offsetWidth;
+        if (widht < 900) {
+            oBox.style.backgroundColor = 'blue'
+        }else if(width < 1000){
+            oBox.style.backgroundColor = 'yellow'
+        }else if(width < 1100){
+            oBox.style.backgroundColor = 'pink'
+        }else if(width < 1200){
+            oBox.style.backgroundColor = '#ccc'
+        }
+    }
+</script>
+
+</html>

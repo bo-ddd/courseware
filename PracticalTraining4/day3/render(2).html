@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>render(二) 优化</title>
+</head>
+
+<body>
+    <div class="nav">
+        <template>
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+<script>
+
+
+    // 概要设计
+    /**
+     * 1. 找到渲染元素的父级
+     * 2。 找到模块
+     * 3。 删除模板
+     * 4。 循环数据
+     *      1。克隆节点
+     *      2。改变克隆节点的html;
+     *      3. 把克隆的节点增到父元素中； 
+    */
+
+    // 把一个元素放在html中，会触发重绘和回流，会影响性能
+    // 然后在没有任何使用的场景下，又去删除当前元素
+    // 又会造成重绘和回流
+
+    // html为了解决这个问题，在html5中，新增了一个标签，可以解决这个问题；
+    // 这个标签就是你们熟悉的 template
+    // 这个标签，他在页面加载的时候，并不会去渲染； 
+    // 就是说，浏览器如果看到这个标签，他不会去解析，而是选择直接跳过；
+
+    let oNav = document.querySelector('.nav');  //  查询
+    let oTemplate = oNav.querySelector('template');  //  查询
+
+    // let oTemplate = oNav.querySelector('.item');  //  查询
+    // oTemplate.remove() 
+
+
+  
+
+    console.log(oTemplate.content) //
+    console.log(oTemplate)
+
+    render(oNav, oTemplate.content.querySelector('.item'), data);
+
+    function render(oNav, oTemplate, data) {
+        data.forEach(item => {
+            let cloneNode = oTemplate.cloneNode(true);
+            cloneNode.innerHTML = item.value;
+            oNav.appendChild(cloneNode);
+        })
+    }
+</script>
+
+</html>

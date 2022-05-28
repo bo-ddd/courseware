@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // get语法;
+    var obj = {
+        username: 'xiaoming',
+        // get语法  看上去  是一个以get为关键字 +   方法体fn(){}
+        get abc() {
+
+        }
+    }
+
+    // 调用的时候和调用属性是一样的；
+    console.log(obj.username)
+    console.log(obj.abc)
+
+    var text = '1.abc.txt'  // 有一个文件名；   序列号 +  fileName + fileType;
+
+    var file = {
+        name: '1.abc.txt',
+        get arr() {
+            return this.name.split('.');
+        },
+        get serialNumber() {
+            return this.arr[0];
+        },
+        get fileName() {
+            var arr = this.name.split('.');
+            return this.arr[1];
+        },
+        get fileType() {
+            return this.arr[2];
+        }
+    }
+
+    var file2 = extend(file)  ; // 浅拷贝；
+
+    function extend(file){
+        let obj = {}
+        Object.keys(file).forEach(key=>{
+            obj[key] = file[key];
+        })
+        return obj;
+    }
+    file2.name = '2.ab.html'
+
+    // 你每new一个对象，他是一个新的实例；
+    class File {
+        constructor(name) {
+            this.name = name;
+        }
+        get arr() {
+            return this.name.split('.');
+        }
+        get serialNumber() {
+            return this.arr[0];
+        }
+        get fileName() {
+            var arr = this.name.split('.');
+            return this.arr[1];
+        }
+        get fileType() {
+            return this.arr[2];
+        }
+    }
+
+    // 什么时候可以用json，什么时候要用到class;
+    // 复用性；
+    var file = new File('003.getter.html');
+
+    var asideFile = new File('1.a.html');
+
+    // 这3个变量的值 会随着 name的改变而改变，所以，这三个值就应该用get;
+    console.log(file.name) // 1.abc.txt
+    console.log(file.serialNumber) // 1
+    console.log(file.fileName) // abc
+    console.log(file.fileType)  //txt
+
+
+    // file.name = '008.helloworld.html';
+    // // 这3个变量的值 会随着 name的改变而改变，所以，这三个值就应该用get;
+    // console.log(file.name) // 1.abc.txt
+    // console.log(file.serialNumber) // 1
+    // console.log(file.fileName) // abc
+    // console.log(file.fileType)  //txt
+
+
+    var arr = new Array(1, 2, 3, 4, 5, 6, 7);
+    // 数组的长度永远和 length这个变量是强关联关系；
+    // length
+
+    // var arr = [1,2,3,4,5];
+    // arr.push(6);
+    // console.log(arr.length)  // 6;
+
+    var data = [
+        {
+            id: 1,
+            title: '热门点击',
+            get value() {
+                return `| ${this.title}`
+            }
+        },
+        {
+            id: 2,
+            title: '中国国情'
+        }
+    ]
+
+
+</script>
+
+</html>

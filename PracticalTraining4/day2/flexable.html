@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+        }
+        
+        .header{
+            height:60px;
+            background:red;
+        }
+
+        .wrap{
+            width:80%;
+            min-width: 800px;
+            max-width: 1200px;
+            height:60px;
+            background: yellow;
+            margin:0 auto;
+        }
+
+        /* 网格 */
+        /* .content{
+            display: grid;
+            grid-template-columns: 1fr 3fr 2fr 1fr;
+            align-content: center;
+        } */
+
+        .content{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flex{
+            display: flex;
+        }
+
+        .item{
+            padding:7px 12px;
+        }
+
+        .content > div{
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="doc">
+        <div class="header">
+            <div class="wrap content">
+                <div class="logo">React</div>
+                <div class="nav flex">
+                    <div class="item">item</div>
+                    <div class="item">item</div>
+                    <div class="item">item</div>
+                    <div class="item">item</div>
+                </div>
+                <div class="search">
+                    <input type="text">
+                </div>
+                <div class="version flex">
+                    <div class="item">item</div>
+                    <div class="item">item</div>
+                    <div class="item">item</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

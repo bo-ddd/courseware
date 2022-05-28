@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="example">
+        <div class="list">
+            <div class="item"></div>
+        </div>
+        <div class="current-page">当前第1页</div>
+        <div class="total-page">共多少页</div>
+        <div class="pre">上一页</div>
+        <div class="next">下一页</div>
+    </div>
+</body>
+<script>
+    var orderList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+
+    class Pagination {
+        constructor(options) {
+            this.pageSize = 5;
+            this.pageNum = 1;
+            this.data = options.data ? options.data.slice() : [];
+        }
+
+        get offset(){
+            return (this.pageNum - 1) * this.pageSize;
+        }
+
+        get currentData(){
+            const { offset } = this;  
+            return this.data.slice(offset, offset + this.pageSize);
+        }
+
+        get totalPage(){
+            return Math.ceil(this.data.length / this.pageSize);
+        }
+
+        get currentPage(){
+            return this.pageNum;
+        }
+    }
+
+    let pagination = new Pagination({
+        data: orderList
+    })
+
+    var oPre = document.querySelector('.pre');
+    oPre.onclick = function () {
+        pagination.pageNum--;
+        const { pageNum } = pagination;
+        if (pageNum <= 0) pagination.pageNum = 1;
+        handleTabPageClick()
+    }
+
+    // 3. 给 下一页添加点击事件, ;
+    var oNext = document.querySelector('.next');
+    oNext.onclick = function () {
+        // 分页+1;
+        pagination.pageNum++;
+
+        const { totalPage, pageNum } = pagination;
+        // 约束;
+        if (pageNum > totalPage) {
+            pagination.pageNum = totalPage;
+            return;
+        }
+        // 渲染列表;
+        handleTabPageClick()
+    }
+
+
+    // var obj = {
+    //     num:1  //2;
+    // }
+    // var { num } = obj;
+    // // obj.num++
+    // num++   
+
+
+
+    // 渲染列表;
+    var oList = document.querySelector(".list");
+    var oItem = oList.querySelector(".item");
+    oItem.remove();
+
+    // 在打开页面的时候,直接去渲染这个元素;
+    handleTabPageClick()
+
+    function handleTabPageClick() {
+        const { currentData, totalPage, currentPage } = pagination;
+        // 渲染列表;
+        render(currentData);
+        // 3. 获取一共有多少页
+        document.querySelector('.total-page').innerHTML = `共${totalPage}页`;
+        // 4. 获取当前是第几页;
+        document.querySelector('.current-page').innerHTML = `当前第${currentPage}页`;
+    }
+
+    // 渲染
+    function render(data) {
+        oList.innerHTML = '';
+        data.forEach(item => {
+            var cloneNode = oItem.cloneNode(true);
+            cloneNode.innerHTML = item;  // 1,2,3,4,5;
+            oList.appendChild(cloneNode);
+        })
+    }
+</script>
+
+</html>

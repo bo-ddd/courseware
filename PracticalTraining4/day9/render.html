@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ username }}
+        <div>
+            <div>
+                {{ age }}
+                <div>
+                    <span>{{username}}</span>
+                    <span>年龄：</span>
+                    <span>{{age}}</span>
+                    <span> 性别 ： </span>
+                    <span> {{ sex }}</span>
+                </div>
+            </div>
+        </div>
+        <span> {{ username }}</span>
+    </div>
+</body>
+<script>
+
+
+// var obj = {
+//     username:'xiaoming',
+//     age:12
+// }
+
+// var obj2 = {
+//     age:12
+// }
+
+// Object.assign(obj,obj2) ///
+
+    class Vue {
+        constructor(options) {
+            // 这也是为什么在这种el前要加一个$el的原因；
+            this.$el = document.querySelector(options.el);
+            this.$data = options.data;
+            this.created = options.created;
+            this.$methods = options.methods;
+            Object.assign(this, this.$methods);
+            // this.$data   {username:'xiaoming',age:'18',sex:1}
+            Object.assign(this,this.$data);  //
+            this.created();
+            // 编译  html;
+            this.compiler(this.$el);
+        }
+
+        compiler(el) {
+            let childNodes = el.childNodes;
+
+            Array.from(childNodes).forEach(node => {
+                if (node.nodeType == 3) {
+                    // 你的值 是不是 {{ xxxx }}
+                    let textContent = node.textContent;   // node.innerHTML 
+                    // 他就可以匹配出来这个  {{ }}
+                    let reg = /\{\{(\s*)(\S+)(\s*)\}\}/;
+                    if (reg.test(textContent)) {
+                        var key = RegExp.$2;  // username;
+                        node.textContent = this.$data[key];
+                    }
+                }
+                if (node.childNodes.length) {
+                    this.compiler(node);
+                }
+                // nodeType == 3  // 文本  {{ username }}
+
+            })
+        }
+    }
+
+    // 数据驱动 视图；
+    // 你现在点击 一个按钮，他就需要去渲染列表
+    // 不如， 数据一变，你视图就变；
+    // this.data.username = 'xiaohong'
+    // 数据驱动视图；
+    // vue   mvvm  数据变 视图就会变， 你视图变，数据就会变；
+    // vue的底层实现原理就 Object.defineProperty() // 
+
+    // 你这个vue写的不太行?
+    // 在我页面打开的时候，这些需要渲染的数据 我是不清楚的，
+    // created();
+
+    // this.$data.username 
+    // this.$data.age;
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            username: 'xiaoming',
+            age: 18,
+            sex: 1,
+            $data:[]
+        },
+        created() {
+            console.log('--------------created-------------')
+            console.log(this.username);
+            console.log(this.age);
+            console.log(this.sex);
+            console.log(this.getUserInfo())
+        },
+        // 方法s  复数；
+        methods:{
+            getUserInfo(){
+                return '你获取到了用户信息';
+            }
+        }
+    })
+
+
+    function getUserInfo(){
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom</title>
+    <style>
+        .active{
+            background:red;
+        }
+
+        .links .active{
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+    </div>
+
+    <div class="links">
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+        <div class="item">link-item</div>
+    </div>
+</body>
+<script>
+    // 新手，刚开始写逻辑的时候，写一个小功能，就看一下控制台，查看是否有效果；
+    // 
+    var oNav = document.querySelector('.nav');
+    var aItem = oNav.querySelectorAll('.item');
+    console.log(aItem) // 
+    Array.from(aItem).forEach((el,index) =>{
+        el.onclick = function(){
+
+            // 初级版的封装；
+            // 可以在你的代码出现bug时，能较快的解决问题；
+            setActiveStatus.call(this,aItem);
+
+            // 现在看到这种业务逻辑只有一行；
+            window.location.href = '#' + index;
+        }
+    })
+
+    // 一样的地方/可复用的地方：
+    // 1.都要声明 父级div;
+    // 2. 都要声明 子级的div;
+    // 3. 都要清除active的样式；
+    // 4。 都要给点击的这个元素添加 active 样式；
+
+    var oLink = document.querySelector('.links');
+    var aLinkItem = oLink.querySelectorAll('.item');
+
+    Array.from(aLinkItem).forEach((el,index) =>{
+        el.onclick = function(){
+            // 命名规范：
+            // 通常情况下方法可以以set 和 get 开头
+            // 如果你想设置一个属性或者一个值 ，你可以用set;
+            // 如果你想或者一个属性或者一个值 ， 你应该用get;
+            // active 
+            // status : 状态；
+            setActiveStatus.call(this,aLinkItem);
+            // 这一块的逻辑其实是和其它地方不一样的；
+            window.location.href = '#' + index;
+        }
+    })
+
+    function setActiveStatus(aItem){
+        Array.from(aItem).forEach(el=>{
+                el.classList.remove('active')
+            })
+            this.classList.add('active');
+    }
+</script>
+</html>

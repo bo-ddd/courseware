@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        
+    </div>
+</body>
+<script>
+    // 第一种： 在写一个需求时， 把概要设计中的变量，设置成方法；
+ 
+
+    var arr = [1,2,3,4,51231,23,12,31,23];
+    // 假设： 
+    // 概要设计：
+    // 1. 第一步，把数组反转
+    let res = reverse(arr);
+    // 2。 获取数组中最大的那个值；
+    let maxValue = max(res);  //  
+    // 3。 把最大的值放到数组最小的后边；
+        // 3-1： 获取最小值和他的所索；
+        let min = min(res)  // {index:8,value:1}
+
+    // 4。 把数组中第三个放到第1个中；
+
+
+    // 买商品的步骤
+    // 概要设计：
+    // 从家出发
+    let my = 'xiaoming';
+    start(my); //
+    // 到商店
+    let res = toShop(my,'shop1') // {status:0};
+    // 如果商店没有开门
+    if(res.status == 0 ){
+        // 去商店2；
+        let res = toShop(my,'shop2') // {status:1}
+        if(res.status){
+            let res =  toBuy('goods') // 买  { status:1 }
+
+        }
+    }
+
+
+    // 循环data
+    data.forEach(item=>{
+        // 根据type创建节点，
+        let el = createElement(type);
+        el.innerHTML = item.value;
+          // 把节点放到.list中；
+        document.querySelector('.list').appendChild(el);
+    })
+
+
+    // 
+    function createElement(type){
+        if(type ==  1){
+            return document.createElement('p')
+        }else if( type == 2 ){
+            return document.createElement('span')
+        }else if( type == 3 ){
+            return document.createElement('h1')
+        }else if( type == 4 ){
+            return document.createElement('h2')
+        }
+    }
+
+    // 在项目中，经常会遇到这种情况
+    // 一个有50行代码， 其中40行样； 其余十行不一样；  这10行不一样的东西，又抽离不出来；
+    // 这10行代码是完全不一样的，变量声明不一样，操作对象不一样；
+
+    // 错误的写法：
+    function fn(type){
+        console.log(1)
+        console.log(2)
+        console.log(3)
+        // 没有解偶，方法没有复用；
+        // 维护性会非常的低；
+        if(type == 1){
+            // 执行 第一个10行的逻辑
+        }else if(type == 2){
+            // 执行 第二个10行的逻辑；
+        }else if(type == 20){
+            // 执行 第20个10行的逻辑；
+        }
+        // 此处开始，代码和另外一个方法不一样了；30 - 40；
+        console.log(49)
+        console.log(50)
+    }
+
+    // 高阶函数；
+    function fn(callback){
+        console.log(1)
+        console.log(2)
+        console.log(3)
+        // 没有解偶，方法没有复用；
+        // 维护性会非常的低；
+        callback();
+        // 此处开始，代码和另外一个方法不一样了；30 - 40；
+        console.log(49)
+        console.log(50)
+    }
+
+
+    // 利用高阶函数解偶；
+    // fn(function(){
+    //     // 这是你自己的逻辑
+    // })
+
+    
+    // 
+    // fn(function(){
+    //     // 这是你自己的逻辑
+    // })
+
+    function render(cb){
+        arr.forEach(item=>{
+            let types = ['p','h1','h2','h3'];
+            var el = documnet.createElement(types[item.type]);
+            cb(el);
+            document.querySelector('.list').append(el);
+        })
+    }
+
+    // 为了满足复用性；
+    // 需要把渲染的这个方法给提出来；
+    // 把不可以复用的东西提出来；
+    // 高阶函数 的应用场景 
+    // 应用场景：把公共的逻辑封装起来，暴漏一个回调函数；
+    // 这个回调函数可以实现自定义的逻辑；
+    // 这种逻辑的实现，在方法中，叫回调函数 ；
+    // 在类 class（构造函数）中，叫钩子函数 ；
+
+
+    // vue只是去帮你去渲染页面；
+    // 但是你自己的其他逻辑我不管，我给你一个created钩子函数，你自己实现你自己的业务
+    // 在类 class（构造函数）中，叫钩子函数 ；
+    // var vm = new Vue({
+    //     created(){
+
+    //     }
+    // })
+
+    render(el=>{
+        // 根据不同的标签，最渲染不同的标签class名；
+        if(item.type == 1){
+                className = 'p'
+            }else if(item.type == 2){
+                className = 'article'
+            }else if(item.type == 3){
+                className = 'nav article a href';
+            }
+    })
+
+    // 如果你这么写逻辑，那么这个render方法只能去渲染你这个列表了，就丧失了复用性；
+
+
+    // 高阶函数 
+    // 概念： 一个方法的形参是一个方法，那么这个函数叫高阶函数；
+    // 高阶函数存在价值是 封装 高复用性，高解偶性；
+
+    // var arr = [12,3,132,3]
+    // arr.forEach(item=>{
+        
+    // })
+
+    // fn('asdfj',{},[],true,function(){})
+    // ajax({
+    //     url,
+    //     data,
+    //     success:function(){
+    //         // 
+    //     }
+    // })
+
+    // fs  fileSystem 文件操作系统 
+    // read 读 
+    // file ：文件
+    // fs.readFile('./1.txt',function(err,data){
+    //     if(err){
+    //         console.log(err) //
+    //     }else{
+    //         console.log(data) // 读到的那个文件；
+    //     }
+    // })
+
+
+    // 写作业并不重要，重要的是要知道这其中的知识点：
+    // 根据我给你的json数据结构 
+    // 根据react官网后边的样式，写成和json结构相符合的数据结构；
+
+    // 我们现在写的这种json结构叫 application/json ,是前后端交互的过程中非常重要，非常常用的结构 ；
+    // 你需要在工作中自由转换这种结构；
+
+</script>
+</html>

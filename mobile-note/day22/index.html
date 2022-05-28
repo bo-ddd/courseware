@@ -7,20 +7,27 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="list">
+        <div class="item"></div>
+    </div>
 </body>
 <script>
-    function Person(){
+    var oList = document.getElementById('list');
+    var oItem = oList.querySelector('.item');
+    oItem.remove();
 
-    }
-    Person.prototype.run = function(){
-        console.log("is run")
-    }
+    var arr = [1,2,3123,12,31,23,12,3,12,3,1231];
 
-
-    let p1 = new Person();
-
-    console.log(p1.__proto__)
-    console.log(Person.prototype)
+    setInterval(function(){
+        let aItem = oList.querySelectorAll('.item');
+        Array.prototype.forEach.call(aItem,el=>{
+            el.remove();
+        })
+        arr.forEach(item=>{
+            let cloneNode = oItem.cloneNode(true);
+            cloneNode.innerHTML = item;
+            oList.appendChild(cloneNode);
+        })
+    },1000)
 </script>
 </html>

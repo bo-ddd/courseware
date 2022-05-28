@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="list">
+        <div class="item"></div>
+    </div>
+    <div class="current-page">当前第1页</div>
+    <div class="total-page">共多少页</div>
+    <div class="pre">上一页</div>
+    <div class="next">下一页</div>
+</body>
+<script>
+
+    class Pagination {
+        constructor(options) {
+            this.pageSize = options.pageSize;
+            this.pageNum = options.pageNum || 1;
+            this.$data = options.data || [];
+            this.observer();
+        }
+
+        observer() {
+            let pageNum = this.pageNum;
+            Object.defineProperty(this, 'pageNum', {
+                get() {
+                    return pageNum;
+                },
+                set(newValue) {
+                    if (newValue < 1) {
+                        pageNum = 1;
+                    } else if (newValue > this.totalPage) {
+                        pageNum = this.totalPage;
+                    } else {
+                        pageNum = newValue;
+                    }
+                }
+            })
+        }
+        // 获取总条数
+        get totalPage() {
+            return Math.ceil(this.$data.length / this.pageSize);
+        }
+        //获取偏移量
+        get offset() {
+            return (this.pageNum - 1) * this.pageSize;
+        }
+        // 获取当前面的数据；
+        get data() {
+            let offset = this.offset;
+            return this.$data.slice(offset, offset + this.pageSize);
+        }
+    }
+
+    let pagination = new Pagination({
+        pageSize: 5,  // 一页展示几条;
+        pageNum: 1, //返回第几页的数据
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    });
+
+
+    var oList = document.querySelector('.list');
+    var oItem = oList.querySelector('.item');
+    oItem.remove();
+
+    //渲染Listhtml；
+    function render(data) {
+        oList.innerHTML = '';
+        data.forEach(item => {
+            var cloneNode = oItem.cloneNode(true);
+            cloneNode.innerHTML = item;
+            oList.appendChild(cloneNode);
+        })
+    }
+    handleTabclick();
+
+    let next = document.querySelector('.next');
+    next.onclick = function () {
+        handleTabclick(1);
+    }
+    let pre = document.querySelector('.pre');
+    pre.onclick = function () {
+        handleTabclick(0);
+    }
+
+    function handleTabclick(type) {
+        // 上一页效果;
+        if (type == 1) {
+            pagination.pageNum++;
+        } else if (type == 0) {
+            pagination.pageNum--;
+        }
+        // 下一页的效果
+        // 获取到下一页的数据，然后渲染页面；
+        // 获取当前是第几页，并渲染页面；
+
+        document.querySelector('.current-page').innerHTML = `当前是第${pagination.pageNum}页面`;  // 高吗？  是不是比你写的高？  
+        // 获取 一共几页，并渲染页面；
+        document.querySelector('.total-page').innerHTML = `共${pagination.totalPage}页`;  // 高吗？  是不是比你写的高？
+
+        console.log(pagination.data);
+        render(pagination.data)
+    }
+</script>
+
+</html>

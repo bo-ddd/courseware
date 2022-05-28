@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .doc {
+            margin: 100px auto;
+        }
+
+        .header {
+            height: 60px;
+            background: red;
+            padding:0 10%;
+        }
+
+        .container {
+            background: yellow;
+            height: 400px;
+            display: flex;
+            padding:0 10%;
+        }
+
+        .container .main {
+            flex: 2.5;
+            background-color: pink;
+        }
+
+        .container .aside {
+            flex: 1;
+        }
+
+        /* .wrap{
+            width:80%;
+            margin:0 auto;
+        } */
+
+        .wrap {
+            padding: 0 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- .wrap -->
+    <!-- 概念： 是人的可视区 -->
+    <!-- <style>
+        .wrap{
+            width:80%;
+            margin:0 auto;
+        }
+    </style> -->
+    <div class="doc">
+        <div class="header">
+            <div class="wrap">this is article box</div>
+        </div>
+        <div class="container">
+            <div class="main">
+                <div class="wrap">
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                    <div>this is article box</div>
+                </div>
+            </div>
+            <div class="aside">
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+                <div class="item">aside</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

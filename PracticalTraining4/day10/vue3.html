@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        .active{
+            background:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="nav">
+            <!-- 如果你在标签的属性前加一个：号，代表的是 当前属性的值， 一个变量； -->
+            <!-- var index = 0 ;  var abc = index == 0 ? 'active' : '' -->
+            <div class="item" @click="handleClick(index)"  :class="index == active ? 'active': ''" v-for="(item,index) in nav">{{item.value}}</div>
+        </div>
+    </div>
+</body>
+<script>
+
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            abc:'helloworld',
+            nav:[
+                {
+                    id:1,
+                    value:'nav1'
+                },
+                {
+                    id:2,
+                    value:'nav2'
+                },
+                {
+                    id:3,
+                    value:'nav3'
+                },
+                {
+                    id:4,
+                    value:'nav4'
+                },
+            ],
+            active:0,
+        },
+        methods:{
+            handleClick(index){
+                console.log(index);  //0  1;
+                this.active = index;
+            }
+        }
+    })
+</script>
+</html>

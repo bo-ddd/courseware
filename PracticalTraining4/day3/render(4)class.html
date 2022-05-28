@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="nav">
+        <template>
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+
+<script>
+    class Vue {
+        constructor(options) {
+            // options.el :   #nav;
+            this.$el = document.querySelector(options.el);  // nav;
+            this.$data = options.data;
+            
+            this.$temp = this.$el.querySelector("template").content.querySelector('.item');
+            // 所有方法,全部应该声明到prototype中去
+            // this
+            this.render(this.$el, this.$temp, this.$data.navs);
+        }
+
+        // class中所有的方法的this都指向的是当前的实例;
+        // Vue.prototype.render = function(){}
+        render(el, temp, data) {
+            data.forEach(item => {
+                let cloneNode = temp.cloneNode(true);
+                cloneNode.innerHTML = item.value;
+                el.appendChild(cloneNode);
+            })
+        }
+    }
+
+
+    // 我们想实现的东西先写出来;
+    // 封装这个渲染模板的理念:是渲染所有的列表数据;
+    // 并且把所有的逻辑都放在这个vm中;
+    // 第一步:我们要实现这个列表的渲染;
+
+    // 类似于Vue的渲染的效果;
+    var vm = new Vue({
+        el:'#nav',
+        data: {
+            navs: [{
+                id: 1,
+                value: '文档',
+            }, {
+                id: 2,
+                value: '教程',
+            }, {
+                id: 3,
+                value: '博客',
+            }, {
+                id: 4,
+                value: '社区',
+            }]
+        }
+    });
+
+
+    // 总结: class中,constructor和方法中的this,都是指向 class的实例;
+
+    /**
+     * 1. 每一个构造函数 都有一个prototype属性
+     * 2. 每一个prototype属性中都会有一个constructor方法;
+     * 3. 该constructor方法指向的是方法体本身
+     * 4. 构造函数中的this指向的是当前构造函数的实例;
+     * 5. 当调用实例下面的方法或者属性时,
+     * 6. 会优先去找当前构造函数的这个属性或者方法
+     * 7. 如果没有找到,则会去他的prototype中去找;
+     * 8. 如果还没有找到,就会去他的ptototype中的prototype中找,一直找到为止;
+     * 9.  prototype的顶端是null;
+     * 10. 如果prototype上都没有该方法,则报错
+     * 11. 如果 prototype上没有此属性,则此属性的值是undefined;
+     * 12. 被new出的实例中有一个__proto__属性,该属性指向为当前构造函数的prototype;
+     * **/
+
+     
+
+
+</script>
+
+</html>
