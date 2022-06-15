@@ -104,7 +104,7 @@
 7. form中接口Api方法命名要和服务端接口保证一致
 
    ```javascript
-   //一般情况下，增删改查的接口者是这种
+   //一般情况下，增删改查的接口命名规范如下：
    // xxx/list  获取xxx的列表   
    // xxx/detail 获取xxx详情
    // xxx/update 更新xxx
