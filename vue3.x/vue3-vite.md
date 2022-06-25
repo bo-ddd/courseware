@@ -26,3 +26,98 @@ npm install -g @vue/cli
 // 6. 用npm install 下载的包 可以通过 package.json中的 dependencies 和 devDependencies；
 ```
 
+2. 项目启动流程
+
+   ```javascript
+   1. cd <project-name>
+   2. npm install
+   3. npm run dev  
+   //在之后的过程中，只需要 npm run dev 就可以启动项目，前两个步骤只是在第一次进公司时拉项目时才用；
+   ```
+
+3. 进入App.vue页面
+   1. 删除 template，及style中无用的样式；
+
+4. 做项目时，要引入common.css
+
+   1. 注：common.css负责全局的公共的样式
+
+   2. 步骤流程：
+
+      1. 在src目录中创建 common.css  
+
+      2. 在main.js中导入这个全局样式
+
+         ```javascript
+         import './common.css'
+         ```
+
+5. 安装路由
+
+   1.  npm install vue-router@4
+
+6. 配置路由
+
+   1. 在src文件夹下新建一个router文件夹
+
+   2. 在router文件夹下创建一个index.js
+
+   3. 在index.js中写上
+
+      ```javascript
+      import { createRouter, createWebHashHistory } from 'vue-router'
+      import Home from '../views/Home.vue';
+      
+      const routes = [
+          {
+              path:'/',  // path是路径  
+              redirect:'/home',  //重定向   如果访问/结尾，就重定向到/home页面去；   
+          },
+          {
+              path:'/home',
+              component:Home
+          }
+      ]
+      
+      const router = createRouter({
+          // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
+          history: createWebHashHistory(),
+          routes, // `routes: routes` 的缩写
+      })
+      
+      export default router;
+      ```
+
+   4. 在src文件夹下创建views文件夹
+
+   5. 在views文件夹创建Home.vue文件，Home文件如下：
+
+      ```vue
+      <template>
+          <div>this is home page</div>
+      </template>
+      ```
+
+   6. 在app.js中导入配置的router文件
+
+      ```javascript
+      import { createApp } from 'vue'
+      import App from './App.vue'
+      import './common.css'
+      import router from './router';  // 导入router文件
+      
+      
+      const app = createApp(App)
+      app.use(router);  // use方法挂载router
+      app.mount('#app');
+      ```
+
+   7. 在App.vue中加入router-view组件
+
+      ```vue
+      <template>
+        <router-view></router-view>
+      </template>
+      ```
+
+   8. 路由配置已完成啦！
