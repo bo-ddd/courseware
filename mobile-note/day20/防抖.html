@@ -11,7 +11,7 @@
 </body>
 <script>
     var flag = false;
-    // 防抖
+    // 节流
     document.querySelector('button').onclick = function(){
         if(flag) return;
 
@@ -19,8 +19,7 @@
         setTimeout(function(){
             flag = false;
         },2000)
-
-        console.log('hello world!')
+        console.log('hello world')
     }
 
     // 防抖： xxxms之内只执行一次；
