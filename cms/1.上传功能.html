@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 上传功能及相关面试题 -->
+    1. 如何实现大文件分段上传？
+    答： 前端利用百度出的webUpload插件把大文件分成多个片段,然后把多个片段传给服务端;
+    2. 知识点： 什么是段点续传？
+    断点续传，就是在文件上传的过程中发生了中断，人为因素（暂停）或者不可抗力（断网或者网络差）导致了文件上传到一半失败了。
+    然后在环境恢复的时候，重新上传该文件，而不至于是从新开始上传的。
+    3. 如何实现断点续传？
+    答：断点续传是在分段上传的基础上，在每次上传之前，调用校验秒传检验接口，服务端会返回当前文件的上传进度，如果是未上传完，
+    则返回所有还没有上传的文件片断编号,然后前端进行条件筛选，把那些没有上传的文件片断，进行上传;
+    参考文档：大文件的分段上传和段点续传实现方案：https://blog.csdn.net/weixin_52041354/article/details/123088949
+    4. 说一下对请求头中content-type的理解？
+    答：在前端访问后端接口中，都是经过http或者https协议进行访问，在该协议中的请求头中，有一个content-type的字段，
+    该字段说明的是你向服务端传的参数类型，在get请求和post请求中，通常都是application/json格式的，但是在做一些上传功能中，或者form表单提交
+    方式中，用的是 multipart/form-data方式;
+    5. 说一下如何实现修改用户头像的功能？
+    答：在我之前做的cms后台管理系统中，利用了elementui中的上传组件来实现，通过在组件中调用服务端的上传图片接口（/upload/image）来把图片
+    上传到oss服务器中，该接口会返回当前图片的url地址，我们通过调用修改用户信息接口，把该图片的地址传给服务端，然后实现该功能;
+    6. 什么是oss?
+    答：oss的全称是object storage service 意思是对象存储服务，oss是存静态图片或者其它文件的服务器;
+    7. 说一下elementui中上传组件中的底层实现原理是什么？
+    答：elementui上传组件是利用原生js的FormData方法，在点击上传按钮后，通过formData中的append方法，把服务端的入参拼接好；
+    用multpart/form-data的content-type把该参数传到对应的服务端接口中;
+</body>
+<script>
+    // new FormData是原生JS自带的一个类，专门用来做上传相关的功能；
+    let formData = new FormData()
+    // 利用append方法 添加服务端要的入参; 第一个参数是服务端要的字段名，第二个参数是服务端要的参数；
+    // 通常情况下file指的就是服务要的文件； 该文件是一个 io流； 
+    formData.append('file', file);
+    formData.append('type', type);
+
+    const uploadConfig = {
+        url: "",
+        baseURL: serveUrl,
+        headers: {
+            "Content-Type": "multipart/form-data",  //post方法正常情况下是用的application/json格式，但是在上传中，必须用multpart/form-data;
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        timeout: 5000,
+        withCredentials: true,
+    }
+
+    axios.post('/upload/image', formData, uploadConfig).then(res => {
+        console.log(res) //上传是否成功，如果成功会返回对应的图片地址;
+    })
+</script>
+
+</html>
