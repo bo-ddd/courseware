@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <!-- html 的执行顺序 从上到下执行 -->
     <!-- 注意点是：  css是异步加载   js是同步加载 -->
@@ -35,6 +37,238 @@
     <!-- 手动random(min,max)方法，实现 随机数  -->
     <!-- parseInt，parseFloat在项目中的使用场景 -->
     <!-- null 和 undefined 的区别 -->
+    <!-- 1. 说一下js的数据类型？
+    2. undefined null?
+    3. typeof ?
+    4. instantceof?
+
+    5. object的理解？
+    6. 说一下什么是json?
+    7. 说一下对静态方法的理解？
+    8. 静态方法分为几种？
+
+    9. 说一下函数有几种？
+    10. 什么是钩子函数？
+    11. 说一下对构造函数的理解？
+    12. 说一下普通函数和构造函数的区别？
+
+    13. 数组中常用的方法？
+    14. 数组中map方法的理解？
+    15. for forEach for in for of
+
+    16. 说一下对属性和方法的理解？
+
+    17. js中有哪些对象？
+    18. 说一下对form表单的理解？
+    19. form表单提交方式有几种？
+    20. form表单提交方式和axios提交有什么区？
+
+    21. 说一下对象（Object）中有自带哪些方法？
+    22. Object.assign()
+    23. 说一下vue2中如果数据不刷新时有几种解决方案？
+    24. Object.keys()
+    25. 如何判断json对象中是否有键值对？
+    26. Object.create()
+    27. 说一下new一个构造函数发生了什么事情？ -->
+
+    <!-- 28. 说一下对axios的请求拦截器和响应拦截器的理解？ -->
+    <!-- axios中请求拦截器是在接口访问服务端之前调用的方法，该方法一般用来设置请求头相关信息，
+        比如设置authorization字段 -->
+    <!-- 响应拦截器是在接口返回数据，优先走响应拦截器，在执行对应的api接口方法，
+        该方法一般用来统一处理跳转到对应的页面，比如登录失效后跳转登录 -->
+
+    <!-- 知识点： 接口（getUserInfoApi）调用后的执行顺序 -->
+    <!-- 1. 调用getUserInfoApi接口 -->
+    <!-- 2. 走请求拦截器的方法 -->
+    <!-- 3. 访问服务端 -->
+    <!--     3-1  返回401 -->
+    <!--     3-1-1  响应拦截器，进行登录页面跳转 -->
+    <!--     3-2  正常返回数据   -->
+    <!--         3-2-1  响应拦截器   -->
+    <!-- 4. getUserInfoApi().then(res=> console.log('exec')) -->
+
+    <!-- 1. 在页面中调用getUserInfoApi()方法 -->
+    <!-- 2. 走src/api/api.js 中的 请求拦截器方法 axios.interceptors.request.use -->
+    <!-- 3. 服务端收到前端发送的接口参数，进行逻辑判断后返回对应的参数 -->
+    <!-- 4. 走src/api/api.js中的响应拦截器方法 axios.interceptors.response.use  -->
+    <!-- 5. 走的是getUserInfoApi()中的then()方法 -->
+
+    <!-- 说一下对导航守卫的理解? -->
+    <!-- 答: 他是在进入某路由之前走的一个钩子函数 -->
+    <!-- 他和axios请求拦截器是一个效果,只不过一个是拦截接口,一个是拦截路由 -->
+
+    <!-- 如何匹配未定义的路由 -->
+    <!-- 答: 在配置路由时,path的值为 *,就可以匹配出未定义的所有路由 -->
+    <!-- 一般情况下,此功能是用来做404页面跳转的 -->
+
+    <!-- 目前我们做了菜单列表的动态渲染,根据不同的权限,渲染出不同的菜单列表 -->
+    <!-- 举例: a,b,c,d,e,f,g  7个页面 -->
+    <!-- 假设同学只能看到  a,e,d页面 -->
+    <!-- 目前我们是动态的改变菜单列表来实现这个功能 -->
+    <!-- 但是如果该同学直接访问 b,c,f,g页面对应的路由,其实还是可以访问的 -->
+
+    <!-- route.addRoute()  -->
 
 </body>
+<script>
+    var routes = [
+        {
+            path: '/home',
+            component: Home
+        },
+        {
+            path: '/task',
+            component: Home
+        },
+        {
+            path: '/userInfo',
+            component: Home
+        },
+    ]
+    //  http://localhost:8080/home
+    //  http://localhost:8080/task
+    //  http://localhost:8080/userInfo
+
+    // 首页     1  2
+    // 任务列表页面  1
+    // 用户信息页面  1
+
+    // 学生看见的只有  首页
+    // 老师看见的有   首页  任务列表页面  用户信息页面
+
+    // 如果你是学生   http://localhost:8080/task  // 学生依然可以访问这个页面的内容;
+    // 因为 
+
+
+    // 作业: 动态渲染对应的路由,如果你没有权限访问,则访问的是404;
+    // 老师
+    var route = [
+        {
+            path: '/home',
+            component: Home
+        },
+        {
+            path: '/task',
+            component: Home
+        },
+        {
+            path: '/userInfo',
+            component: Home
+        },
+    ]
+    // 学生
+    var route = [
+        {
+            path: '/home',
+            component: Home
+        },
+    ]
+
+    // 作业思路,一开始声明路由时，路由只有3个地址；
+    var routes = [
+        {
+            path: '/login',
+        },
+        {
+            path: '/register'
+        },
+        {
+            path: '*',
+            component: 404
+        }
+    ]
+
+    // 如何动态添加路由
+    // 学生
+    router.addRoute({ path: '/home', component: Home });
+
+    // http://localhost:8080/task    * 404;
+
+    // 老师
+    router.addRoute({ path: '/home', component: Home });
+    router.addRoute({ path: '/task', component: Home });
+    router.addRoute({ path: '/userInfo', component: Home });
+
+
+    // Home.vue
+    var vm = new Vue({
+        data() {
+            return {
+                menu,
+            }
+        },
+        created() {
+            await this.getUserInfo()
+            // 根据当前角色获取对应的权限列表；
+            let permissionList = await this.justList(this.userInfo.identify);
+
+            permissionList = [
+                {
+                    id: 1, title: '任务中心',
+                    id: 2, title: '题库管理'
+                }
+            ]
+
+            //把menu  和 permissionList 进行匹配
+            let list = [
+                {
+                    label: '任务中心',
+                    name: "taskCenter",
+                    meta: {
+                        icon: 'el-icon-picture-outline-round'
+                    },
+                    children: [
+                        {
+                            label: '我的任务',
+                            path: "/myDiary",
+                            name: "myDiary",
+                        },
+                        {
+                            label: '创建任务',
+                            path: "/createTask",
+                            name: "createTask",
+                        },
+                        {
+                            label: '任务列表',
+                            path: "/taskList",
+                            name: "taskList",
+                        },
+                    ],
+                },
+
+                {
+                    label: '题库管理',
+                    name: "questionManage",
+                    meta: {
+                        icon: 'el-icon-eleme'
+                    },
+                    children: [
+                        {
+                            label: '题库管理',
+                            path: "/question",
+                            name: "question",
+                        },
+                    ],
+                },
+            ]
+
+            for(let i =0 ; i < list.length;i++){
+                this.$router.addRoute(list[i])   // addRoute  {}
+            }
+
+
+
+        }
+    })
+
+    router.addRoute({
+        name: 'home',
+        children: [
+            {
+
+            }
+        ]
+    })
+</script>
+
 </html>

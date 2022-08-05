@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权限管理</title>
+</head>
+
+<body>
+    <!-- 1. 什么是权限管理 -->
+    <!-- 在cms后台管理项目中，你需要对不同的角色，划分不同的权限，此时就要用到权限管理 -->
+
+    <!-- GM  game manage -->
+    <!-- 老师设计题库 -->
+    <!-- 学生答题 -->
+    <!-- 厨师 对菜谱编辑 -->
+    <!-- 后勤的总负责人 仓库的管理权限 食材管理 -->
+    -|src
+        -|views
+            -ti
+                list.vue //学生 老师
+                detail.vue //学生 老师
+                edit.vue // 老师
+                create.vue // 老师
+                delete.vue // 老师
+
+    const route = [
+        {
+            path:'/question/list',
+            component:()=> import('../views/ti/list.vue')
+        },
+        {
+            path:'/question/detail',
+            component:()=> import('../views/ti/detail.vue')
+        },
+        {
+            path:'/question/edit',
+            component:()=> import('../views/ti/edit.vue')
+        },
+        {
+            path:'/question/create',
+            component:()=> import('../views/ti/create.vue')
+        },
+        {
+            path:'/question/delete',
+            component:()=> import('../views/ti/delete.vue')
+        },
+    ]
+
+    let menu = [
+        {
+            name:'question',
+            lable:'题库管理模块',
+            meta:{
+               identify:true
+            }
+            children:[
+            {
+                path:'/question/list',  //学生
+                meta:{
+                 
+                }
+            },
+            {
+                path:'/question/detail',  //学生
+                meta:{
+                    
+                }
+            },
+            {
+                path:'/question/edit',
+                meta:{
+                    
+                }
+            },
+            {
+                path:'/question/create',
+                meta:{
+                    
+                }
+            },
+            {
+                path:'/question/delete',
+                meta:{
+                    
+                }
+            },
+            ]
+        }
+    ]
+
+    //如何判断我们自己的账号的角色
+    1. 调用获取用户信息接口  getUserInfo()  ，在接口中，会返回一个身份标识 （identify）  1: 老师  2：学生 ....
+    // 如何根据不同的角色展示不同的菜单列表？
+    答： 在menu中，声明一个meta属性，该值中有当前的权限范围，我们可以查看当前的菜单列是否包含我们的权限来控制用户是否可见；
+
+    2. v-if的应用场景是什么？
+    答： 在做权限管理的菜单列表展示时，用的就是v-if;
+
+    3. 权限管理的应用场景?
+    答: 在一个项目中,如果项目中的角色是可以动态配置的,那么就需要做权限管理功能
+
+    <!-- 在答题系统中 -->
+
+    <!-- 2. 权限管理在项目中划分的种类 -->
+    <!-- 答： 权限管理分为前端 -->
+    
+    <!-- 作业： -->
+    <!-- 在cms左侧菜单中，根据刚才所学，让不同的角色看见不同的页面  -->
+    <!-- 1： 老师  2：学生 -->
+    <!-- 题库管理模块 -->
+        <!-- 题库列表页面 1，2-->
+        <!-- 创建题页面 1-->
+        <!-- 删除题页面 1-->
+        <!-- 修改题页面 1-->
+        <!-- 题详情页面 1 2-->
+
+    <!-- 作业二 -->
+    <!-- 题库列表页面中 -->
+        <!-- 创建 1 -->
+        <!-- 删除 1 -->
+        <!-- 编辑 1 -->
+        <!-- 列表 1,2 -->
+
+
+        getRolePermission{  type:3  }  //3
+
+        let res = [
+        {
+            id:1,
+            label:'题库管理
+        }
+        ]
+
+        <!-- 动态渲染权限列表的实现原理 -->
+        1. 获取用户信息,拿到当前的用户的角色;
+        2. 根据当前用户的角色获取到对应的权限列表;
+        3. 根据当前角色的权限列表和menu.config.js中的配置文件;
+        4. 生成可以渲染的菜单列表;
+
+
+        let menu = [
+        {
+            name:'question',
+            lable:'题库管理模块',
+            children:[
+            {
+                path:'/question/list',  //学生
+            },
+            {
+                path:'/question/detail',  //学生
+            },
+            {
+                path:'/question/edit',
+            },
+            {
+                path:'/question/create',
+            },
+            {
+                path:'/question/delete',
+            },
+            ]
+        }
+    ]
+
+    如果一个班长只能编辑题
+    <!-- 结果一: -->
+    let menu = [
+        {
+            name:'question',
+            lable:'题库管理模块',
+            children:[
+            {
+                path:'/question/list',  //学生
+            },
+            {
+                path:'/question/detail',  //学生
+            },
+            {
+                path:'/question/edit',
+                menu:{
+                    identify:true
+                }
+            },
+            {
+                path:'/question/create',
+            },
+            {
+                path:'/question/delete',
+            },
+            ]
+        }
+    ]
+
+    <!-- 方案二: -->
+    let menu = [ 
+        {
+            name:'question',
+            lable:'题库管理模块',
+            children:[
+            {
+                path:'/question/edit',
+            },
+            ]
+        }
+    ]
+    <!-- 作业一: -->
+    <!-- 根据服务端接口返回的权限列表动态渲染menu -->
+
+    <!-- 作业二:   动态创建角色和初始化权限--> 
+    <!-- 用户进入创建角色页面 -->
+    <!-- 用户输入角色名称及角色所在的组 -->
+    <!-- 选中对应的权限列表, -->
+    <!-- 点击创建按钮进行创建角色及初始化角色权限 -->
+
+
+    1. 
+</body>
+<script>
+    document.cookie = 'asdjfklsadf'
+</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1. 命名要用BEM命名法 -->
+    <!-- 图标的命名：  icon-search -->
+    <!-- 图片的命名：  icon_search.png -->
+    <!-- 图片的格式在项目中只能用如下格式： png, svg, webp -->
+    <!-- 验证命名是否规范： 把命名倒着往前读，只要可以读的通顺就算对 -->
+
+    <!-- BEM -->
+    <!-- 有一张放大镜的图 -->
+    <!-- icon-search -->
+    <!-- 有一张红色的放大镜图 -->
+    <!-- icon-search_red -->
+    <!-- 注意： 命名中不要有大写，不要用驼峰命名 -->
+
+
+    <!-- PC端常用布局 -->
+    <!-- 面试题：PC端的设计稿为多大？ -->
+    <!-- 目前市场上，主流的PC设计稿宽是1200px -->
+    <!-- 除了1200px之外   1000  1100  1200  1300 1330  1400 1430 -->
+    <!-- 在很早之前, 设计稿还有800的 -->
+    <!-- PC端设计稿的主流尺寸是和市场上的主流显示器的分辨率有关系 -->
+
+    <!-- PC端中,几乎所有的布局都是wrap(中间固定宽+媒体查询来适配)布局 -->
+
+    <!-- 1. 几乎所有的样式,没有宽高 -->
+    <!-- 2. 几乎一个页面中用到太多的定位 (几乎) -->
+    <!-- 3. 几乎没有margin/padding 值超过100的 -->
+    <!-- 4. 在写任何一个页面的时候, 需要用一个大div(最大的父级)包住所有的样式 -->
+    <!-- 5. 在html中,不允许有任何一个行内样式 -->
+    <!-- 6. 在项目中,不允许有任何一个路由用的是绝对路径,必须要用服务器地址路径/相对路径 -->
+    <!-- 7. 在html中,不允许有任何的js -->
+    <!-- 8. class命名中不可以出现 xxx1  xxx2   xx3 -->
+    <!-- error :   onelist  twolist -->
+    <!-- 9. 伪类不要乱用， nth-of-type -->
+    <!-- 10. 最好不要有id, 也不要用id去设置样式，可以用id的场景 是一个页面的最外层 -->
+    <!-- 11. 不要有行内样式 -->
+
+    <!-- 目录结构 -->
+    -| project-pc
+    -| src source 源文件,指的是开发写的所有代码
+    -| assets //用来存放静态资源 公共的图片,js,css
+    -| images //用来存图片
+    index.html //单页面
+
+    <!-- 注: -| 表示文件夹 -->
+
+
+
+    <div id="article-detail">
+        <div class="search-page">
+            <header>
+                <div class="logo"></div>
+                <div class="search">
+                    <input class="ipt-search" type="text">
+                    <div class="btn-search">百度一下</div>
+                </div>
+                <div class="opertor">
+                    <a href="">百度首页</a>
+                    <a href="">设置</a>
+                    <a href="">登录</a>
+                </div>
+            </header>
+        </div>
+    </div>
+</body>
+
+</html>
