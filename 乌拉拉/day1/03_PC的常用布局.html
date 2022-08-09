@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC端常用的布局</title>
+</head>
+<style>
+    /* 在css中  不要用 * */
+    /* *{
+        margin:0;
+    } */
+    /* 这种写法性能比较好 */
+    body,p,h1,h2,h3,h4{
+        margin:0;
+    }
+
+    /* wrap类 通常是 width 和 margin:0 auto; */
+    .wrap{
+        width:1200px;
+        margin:0 auto;
+        height:100%;
+        background:#fff;
+    }
+    .header{
+        background: red;
+        height:100px;
+    }
+    .nav{
+        height:150px;
+        background:yellow;
+    }
+    .list{
+        background: pink;
+        height:200px;
+    }
+    .banner{
+        height:100px;
+        background:black;
+    }
+
+    .footer{
+        background: #ccc;
+        height:300px;
+    }
+</style>
+<body>
+    <!-- 一般情况下PC端常用的布局是 wrap 布局 -->
+    <!-- 布局的注意事项 -->
+    <!-- 1. 不要用色块,  用色块布出来的局没法商用,原因是你想铺色块,就得设置宽和高, 但是在布局中几乎不允许设置,所以,用色块铺出来的布局没法用 -->
+    <div id="home">
+        <div class="header">
+            <div class="wrap">header</div>
+        </div>
+        <div class="nav">
+            <div class="wrap">nav</div>
+        </div>
+        <div class="list">
+            <div class="wrap">list</div>
+        </div>
+        <div class="banner">
+            <div class="wrap">this is banner div</div>
+        </div>
+        <div class="footer">
+            <div class="wrap">this is footer div</div>
+        </div>
+    </div>
+</body>
+</html>
