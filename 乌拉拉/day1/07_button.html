@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 这种写法使用场景非常的低 */
+        /* 原因是扩展性很差,灵活性也非常的差 */
+        /* 这种按钮布局的应用场景 */
+        /* 适用于按钮是固定宽的布局 */
+        /* .btn{
+            width:calc(100vw - 40px);
+            height:40px;
+            line-height: 40px;
+            background:blue;
+            color:#fff;
+            border-radius: 4px;
+            text-align: center;
+            margin:0 auto;
+        } */
+
+        /* 按钮是用padding给撑起来的 */
+        /* 非常常用 */
+        /* .btn{
+            background:blue;
+            color:#fff;
+            border-radius: 4px;
+            padding:8px 18px;
+            display: inline-block;
+        } */
+    </style>
+</head>
+<body>
+    <div class="btn">登录</div>
+    <!-- <div class="btn">提交订单</div>
+    <div class="btn">提交报表流程</div>
+    <div class="btn">提交报表审核流程</div> -->
+</body>
+</html>

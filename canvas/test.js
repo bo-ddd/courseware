@@ -1,25 +1,56 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-const CANVAS_WIDTH = canvas.width = 500;
-const CANVAS_HEIGHT = canvas.height = 500;
+const CANVAS_WIDTH = canvas.width = 600;
+const CANVAS_HEIGHT = canvas.height = 600;
 
-const role = new Image();
-role.src = './assets/images/role/role.png';
+let player = new Image();
+player.src = './assets/images/role/role.png';
 
 const spriteWidth = 64;
 const spriteHeight = 64;
 
 let gameFrame = 0;
+let staggerFrame = 6;
 
-let i = 0;
+let animationState = [
+    {
+        name:'down',
+        frames:3
+    },
+    {
+        name:'left',
+        frames:3
+    },
+    {
+        name:'right',
+        frames:3
+    }
+]
+
+let spriteAnimations = {};
+
+animationState.forEach((state, index) => {
+    let frame = {
+        loc:[]
+    }
+    for(let i = 0; i < state.frames; i++){
+        let x = spriteWidth * i;
+        let y = spriteHeight * index;
+        frame.loc.push({ x, y });
+    }
+    spriteAnimations[state.name] = frame;
+})
+
+console.log(spriteAnimations)
+
+let playerState = 'left';
 function animate(){
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    ctx.drawImage(role, spriteWidth * i, 0, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
-
-    if(gameFrame % 5 === 0){
-        i = i >= 2 ? 0 : i + 1;
-    }
+    let position = Math.floor( gameFrame / staggerFrame ) % spriteAnimations[playerState].loc.length;
+    let frameX = spriteAnimations[playerState].loc[position].x;
+    let frameY = spriteAnimations[playerState].loc[position].y;
+    ctx.drawImage(player, frameX, frameY, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
     gameFrame++;
     requestAnimationFrame(animate);
 }

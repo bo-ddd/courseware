@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端布局一(vh calc)</title>
+    <style>
+        body{
+            margin:0;
+        }
+
+        /* root : 根 根节点 */
+        /* css中的root 就可理解成 js中的window */
+        :root{
+            /* css变量 */
+            /* css变量的声明方式: --变量名:值 */
+            --footer-height: 100px;
+        }
+        /* calc  计算属性,可以接收 差值 */
+        /* vh  v: 设备屏幕  h高    vh把设备屏幕的高分成100份*/
+        .container{
+            height: calc(100vh - var(--footer-height));
+            background:pink;
+        }
+
+        .footer{
+            height:var(--footer-height);
+            background:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="home">
+        <div class="container"></div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>

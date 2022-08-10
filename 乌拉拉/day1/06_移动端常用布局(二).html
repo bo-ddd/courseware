@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端布局(grid)</title>
+    <style>
+        body{
+            margin:0;
+        }
+
+        .home{
+            height:100vh;
+            /* grid 网格 */
+            display: grid;
+            /* rows 行 */
+            /* value的length的个数代表分成几行 */
+            grid-template-rows: auto 60px;
+        }
+
+        .container{
+            background:pink;
+        }
+
+        .footer{
+            background:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="home">
+        <div class="container"></div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>
