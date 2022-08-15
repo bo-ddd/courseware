@@ -261,7 +261,7 @@ ts中类的静态方法和静态属性声明方式和js一模一样
 
 ```
 
-### 给实类的实例进行类型声明
+### 给类的实例进行类型声明
 语法: let className: ClassName = new ClassName();
 
 例:
