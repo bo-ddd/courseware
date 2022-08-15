@@ -23,11 +23,6 @@
 语法:  interface 方法接口名 { (参数1: 类型, 参数2: 类型): 返回值的类型 };
 使用: const 方法名:方法接口名 = function(参数1, 参数2, 参数3){};
 ```typescript
-    interface UserInfo {
-        username: string;
-        age: number;
-    }
-
     interface GetUserInfo{
         (id: number): UserInfo
     }
@@ -35,9 +30,79 @@
     const getUserInfo: GetUserInfo = function(id){
         return { username: 'xiaoming', age: id == 1 ? 18 : 20 };
     }
-
-    // 以上interface GetUserInfo接口声明中的id 不需要和 getUserInfo的名保持一致,其实也可以把id换成userId:
+```
+注: 以上interface GetUserInfo接口声明中的id 不需要和 getUserInfo的入参名保持一致,其实也可以把id换成userId:
+```javascript
     const getUserInfo: GetUserInfo = function(userId){
         return { username: 'xiaoming', age: userId == 1 ? 18 : 20 };
+    }
+```
+
+## 定义类接口
+我们之前学了如何定义普通的方法或者变量,结构类似于这样:
+```typescript
+    let str: string = 'hello world';
+```
+那么我们试着推理一下如果声明类该怎么做呢
+```typescript
+    interface AnimalInterface {
+        name: string;
+    }
+    // 我们把用声明字符串的方法用到定义类中
+    class Animal : AnimalInterface {
+        name: string;
+        constructor(name: string){
+            this.name = name;
+        }
+    }
+```
+以上所有的代码,是我们基于推理得出来的写法,但是很不幸的是,这种写法是报错的;
+
+那么在ts中我们该如何定义类接口呢?
+
+答案是把 把 class Animal : AnimalInterface 中的  ":" 替换成一个关键字 implements
+```typescript
+    interface AnimalInterface{
+        name: string;
+    }
+
+    class Animal implements AnimalInterface{
+        name: string;
+        constructor(name: string){
+            this.name = name;
+        }
+    }
+```
+
+> implements 是实现的意思;
+
+> class Animal implements AnimalInterface 的意思是 创建一个Animal的类,该类要实现AnimalInterface中定义的所有属性和方法;
+
+> 有可能你已经注意到了实现用的是implements,而不是implement 是复数形式;
+
+> 所以class中的implements后面可以跟多个接口定义,比如:
+
+```typescript
+    interface AnimalInterface1 {
+        name: string;
+    }
+
+    interface AnimalInterface2 {
+        age: number;
+    }
+
+    interface AnimalInterface3 {
+        run():void;
+    }
+    class Animal implements AnimalInterface1, AnimalInterface2, AnimalInterface3 {
+        name: string;
+        age: number;
+        constructor(name: string, age: number){
+            this.name = name;
+            this.age = age;
+        }
+        run():void{
+            console.log(this.name + 'is running!');
+        }
     }
 ```
