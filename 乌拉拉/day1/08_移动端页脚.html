@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+        }
+
+        :root{
+            --footer-height: 60px;
+        }
+        .app{
+            height:100vh;
+        }
+
+        .app .container{
+            background:red;
+            height: calc(100vh - var(--footer-height));
+        }
+
+        .app .footer{
+            height: var(--footer-height);
+            display:flex;
+            /* 平均分 */
+            justify-content: space-around;   
+            /* 垂直居中 */
+            align-items: center;
+        }
+
+        .app .footer .item{
+            width:40px;
+            height:40px;
+            background:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="container">内容区</div>
+        <!-- 网络布局， 一种叫弹性盒 -->
+        <!-- 移动端的页脚通常情况下用的是 弹性盒 -->
+        <!-- 此处不建议用网格布局 -->
+        <!-- 原因是： 在项目开发中， 页脚的item数量是不固定的 -->
+        <div class="footer">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+</body>
+</html>
