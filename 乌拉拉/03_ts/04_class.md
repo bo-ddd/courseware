@@ -32,7 +32,7 @@
         }
     }
 
-    class Dom extends Animal{
+    class Dog extends Animal{
         constructor(name: string){
             super(name);
         }
@@ -103,7 +103,7 @@
         }
 
         // 私有
-        public run(): void{
+        private run(): void{
             // 私有的属性 this.name 在这里是可以被正常访问的;
             console.log(`${ this.name } is running!`);
         }
@@ -116,7 +116,7 @@
 ```
 > 注:  private 为私有变量, 只存在于当前方法体本身可以使用, 就算是狗类继承于父类中的属性和方法, 狗类也没有办法使用父类中的私有方法和属性; 如果你想在 子类中使用父类的私有变量,则应该把 private 关键字换成 protected 关键字;
 
-## private 关键字 不中以被子类所方问
+## private 关键字 不可以被子类所访问
 ```typescript
     class Animal{
         private name: string;
