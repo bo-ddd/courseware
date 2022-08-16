@@ -171,14 +171,16 @@
     }
 ```
 
-如果定义的readOnly属性已被赋值,则不可以再次被更改
+如果定义的readOnly属性已被赋值,则不可以被实例在次赋值,但是可以被方法内部重新赋值;
 ```typescript
     class Animal{
         readOnly name: string = '小汪'
-        constructor(name: string){
-            this.name = name;  // Error 报错; 因为 this.name 为只读属性;
+        constructor(){
+            this.name = 'xiaoxiao' //不会报错；
         }
     }
+    let animal = new Animal();
+    animal.name = 'xiaohong' // error 会报错
 ```
 
 ## 类中的get方法声明
