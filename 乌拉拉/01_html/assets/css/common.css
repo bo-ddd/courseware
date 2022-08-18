@@ -1,0 +1,29 @@
+/* common.css */
+.float-left {
+    float: left;
+}
+
+/* 命名规范:  m: margin  l: left   40: 值 */
+.ml-40 {
+    margin-left: 40px;
+}
+
+
+.fs-14{
+    font-style: 14px;
+}
+
+.align-Center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clear-fix::after{
+    content:'.';
+    display: block;
+    width:0;
+    height:0;
+    clear: both;
+    visibility: hidden;
+}

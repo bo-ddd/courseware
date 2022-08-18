@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>commcss的应用</title>
+    <link rel="stylesheet" href="./assets/css/common.css">
+    <style>
+        .wrap{
+            width:800px;
+            margin:0 auto;
+        }
+
+        .news-list{
+            width:300px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- 结论:  -->
+    <!-- 在样式中,几乎不会有单独的margin值 -->
+    <!-- 在样式中,几乎不会有单独的浮动 -->
+
+    <!-- 为了解决这个问题,我们可以把这些单独的样式给提取出来 -->
+    <!-- 这种提取出来的方式也有命名规范 -->
+
+    <!-- 通常情况下,这种规范的样式,一般会封装到一个common.css中,单独的负责公共样式 -->
+    <div class="baidu">
+        <div class="wrap clear-fix">
+            <div class="news-list float-left">
+                <div class="news-item">1. value</div>
+                <div class="news-item">2. value</div>
+                <div class="news-item">3. value</div>
+                <div class="news-item">4. value</div>
+            </div>
+
+            <div class="news-list float-left ml-40">
+                <div class="news-item">1. value</div>
+                <div class="news-item">2. value</div>
+                <div class="news-item">3. value</div>
+                <div class="news-item">4. value</div>
+            </div>
+        </div>
+
+
+        <div class="news-list">
+            <div class="news-item">1. value</div>
+            <div class="news-item">2. value</div>
+            <div class="news-item">3. value</div>
+            <div class="news-item">4. value</div>
+        </div>
+
+        <!-- 复用性 -->
+        <div class="news-list">
+            <div class="news-item">1. value</div>
+            <div class="news-item">2. value</div>
+            <div class="news-item">3. value</div>
+            <div class="news-item">4. value</div>
+        </div>
+    </div>
+</body>
+</html>
