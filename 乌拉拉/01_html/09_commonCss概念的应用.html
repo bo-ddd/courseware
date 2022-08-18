@@ -15,19 +15,20 @@
         .news-list{
             width:300px;
         }
-
-
     </style>
 </head>
 <body>
     <!-- 结论:  -->
     <!-- 在样式中,几乎不会有单独的margin值 -->
     <!-- 在样式中,几乎不会有单独的浮动 -->
+    <!-- 因为这样写会造成样式无法复用的问题 -->
 
-    <!-- 为了解决这个问题,我们可以把这些单独的样式给提取出来 -->
-    <!-- 这种提取出来的方式也有命名规范 -->
+    <!-- 为了解决这个问题,我们可以把这些单独的样式给提取出来,提取到一个叫common.css的文件中 -->
+    <!-- 你几乎可以在任何页面来引入这个common.css -->
+    <!-- common.css只是一个命名, 你也可以叫一些其他的名子,比如 global.css -->
+    <!-- common:是公共的意思    global是全局的意思 -->
 
-    <!-- 通常情况下,这种规范的样式,一般会封装到一个common.css中,单独的负责公共样式 -->
+    <!-- 如想了解更多的css样式,可以查看 ./assets/css/common.css 中更多的规范 -->
     <div class="baidu">
         <div class="wrap clear-fix">
             <div class="news-list float-left">
@@ -44,7 +45,6 @@
                 <div class="news-item">4. value</div>
             </div>
         </div>
-
 
         <div class="news-list">
             <div class="news-item">1. value</div>

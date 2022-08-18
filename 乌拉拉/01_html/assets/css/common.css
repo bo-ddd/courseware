@@ -1,4 +1,7 @@
 /* common.css */
+/* common.css文件的作用: */
+/* 1. 把一些公共的样式属性进行二次封装 */
+
 .float-left {
     float: left;
 }
@@ -10,7 +13,7 @@
 
 
 .fs-14{
-    font-style: 14px;
+    font-size: 14px;
 }
 
 .align-Center{
