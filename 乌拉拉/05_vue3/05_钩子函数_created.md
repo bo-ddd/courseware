@@ -161,8 +161,8 @@ created 和 data 是同一级,例如这样:
             group:1,  // 组id;
             groupName:'我的好友',  // 组名
             avatarName:'hi! world', // 网名;
-            description:'得之坦然，失之淡然，争其必然，顺其自然',  //描述
-            remark:'程序员是最浪漫的职业',  //备注
+            description:'程序员是最浪漫的职业',  //描述
+            remark:'',  //备注
             lastContactTime:'', // 上次联系时间
             onlineStatus: 1,  // 1 : 在线,  0: 离线
             article:[
