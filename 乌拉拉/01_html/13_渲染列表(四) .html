@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <template id="template">
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+<script>
+    var arr = [
+        {
+            id:1,
+            label:'Label1'
+        },
+        {
+            id:2,
+            label:'Label2'
+        },
+        {
+            id:3,
+            label:'Label3'
+        },
+        {
+            id:4,
+            label:'Label4'
+        },
+    ]
+
+    // 在你的项目中,页面中有n个列表,你不可能用这种面向过程的写法;
+    // 所以我们要封装一个方法;
+    // 来实现渲染复用;
+
+
+    // 你得告诉我 想渲染哪一个列表的那个元素
+    // 2. 你得告诉我渲染的模板是谁；
+    // 3. 你得告诉我渲染的内容是什么；
+
+    render('.list','.item',arr);
+
+    function render(el, temp, data){
+        let list = document.querySelector(el);
+        let template = list.querySelector('template');
+        let item = template.content.querySelector(temp);
+        let framgment = document.createDocumentFragment();
+        for(let i = 0; i < arr.length;i++){
+            let cloneNode =  item.cloneNode(true);
+            cloneNode.innerHTML = arr[i].label;
+            framgment.appendChild(cloneNode);
+        }
+        list.appendChild(framgment);
+    }
+
+
+</script>
+</html>

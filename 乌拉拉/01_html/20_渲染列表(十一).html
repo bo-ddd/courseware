@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <template id="template">
+            <div class="item">
+                {{ username }}
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                {{ username }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                {{ username }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                {{ username }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <div>
+                                {{ username }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ sex }}
+            </div>
+        </template>
+    </div>
+</body>
+<script>
+
+    var arr = [
+        {
+            id:1,
+            label:'Label1',
+            username:'xiaoming1',
+            sex:1,
+        },
+        {
+            id:2,
+            label:'Label2',
+            username:'xiaoming2',
+            sex:0,
+        },
+        {
+            id:3,
+            label:'Label3',
+            username:'xiaoming3',
+            sex:1,
+        },
+        {
+            id:4,
+            label:'Label4',
+            username:'xiaoming4',
+            sex:0,
+        },
+    ]
+   
+    // 在你工作中，如果一直维护这个方法，这个方法会变得越来越大；
+
+    // 并且，你声明的公共方法会越来越多；
+    // 为了解决这个问题，我们需要把这些公共的方法，放在一个实例上；
+    // 所以用到了类；
+
+    class Vue{
+        constructor(options){
+            this.el = options.el;
+            this.temp = options.temp;
+            this.data = options.data;
+            this.mounted = options.mounted;
+            this.exec();
+        }
+
+        exec(){
+            let { el, temp, data, callback } = this;
+            let list = document.querySelector(el);
+            let template = list.querySelector('template');
+            let item = template.content.querySelector(temp);
+            let framgment = document.createDocumentFragment();
+            for(let i = 0; i < data.length; i++){
+                let cloneNode = item.cloneNode(true);
+                this.compiler(cloneNode, data[i]);
+                framgment.appendChild(cloneNode)
+            }
+            list.appendChild(framgment);
+
+            this.mounted && this.mounted();
+        }
+
+        compiler(el, data){
+            let childNodes = el.childNodes;
+            Array.from(childNodes).forEach( node =>{
+                if(node.nodeType == 1){
+                    //元素
+                }else if(node.nodeType == 3){
+                    let textContent = node.textContent;
+                    node.textContent = textContent.replace(/\{\{\s*(\S+)\s*\}\}/g,(val,$1)=>{
+                        return data[$1];
+                    })
+                }
+
+                if(node.childNodes.length){
+                    this.compiler(node, data);
+                }
+            })
+        }
+    }
+
+    let render = new Vue({
+        el:'.list',
+        temp:'.item',
+        data:arr,
+        mounted(){
+            console.log('页面渲染完成啦！哈哈哈哈')
+        }
+    })
+
+
+    
+
+</script>
+</html>

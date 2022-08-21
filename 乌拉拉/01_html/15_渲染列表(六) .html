@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <template id="template">
+            <div class="item">
+                <span class="id"></span>
+                <span class="label"></span>
+                <span class="username"></span>
+            </div>
+        </template>
+    </div>
+
+    <div class="list-2">
+        <template>
+            <div class="list-item">
+                <span class="id"></span>
+                <span class="name"></span>
+            </div>
+        </template>
+    </div>
+</body>
+<script>
+    var arr = [
+        {
+            id:1,
+            label:'Label1',
+            username:'xiaoming1',
+        },
+        {
+            id:2,
+            label:'Label2',
+            username:'xiaoming2',
+        },
+        {
+            id:3,
+            label:'Label3',
+            username:'xiaoming3',
+        },
+        {
+            id:4,
+            label:'Label4',
+            username:'xiaoming4',
+        },
+    ]
+
+    var arr2 = [
+        {
+            id:1,
+            name:'name1'
+        },
+        {
+            id:2,
+            name:'name2'
+        },
+        {
+            id:3,
+            name:'name3'
+        },
+        {
+            id:4,
+            name:'name4'
+        },
+    ]
+
+    // 这种写法的好处是， 代码可以复用
+    // 坏处是，还是需要写好多的render函数;
+
+    // 利用class名来渲染；
+
+    render('.list','.item',arr, (el, data)=>{
+        // el.innerHTML = data.label;
+    });
+
+    // render('.list-2','.list-item',arr2, (el, data)=>{
+    //     // el.querySelector('.id').innerHTML = data.id + '.';
+    //     // el.querySelector('.name').innerHTML = data.name;
+    // });
+
+    function render(el, temp, data, callback){
+        let list = document.querySelector(el);
+        let template = list.querySelector('template');
+        let item = template.content.querySelector(temp);
+        let framgment = document.createDocumentFragment();
+        for(let i = 0; i < data.length;i++){
+            let cloneNode =  item.cloneNode(true);
+            callback(cloneNode, data[i]);
+            Object.keys(data[i]).forEach(key => {
+                let els = cloneNode.querySelectorAll('.' + key);
+                console.log(els);
+                Array.from(els).forEach(el =>{
+                    el.innerHTML =  data[i][key];
+                })
+            })
+
+            
+            framgment.appendChild(cloneNode);
+        }
+        list.appendChild(framgment);
+    }
+
+
+</script>
+</html>

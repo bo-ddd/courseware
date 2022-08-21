@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <div class="item"></div>
+    </div>
+</body>
+<script>
+    var arr = [
+        {
+            id:1,
+            label:'Label1'
+        },
+        {
+            id:2,
+            label:'Label2'
+        },
+        {
+            id:3,
+            label:'Label3'
+        },
+        {
+            id:4,
+            label:'Label4'
+        },
+    ]
+    // 重点：
+    // js中不要去设置innerHTML；
+
+    // 以 .item元素为模板，进行克隆 ，
+    // 设置克隆元素的innerHTML 
+    // 把这个克隆元素放到.list中；
+    let list = document.querySelector('.list');
+    let item = list.querySelector('.item');
+    item.remove();
+
+    for(let i = 0; i < arr.length;i++){
+        let cloneNode =  item.cloneNode(true);
+        cloneNode.innerHTML = arr[i].label;
+        list.appendChild(cloneNode);
+    }
+</script>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <template id="template">
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+<script>
+    var arr = [
+        {
+            id:1,
+            label:'Label1'
+        },
+        {
+            id:2,
+            label:'Label2'
+        },
+        {
+            id:3,
+            label:'Label3'
+        },
+        {
+            id:4,
+            label:'Label4'
+        },
+    ]
+    
+    // 这样的写的问题是:
+    // for  item ;
+    // 拿到 Item 放到 list中
+    // 拿到 Item 放到 list中
+    // 拿到 Item 放到 list中
+    // 拿到 Item 放到 list中
+
+    // 为了解决多次回流的问题, 出现了 framgment
+    // fragment 又叫文档碎片;
+
+    // 可以把fragment想象成钱包,
+    // 把创建的元素放在钱包里,
+    // 然后统一一次性放在 list中;
+    let list = document.querySelector('.list');
+    let template = list.querySelector('#template');
+    let item = template.content.querySelector('.item');
+    // 钱包
+    let framgment = document.createDocumentFragment();
+    console.log(template.content);
+    for(let i = 0; i < arr.length;i++){
+        let cloneNode =  item.cloneNode(true);
+        console.log(cloneNode);
+        cloneNode.innerHTML = arr[i].label;
+        framgment.appendChild(cloneNode);
+    }
+    list.appendChild(framgment);
+</script>
+</html>

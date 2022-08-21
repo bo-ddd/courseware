@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <template id="template">
+            <div class="item"></div>
+        </template>
+    </div>
+</body>
+<script>
+    var arr = [
+        {
+            id:1,
+            label:'Label1'
+        },
+        {
+            id:2,
+            label:'Label2'
+        },
+        {
+            id:3,
+            label:'Label3'
+        },
+        {
+            id:4,
+            label:'Label4'
+        },
+    ]
+    
+    //这样写的问题是，  创建一个元素，又删除一个元素；
+    // 这样本身从逻辑上来说，不合理；
+    // 除此之外, 删除和创建元素 本身就会造成重绘和回流问题
+    // 影响性能;
+
+    // 1. template
+    // template 标签不会被浏览器直接渲染
+    // 但是我们可以通过操作dom来获取到template中的innerHTML;
+    
+    // template解决的问题: 页面中不会造成重绘;
+    let list = document.querySelector('.list');
+    let template = list.querySelector('#template');
+    let item = template.content.querySelector('.item');
+    console.log(template.content);
+    for(let i = 0; i < arr.length;i++){
+        let cloneNode =  item.cloneNode(true);
+        console.log(cloneNode);
+        cloneNode.innerHTML = arr[i].label;
+        list.appendChild(cloneNode);
+    }
+</script>
+</html>

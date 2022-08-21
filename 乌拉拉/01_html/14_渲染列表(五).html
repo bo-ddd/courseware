@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="list">
+        <template id="template">
+            <div class="item"></div>
+        </template>
+    </div>
+
+    <div class="list-2">
+        <template>
+            <div class="list-item"></div>
+        </template>
+    </div>
+</body>
+<script>
+    var arr = [
+        {
+            id:1,
+            label:'Label1'
+        },
+        {
+            id:2,
+            label:'Label2'
+        },
+        {
+            id:3,
+            label:'Label3'
+        },
+        {
+            id:4,
+            label:'Label4'
+        },
+    ]
+
+    var arr2 = [
+        {
+            id:1,
+            name:'name1'
+        },
+        {
+            id:2,
+            name:'name2'
+        },
+        {
+            id:3,
+            name:'name3'
+        },
+        {
+            id:4,
+            name:'name4'
+        },
+    ]
+
+    // 这种封装方法，会有一个问题
+    // 是你data数组中，必须要有一个json格式的对象，
+    // 还必须要有label的属性，
+    // 没有的话，就渲染不出来；
+
+    // 为了解决这个问题，我们要用到js中的回调函数；
+    render('.list','.item',arr, (el, data)=>{
+        el.innerHTML = data.label;
+    });
+
+    render('.list-2','.list-item',arr2, (el, data)=>{
+        el.innerHTML = data.name;
+    });
+
+    function render(el, temp, data, callback){
+        let list = document.querySelector(el);
+        let template = list.querySelector('template');
+        let item = template.content.querySelector(temp);
+        let framgment = document.createDocumentFragment();
+        for(let i = 0; i < data.length;i++){
+            let cloneNode =  item.cloneNode(true);
+            callback(cloneNode, data[i]);
+            framgment.appendChild(cloneNode);
+        }
+        list.appendChild(framgment);
+    }
+
+
+</script>
+</html>
