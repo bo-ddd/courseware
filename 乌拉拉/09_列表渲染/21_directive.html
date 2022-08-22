@@ -50,7 +50,7 @@
             return res;
         }
     }
-    
+
     var el = document.getElementById('goods');
     let attrs = el.attributes;
     let directives = new Directives(attrs);
@@ -72,5 +72,11 @@
                 break;
         }
     })
+
+    directives.attributes.forEach(directive=>{
+        el.removeAttribute(directive.name);
+    })
+
+
 </script>
 </html>
