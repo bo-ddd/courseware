@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="goods" class="ml-40 mr-10 text-center" v-html="html" v-if="flag"  v-bind:username="username" :sex="sex"></div>
+</body>
+<script>
+    var data = {
+        html:'<h1>我是title</h1>',
+        flag:true,
+        username:'xiaoming',
+        sex:1,
+    }
+
+    class Directive{
+        static isVBind(val){
+            return /(^v-bind)|(^:)/.test(val);
+        }
+        getAttrName(val){
+            return val.replace(/^v-bind:/,':').replace(/^:/,'');
+        }
+        static isDirective(val){
+            return /(^v-)|^:/.test(val);
+        }
+    }
+    // 多个指令类
+    class Directives extends Directive{
+        constructor(attrs){
+            super();
+            this.attrs = attrs;
+        }
+        get attributes(){
+            let res = [];
+            Array.from(this.attrs).forEach(attr => {
+                // 如果是特殊指令，就放到一个新的数组中；
+                const { name, value } = attr;
+                if(Directives.isDirective(name)){
+                    res.push({
+                        name,
+                        value,
+                        attrName: this.getAttrName(name)
+                    })
+                }
+            })
+            return res;
+        }
+    }
+    
+    var el = document.getElementById('goods');
+    let attrs = el.attributes;
+    let directives = new Directives(attrs);
+    
+    directives.attributes.forEach(directive=>{
+        const { name, value, attrName } = directive;
+
+        if(Directives.isVBind(name)){
+            el.setAttribute(attrName,data[value]);
+            return;
+        }
+
+        switch(name){
+            case 'v-html':
+                el.innerHTML = data[value];
+                break;
+            case 'v-if':
+                if(!data[value]) el.remove();
+                break;
+        }
+    })
+</script>
+</html>

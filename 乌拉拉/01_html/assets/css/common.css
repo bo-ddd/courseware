@@ -5,7 +5,6 @@ body{
     margin: 0;
 }
 
-
 /* 2. 把一些公共的样式属性进行二次封装 */
 .float-left {
     float: left;

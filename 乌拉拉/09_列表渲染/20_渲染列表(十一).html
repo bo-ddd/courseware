@@ -10,49 +10,27 @@
     <div class="list">
         <template id="template">
             <div class="item">
-                {{ username }}
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                {{ username }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                {{ username }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                {{ username }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                {{ username }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{ sex }}
+                <div id="goods" class="ml-40 mr-10 text-center" v-html="html" v-if="flag"  v-bind:username="username" :sex="sex"></div>
             </div>
         </template>
     </div>
 </body>
 <script>
+    // 循环arr
+    // 循环节点
+    // 判断是否是元素节点
+    // 如果是元素节点
+    // 获取元素身上的所有属性 ==  指令;
+    let directives = new Directives();
+    // 过滤出特殊属性 ==  vue中的指令
+    directive.attributes  //  [v-html, v-if, v-bind:username, sex]
+    // 根据不同的指令,叫不同的操作
+
+    // 面向对象的思想
+    // let bx = new BingXiang();
+    // bx.open();
+    // bx.save('daxiang');
+    // bx.close();
 
     var arr = [
         {
@@ -60,32 +38,30 @@
             label:'Label1',
             username:'xiaoming1',
             sex:1,
+            html:'<h1>我是h1标题</h1>'
         },
         {
             id:2,
             label:'Label2',
             username:'xiaoming2',
             sex:0,
+            html:'<h1>我是h1标题</h1>'
         },
         {
             id:3,
             label:'Label3',
             username:'xiaoming3',
             sex:1,
+            html:'<h1>我是h1标题</h1>'
         },
         {
             id:4,
             label:'Label4',
             username:'xiaoming4',
             sex:0,
+            html:'<h1>我是h1标题</h1>'
         },
     ]
-   
-    // 在你工作中，如果一直维护这个方法，这个方法会变得越来越大；
-
-    // 并且，你声明的公共方法会越来越多；
-    // 为了解决这个问题，我们需要把这些公共的方法，放在一个实例上；
-    // 所以用到了类；
 
     class Vue{
         constructor(options){
