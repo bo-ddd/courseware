@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ajax 是解决局部刷新页面的一种方案 -->
+    <!-- 他是基于XMLHttpRequest类来实现的 -->
+</body>
+<script>
+    // 语法:
+    // xhr代表的是浏览器;
+     let xhr = XMLHttpRequest();
+
+    // xhr.open 打开浏览器, 输入 www.17173.com
+    xhr.open('GET','www.17173.com',true);
+
+    // 服务端返回成功后:
+    xhr.onload = function(){
+        if(xhr.status == 200){
+            // 输入 服务端返回的数据
+            // 数据有可能 是 html   有可能 是 object[]
+
+            // 目前,通常情况下,前端做的页面,通常服务端返回的都是 object[] , 而这种类型被称为 application/json;
+            console.log(xhr.responseText);
+        }
+    }
+
+    // send 发送  相当于 你按了一个回车;
+    xhr.send({
+        username: 'xiaoming'
+    })
+</script>
+</html>

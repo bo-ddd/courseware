@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 如果我们的逻辑是,调用接口a ,在接口a成功后调b  b=>c   c=d;
+    // 这种情况叫 回调地狱, 为了解决这个问题,出现了一个方案,该方案叫promise;
+    // ajax('GET', 'interface/a', {}, res=>{
+    //     ajax('GET', 'interface/b', {}, res=>{
+    //         ajax('GET', 'interface/a', {}, res=>{
+    //             console.log(res);
+    //             ajax('GET', 'interface/a', {}, res=>{
+    //                 console.log(res);
+    //             })
+    //         })
+    //     })
+    // })
+
+
+    // Promise是一个类, 该方法有一个参数,该参数是一个回调函数;
+    // 该回调函数接收两个参数, 一个是resovle, 另一个是reject;
+    // 这两个参数都是方法;
+    // 如果逻辑成功,则走resolve方法;
+    // 如果逻辑失败,则走reject方法;
+    // resovle方法,会被 .then方法所执行; 
+    // reject方法,会被  .catch方法所执行;
+    // resovle方法传入的参数会被 .then方法所接收;
+    // reject方法传入的参数会被  .catch方法所接收;
+
+    // 这种写法叫链式调用;
+    // new Promise((resolve, reject)=>{
+    //     setTimeout(function(){
+    //         if(true){
+    //             resolve(" is success");
+    //         }else{
+    //             reject(' is error ');
+    //         }
+    //     },1000)
+    // }).then(res=>{
+    //     console.log(res) //  is success;
+    // }).catch(err=>{
+    //     console.log(err)  //  is error;
+    // })  
+
+    // 方法二:
+    // let p = new Promise((resolve, reject)=>{
+    //     setTimeout(function(){
+    //         if(true){
+    //             resolve(" is success");
+    //         }else{
+    //             reject(' is error ');
+    //         }
+    //     },1000)
+    // })
+
+    // p.then(res=>{
+    //     console.log(res) //  is success;
+
+    // })
+    // p.catch(err=>{
+    //     console.log(err)  //  is error;
+    // })  
+
+    // function getUserInfo(){
+    //     return new Promise((resolve, reject)=>{
+    //         setTimeout(function(){
+    //             if(true){
+    //                 resolve(" is success");
+    //             }else{
+    //                 reject(' is error ');
+    //             }
+    //         },1000)
+    //     })
+    // }
+
+    // 方法三:
+    // let p = getUserInfo()
+
+    // p.then(res=>{
+    //     console.log(res) //  is success;
+    //     return getUserInfo();
+    // })
+
+    // .then(res=>{
+    //     console.log(res) //  is success;
+    //     return getUserInfo();
+    // })
+
+    // .then(res=>{
+    //     console.log(res) //  is success;
+    //     return getUserInfo();
+    // })
+
+    // 方法四  await async
+    // await async 是promise.then方法的语法糖
+    // 1. 想使用await 必须在他的父级函数前加上async关键字;
+    // 2. 把promise对象前加上 await ;
+    // 3. 把 .then 方法体中的内容拿出来; 同时删掉 .then方法;
+    // (async function(){
+    //     // await : 等待
+    //     let res = await getUserInfo()
+    //     console.log(res) //  is success;
+    //     let res2 = await getUserInfo();
+    //     console.log(res2)
+
+    //     let res3 = await getUserInfo();
+    //     console.log(res3);
+
+    //     let res4 =await getUserInfo();
+    //     console.log(res4);
+    // })()
+
+    // 将await 转成 promise方法;
+    // 1. 将await 去掉; 
+    // 2. 将await 后面所有的代码全都放在.then方法中;
+    // getUserInfo().then(async res=>{
+    //     console.log(res) //  is success;
+    //     let res2 = await getUserInfo();
+    //     console.log(res2)
+
+    //     let res3 = await getUserInfo();
+    //     console.log(res3);
+
+    //     let res4 =await getUserInfo();
+    //     console.log(res4);
+    // })
+
+    // getUserInfo().then( res=>{
+    //     console.log(res) //  is success;
+    //     getUserInfo().then(async res2=>{
+    //         console.log(res2)
+    //         let res3 = await getUserInfo();
+    //         console.log(res3);
+    //         let res4 =await getUserInfo();
+    //         console.log(res4);
+    //     })
+    // })
+
+    // getUserInfo().then( res=>{
+    //     console.log(res) //  is success;
+    //     getUserInfo().then(res2=>{
+    //         console.log(res2)
+    //         getUserInfo().then(res3=>{
+    //             console.log(res3);
+    //             getUserInfo().then(res4=>{
+    //                 console.log(res4);
+    //             })
+    //         });
+    //     })
+    // })
+
+    // 通常为情况下,如果你只有三年工作经验,或者之下的,
+    // promise的唯一作用就是封装ajax;
+    // function getUserInfo(){
+    //     return new Promise((resolve, reject)=>{
+    //        ajax({
+    //             type:'POST',
+    //             url:'/user/info',
+    //             data:{
+    //                 username:'xiaoming',
+    //                 password:'00000000'
+    //             },
+    //             success(res){
+    //                 resolve(res);
+    //             },
+    //             fail(err){
+    //                 resolve(err);
+    //             }
+    //        })
+    //     })
+    // }
+
+    // (async function(){
+    //     let userInfo = await getUserInfo();
+    //     console.log('------------userInfo-----------')
+    //     console.log(userInfo);
+    // })()
+
+
+    function ajax(options){
+        const { type, url, data, success, fail } = options;
+        let xhr = new XMLHttpRequest();
+        xhr.open(type, url ,true);
+        xhr.onload = function(){
+            if(xhr.status == 200){
+                success( JSON.parse(xhr.responseText) )
+            }else{
+                fail(xhr.responseText);
+            }
+        }
+        xhr.send(data);
+    }
+</script>
+</html>
