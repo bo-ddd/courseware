@@ -1,7 +1,12 @@
 /* common.css */
 /* common.css文件的作用: */
-/* 1. 把一些公共的样式属性进行二次封装 */
+/* 1. 初始化默认样式 */
+body{
+    margin: 0;
+}
 
+
+/* 2. 把一些公共的样式属性进行二次封装 */
 .float-left {
     float: left;
 }
@@ -28,4 +33,17 @@
     height:0;
     clear: both;
     visibility: hidden;
+}
+
+
+/* 作用三:  声明变量 */
+:root{
+    --tabbar-height: 60px;
+}
+
+
+/* 作用四: 项目中要用到的全局样式 */
+.wrap{
+    width: 800px;
+    margin: 0 auto;
 }
