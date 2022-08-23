@@ -61,11 +61,26 @@ created 和 data 是同一级,例如这样:
 11. 每组中,优先展示为在线的好友列表, 其次展示离线的好友列表;
 12. 如果角色离线,则在描述区前展示  '[离线请留言]'
 ```typescript
+
+    var groups = [
+        {
+            id:1,  // 组id;
+            name: '我的好友'
+        },
+        {
+            id:2,
+            name:'红颜知己'
+        },
+        {
+            id:3,
+            name:'哈哈家庭'
+        }
+    ]
+
     var arr: Contact[] = [
         {
             id:1,  //好友id;
             group:1,  // 组id;
-            groupName:'我的好友',  // 组名
             avatarName:'哎哟,不错哟', // 网名;
             description:'',  //描述
             remark:'',  //备注
@@ -82,7 +97,6 @@ created 和 data 是同一级,例如这样:
         {
             id:2,  //好友id;
             group:2,  // 组id;
-            groupName:'红颜知己',  // 组名
             avatarName:'~...~', // 网名;
             description:'只要专业选的好～年年期末像高考',  //描述
             remark:'盖腾飞',  //备注
@@ -93,7 +107,6 @@ created 和 data 是同一级,例如这样:
         {
             id:3,  //好友id;
             group:3,  // 组id;
-            groupName:'哈哈家庭',  // 组名
             avatarName:'林子', // 网名;
             description:'近陌者黑,生人勿加',  //描述
             remark:'侯林',  //备注
@@ -104,7 +117,6 @@ created 和 data 是同一级,例如这样:
         {
             id:4,  //好友id;
             group:1,  // 组id;
-            groupName:'我的好友',  // 组名
             avatarName:'禁止偷猪', // 网名;
             description:'',  //描述
             remark:'',  //备注
@@ -115,7 +127,6 @@ created 和 data 是同一级,例如这样:
         {
             id:5,  //好友id;
             group:2,  // 组id;
-            groupName:'红颜知己',  // 组名
             avatarName:'禁止偷猪', // 网名;
             description:'是做一世的逗逼还是暂时的聪明人？',  //描述
             remark:'范文峰',  //备注
@@ -126,7 +137,6 @@ created 和 data 是同一级,例如这样:
         {
             id:6,  //好友id;
             group:2,  // 组id;
-            groupName:'红颜知己',  // 组名
             avatarName:'蓝白白', // 网名;
             description:'一天二次元,一生二次元,为二次元而活',  //描述
             remark:'',  //备注
@@ -137,7 +147,6 @@ created 和 data 是同一级,例如这样:
         {
             id:6,  //好友id;
             group:3,  // 组id;
-            groupName:'哈哈家族',  // 组名
             avatarName:'格勒冇三', // 网名;
             description:'得之坦然，失之淡然，争其必然，顺其自然',  //描述
             remark:'凯哥',  //备注
@@ -159,7 +168,6 @@ created 和 data 是同一级,例如这样:
         {
             id:7,  //好友id;
             group:1,  // 组id;
-            groupName:'我的好友',  // 组名
             avatarName:'hi! world', // 网名;
             description:'程序员是最浪漫的职业',  //描述
             remark:'',  //备注
