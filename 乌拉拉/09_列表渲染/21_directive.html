@@ -10,6 +10,7 @@
     <div id="goods" class="ml-40 mr-10 text-center" v-html="html" v-if="flag"  v-bind:username="username" :sex="sex"></div>
 </body>
 <script>
+    // 根据data数据，实现自定义指令
     var data = {
         html:'<h1>我是title</h1>',
         flag:true,
@@ -54,8 +55,8 @@
     var el = document.getElementById('goods');
     let attrs = el.attributes;
     let directives = new Directives(attrs);
-    
-    directives.attributes.forEach(directive=>{
+    let attributes = directives.attributes;
+    attributes.forEach(directive=>{
         const { name, value, attrName } = directive;
 
         if(Directives.isVBind(name)){
@@ -73,7 +74,7 @@
         }
     })
 
-    directives.attributes.forEach(directive=>{
+    attributes.forEach(directive=>{
         el.removeAttribute(directive.name);
     })
 

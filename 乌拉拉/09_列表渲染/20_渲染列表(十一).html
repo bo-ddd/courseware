@@ -10,28 +10,12 @@
     <div class="list">
         <template id="template">
             <div class="item">
-                <div id="goods" class="ml-40 mr-10 text-center" v-html="html" v-if="flag"  v-bind:username="username" :sex="sex"></div>
+                <div id="goods" class="ml-40 mr-10 text-center" v-html="html" v-bind:username="username" :sex="sex"></div>
             </div>
         </template>
     </div>
 </body>
 <script>
-    // 循环arr
-    // 循环节点
-    // 判断是否是元素节点
-    // 如果是元素节点
-    // 获取元素身上的所有属性 ==  指令;
-    let directives = new Directives();
-    // 过滤出特殊属性 ==  vue中的指令
-    directive.attributes  //  [v-html, v-if, v-bind:username, sex]
-    // 根据不同的指令,叫不同的操作
-
-    // 面向对象的思想
-    // let bx = new BingXiang();
-    // bx.open();
-    // bx.save('daxiang');
-    // bx.close();
-
     var arr = [
         {
             id:1,
@@ -63,6 +47,40 @@
         },
     ]
 
+    class Directive{
+        static isVBind(val){
+            return /(^v-bind)|(^:)/.test(val);
+        }
+        getAttrName(val){
+            return val.replace(/^v-bind:/,':').replace(/^:/,'');
+        }
+        static isDirective(val){
+            return /(^v-)|^:/.test(val);
+        }
+    }
+    // 多个指令类
+    class Directives extends Directive{
+        constructor(attrs){
+            super();
+            this.attrs = attrs;
+        }
+        get attributes(){
+            let res = [];
+            Array.from(this.attrs).forEach(attr => {
+                // 如果是特殊指令，就放到一个新的数组中；
+                const { name, value } = attr;
+                if(Directives.isDirective(name)){
+                    res.push({
+                        name,
+                        value,
+                        attrName: this.getAttrName(name)
+                    })
+                }
+            })
+            return res;
+        }
+    }
+
     class Vue{
         constructor(options){
             this.el = options.el;
@@ -93,6 +111,7 @@
             Array.from(childNodes).forEach( node =>{
                 if(node.nodeType == 1){
                     //元素
+                    this.parseDirective(node, data);
                 }else if(node.nodeType == 3){
                     let textContent = node.textContent;
                     node.textContent = textContent.replace(/\{\{\s*(\S+)\s*\}\}/g,(val,$1)=>{
@@ -103,6 +122,34 @@
                 if(node.childNodes.length){
                     this.compiler(node, data);
                 }
+            })
+        }
+
+        parseDirective(el,data){
+            let attrs = el.attributes;
+            let directives = new Directives(attrs);
+            let attributes = directives.attributes;
+
+            attributes.forEach(directive=>{
+                const { name, value, attrName } = directive;
+
+                if(Directives.isVBind(name)){
+                    el.setAttribute(attrName,data[value]);
+                    return;
+                }
+
+                switch(name){
+                    case 'v-html':
+                        el.innerHTML = data[value];
+                        break;
+                    case 'v-if':
+                        if(!data[value]) el.remove();
+                        break;
+                }
+            })
+
+            attributes.forEach(directive=>{
+                el.removeAttribute(directive.name);
             })
         }
     }
