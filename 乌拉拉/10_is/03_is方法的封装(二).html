@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let str = 'hello world';
+    let arr = [1,231,23,];
+
+    // 这种写法的问题在于,封装的方法过多;
+    // 我们发现,这种方法封装出来以后,只有最后的那个值会变,
+    // 所以,我们要优化这个方案
+    // function isString(val){
+    //     return Object.prototype.toString.call(val).slice(8, -1) == 'String';
+    // }
+
+    // // Array.isArray()
+    // function isPlantObject(val){
+    //     return Object.prototype.toString.call(val).slice(8, -1) == 'Object';
+    // }
+
+    // function isFunction(val){
+    //     return Object.prototype.toString.call(val).slice(8, -1) == 'Function';
+    // }
+
+    // function isFunction(val){
+    //     return Object.prototype.toString.call(val).slice(8, -1) == 'Number';
+    // }
+
+    // 解决方案:(闭包)
+    function isType(type){
+        return function(val){
+            return Object.prototype.toString.call(val).slice(8, -1) == type;
+        }
+    }
+
+    let isNumber = isType('Number');
+    let isString = isType('String');
+    let isObject = isType('Object');
+    let isFunction = isType('Function');
+
+    let res = isNumber(18); // true
+    console.log(res);
+
+    // 总结 :
+    // is是开头的方法返回的是一个布尔值
+    // Object.prototype.toString.call() 用来判断数据类型;
+    </script>
+</html>

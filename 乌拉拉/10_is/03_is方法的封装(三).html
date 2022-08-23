@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let str = 'hello world';
+    let arr = [1,231,23,];
+
+
+    // 用闭包写的坏处是,你需要在调用多个方法;
+    // 为了解决这个问题: 我们可以有好几种解决方案;
+    // function isType(type){
+    //     return function(val){
+    //         return Object.prototype.toString.call(val).slice(8, -1) == type;
+    //     }
+    // }
+
+    // let isNumber = isType('Number');
+    // let isString = isType('String');
+    // let isObject = isType('Object');
+    // let isFunction = isType('Function');
+
+    // let res = isNumber(18); // true
+    // console.log(res);
+
+
+    // 第一种: class 
+    // class Type{
+    //     static isType(type){
+    //         return function(val){
+    //             return Object.prototype.toString.call(val).slice(8, -1) == type;
+    //         }
+    //     }
+    //     static isNumber = Type.isType('Number');
+    //     static isArray = Type.isType('Array');
+    //     static isPlantObject = Type.isType('Object'); 
+    //     static isFunction = Type.isType('Function');
+    // }
+
+    // 第二种的思路: 是用对象的命名空间来解决问题;
+    // class和object封装的区别是什么? 
+    // 答: class有封装多态和继承, object没有;
+    // 如果你封装的对象或者方法需要用到继承,则应该用类;
+    // 否则用这种;
+    // const Type =  {
+    //     isType(type){
+    //         return function(val){
+    //             return Object.prototype.toString.call(val).slice(8, -1) == type;
+    //         }
+    //     },
+    //     isNumber : Type.isType('Number'),
+    //     isArray : Type.isType('Array'),
+    //     isPlantObject : Type.isType('Object'), 
+    //     isFunction : Type.isType('Function'),
+    // }
+
+    // 第三种: 在函数上声明静态方法; 但是比较Low;
+
+    // Array.isArray()
+    // console.log(Type.isNumber(18))
+
+    // function Type(type){
+    //     return function(val){
+    //         return Object.prototype.toString.call(val).slice(8, -1) == type;
+    //     }
+    // }
+    // Type.isNumber = Type('Number');
+    // Type.isString = Type('String');
+    // Type.isObject = Type('Object');
+    // Type.isFunction = Type('Function');
+
+    // let res = isNumber(18); // true
+    // console.log(res);
+
+    // 知识点 :
+    // 在命名中,可以是 is 开头, 也可以是is结尾
+    // typeIs('number');
+    // attributeIs('v-bind')
+    </script>
+</html>

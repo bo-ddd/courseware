@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 在你的项目中，通常有一些逻辑，需要判断是与否，  真或假等逻辑操作；
+    // 此时，你其于此结果封装的方法 应该以 is开头;
+
+    // is的方法通常是以is开头，该方法返回的是一个布尔值
+
+    // 我们要判断数据类型   typeof  instanceof
+    // 通常情况下，我们在写项目时，并不用 这两个，而是用的 Object.prototype.toString.call();
+
+    let str = 'hello world';
+
+    let arr = [1,231,23,];
+
+    let obj = {
+        username: 'xiaoming'
+    }
+
+    // 第一种写法
+    // console.log( Object.prototype.toString.call(str) == '[object String]' )
+
+    // 第二种
+    // console.log( Object.prototype.toString.call(str).slice(8, -1) == 'String' );
+    
+    // console.log( Object.prototype.toString.call(arr).slice(8, -1) === 'Array');
+    console.log( Object.prototype.toString.call(obj).slice(8, -1));
+
+
+    // 总结 :
+    // is是开头的方法返回的是一个布尔值
+    // Object.prototype.toString.call() 用来判断数据类型;
+    </script>
+</html>

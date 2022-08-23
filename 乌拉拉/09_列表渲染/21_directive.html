@@ -10,6 +10,9 @@
     <div id="goods" class="ml-40 mr-10 text-center" v-html="html" v-if="flag"  v-bind:username="username" :sex="sex"></div>
 </body>
 <script>
+    // 1. 面向对象的维度
+    // 2. 命名的维度去思考问题
+
     // 根据data数据，实现自定义指令
     var data = {
         html:'<h1>我是title</h1>',
@@ -55,6 +58,7 @@
     var el = document.getElementById('goods');
     let attrs = el.attributes;
     let directives = new Directives(attrs);
+
     let attributes = directives.attributes;
     attributes.forEach(directive=>{
         const { name, value, attrName } = directive;
