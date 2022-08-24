@@ -182,3 +182,109 @@ created 和 data 是同一级,例如这样:
         },
     ]
 ```
+
+作业一答案:
+```typescript
+    //  created    data    methods  computed
+    class BaseVue{
+        created: ()=> void;
+        methods: {
+            [propsName: string]: ()=> any;
+        };
+        computed: {
+            [propsName: string]: ()=> any;
+        }
+    }
+
+    interface Options extends BaseVue {
+        data: ()=> object;
+    }
+
+    class Vue extends BaseVue{
+        el: HTMLElement;
+        data: object;
+        constructor(options: Options){
+            super();
+            this.el = null;
+            this.data = options.data();
+            this.created = options.created;
+            this.methods = options.methods;
+            Object.assign(this, this.data);
+            Object.assign(this, this.methods);
+
+            // create 创建  reactive 原生   props 属性;
+            this.computed = options.computed;
+            
+            for(let key in this.computed){
+                this.createReactvieProp(this, key,  this.computed[key]);
+            }
+            
+            this.created();
+        }
+
+        createReactvieProp(obj: object, key: string, value: any){
+            Object.defineProperty(obj, key, {
+                get(){
+                    return value.call(obj);
+                }
+            })
+        }
+
+        mount(el: string){
+            this.el = document.querySelector(el);
+        }
+    }
+
+
+    function createApp(options:  Options): Vue{
+        return new Vue(options)
+    }
+
+    createApp({
+        data(){
+            return {
+                username:'xiaoming',
+                sex:1,
+            }
+        },
+
+        computed:{
+            sexName(){
+                console.log(this);
+                return this.sex == 1 ? '男' : '女';
+            }
+        },
+
+        created(){
+            console.log("hahahahaha")
+            console.log(this);
+
+            // 把data对象中的key和value 赋值到 this上;
+            console.log(this.data.username);
+            console.log(this.username);
+
+            console.log(this);
+            this.fn();
+
+            this.run();
+
+            this.sex = 0 ;  // 
+            console.log(this.sex);
+            console.log(this.sexName);  //女
+
+            this.sex = 1;
+            console.log(this.sex);
+            console.log(this.sexName) // 男;
+        },
+        methods:{
+            fn(){
+                console.log('this is  methods fn 方法 ')
+            },
+
+            run(){
+                console.log( this.username + 'is running');
+            }
+            
+        }
+    }).mount("#app");
+```
