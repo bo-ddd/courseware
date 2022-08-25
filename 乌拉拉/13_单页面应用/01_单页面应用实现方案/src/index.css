@@ -1,0 +1,29 @@
+body{
+    margin: 0;   
+}
+
+.container{
+    height: calc(100vh - 60px);
+}
+
+.footer{
+    height:60px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer .item{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footer .icon{
+    width:24px;
+    height:24px;
+    background:red;
+}
+
+.hidden{
+    display: none;
+}
