@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <img src="./assets/images/header.png" alt="">
+        <div class="list">
+            <div class="item">
+                <div class="group">
+                    <img class="icon" src="./assets/images/icon_arrow-right.png" alt="">
+                    <span class="name">第一组</span>
+                    <span class="count">3/10</span>
+                </div>
+                <div class="member hidden">
+                    <div class="member-item align-center ">
+                        <img class="icon mr-5" src="./assets//images/header.png" alt="">
+                        <span class="avatar-name ellipsis mr-5"></span>
+                        <span class="desc ellipsis"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- lib-flexable -->
+    <!-- 是阿里出的一个移动端适配方案 -->
+    <!-- 该方案是基于rem匹配 -->
+
+    <!-- 1rem ==  document.style.fontSize -->
+    <!-- 1rem == 10px -->
+    <!-- 40px  ==  4rem -->
+    <!-- 14px  == 1.4rem -->
+
+    <!-- 移动端开发注意事项： -->
+    <!-- f12中 手机端 尺寸要设置成 375 * xxx -->
+    <!-- 原因是 设计稿的尺寸一般都是750  -->
+    <!-- 375 刚好等于  750 / 2 -->
+
+    <!-- 在用webpack或者其它打包工具时，图片不能被html解析 -->
+    <!-- 原因是 ./assets/images/header.png 这个路径在 打包后是找不到的 -->
+    <!-- 打包是打包到dist文件夹中 -->
+    <!-- dist  /  bundle.js  index.html assets/images/header.png-->
+    <!-- 为了解决这个问题，我们需要配置两个东西，一个是 img loader -->
+    <!-- html-loader -->
+    <!-- http://localhost:8080/466751d54e416225fd0b.png -->
+
+    <!-- 写样式时， 从外往里写 -->
+
+    <!-- 选用icon时，应该用2倍的设讨稿图片尺寸大小， 目的是不失真 -->
+
+    <!-- 在项目中，为了项目的美观， 几乎一个项目中所有的icon大小都是一样大的 -->
+</body>
+</html>

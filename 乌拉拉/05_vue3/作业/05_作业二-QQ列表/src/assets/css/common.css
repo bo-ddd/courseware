@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+}
+
+.icon{
+    width:1.6rem;
+    height:1.6rem;
+}
+
+.align-center{
+    display: flex;
+    align-items: center;
+}
+
+
+.show{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
+.mr-5{
+    margin-right: 5px;
+}
+
+.ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.clear-fix::after{
+    content:'';
+    width:0px;
+    height:0px;
+    display: block;
+    visibility: hidden;
+    clear:both;
+}

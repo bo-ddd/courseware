@@ -1,0 +1,30 @@
+#app{
+    font-size: 1.6rem;
+}
+
+.list{
+    padding:0 1.5rem;
+}
+
+.list .group{
+    padding: .8rem 0;
+}
+
+.member-item .avatar-name{
+    max-width: 100px;
+}
+
+.member {
+    padding-left: 1rem;
+}
+
+
+.member .member-item{
+    padding: .4rem 0;
+}
+
+.member .desc{
+    font-size: 1.4rem;
+    color:#ccc;
+    width:80%;
+}

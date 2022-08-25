@@ -211,18 +211,16 @@ created 和 data 是同一级,例如这样:
             this.methods = options.methods;
             Object.assign(this, this.data);
             Object.assign(this, this.methods);
-
-            // create 创建  reactive 原生   props 属性;
-            this.computed = options.computed;
             
-            for(let key in this.computed){
-                this.createReactvieProp(this, key,  this.computed[key]);
+            for(let key in options.computed){
+                this.createReactvieProp(this, key,  options.computed[key]);
             }
             
             this.created();
         }
 
         createReactvieProp(obj: object, key: string, value: any){
+            // obj: this  key  sexName ;     value : function(){ return this.sex == 1 ? '男' : '女' }
             Object.defineProperty(obj, key, {
                 get(){
                     return value.call(obj);
@@ -245,6 +243,10 @@ created 和 data 是同一级,例如这样:
             return {
                 username:'xiaoming',
                 sex:1,
+                userInfo:{
+                    username:'xiaoming',
+                    age:18
+                } as UserInfo
             }
         },
 
