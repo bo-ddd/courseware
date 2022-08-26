@@ -132,3 +132,58 @@ reactive的ts写法
     }
 ```
 
+作业:
+1. 思考下列用例,实现setup方法:
+```javascript
+    let App = {
+        setup(){
+            let num = 10,
+            return {
+                num
+            }
+        }
+        created(){
+            console.log(this.name) // 10;
+        }
+    }
+    createApp(App),mount('#app');
+```
+
+2. 思考下列用例,实现ref方法:
+```javascript
+    let App = {
+        setup(){
+            let num = ref(10),
+            console.log(num.value);  // 10
+            return {
+                num
+            }
+        }
+        created(){
+            console.log(this.name) // 10;
+        }
+    }
+    createApp(App),mount('#app');
+```
+
+3. 思考下列用例,实现reactive方法:
+```javascript
+    let App = {
+        setup(){
+            let username = ref('xiaoming');
+            let userInfo = reactive({
+                username,
+                age: 18
+            })
+            console.log(userInfo.username) // xiaoming
+            return {
+                userInfo
+            }
+        }
+        created(){
+            console.log(this.userInfo) // { username: 'xiaoming', age: 18 }
+        }
+    }
+    createApp(App),mount('#app');
+```
+
