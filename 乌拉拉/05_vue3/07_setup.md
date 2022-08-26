@@ -58,6 +58,17 @@ ref方法是声明一个有数据双向绑定的值; 该方法返回一个对象
     }
 ```
 
+
+ref的ts写法
+```typescript
+    import { ref } from 'vue'
+    export default {
+        setup(){
+            let num = ref<number>(12);
+        }
+    }
+```
+
 ## reactive
 我们已经学一ref,他的作用是让数据拥有响应式,但是ref有一个限制,它只能定义基本数据类型,那引用型数据类型该如何定义呢? 是 reactive方法;
 
@@ -103,6 +114,24 @@ reactive方法还可以接收ref对象
         let arr = ref([ ref('xiaoming') ])
         // 这里需要 .value;
         console.log(arr[0].value) // xiaoming;
+    }
+```
+
+reactive的ts写法
+```typescript
+    import { reactive } from 'vue'
+    export default {
+        setup(){
+            interface UserInfo {
+                username: string;
+                age: number
+            }
+
+            let userInfo: UserInfo = reactive({
+                username: 'xiaoming',
+                age: 18
+            })
+        }
     }
 ```
 
