@@ -11,7 +11,7 @@ nrm 是一个 npm 源管理器，允许你快速地在 npm源间切换。
 什么意思呢，npm默认情况下是使用npm官方源（使用npm config ls命令可以查看），在国内用这个源肯定是不靠谱的，一般我们都会用淘宝npm源：https://registry.npm.taobao.org/，修改源的方式也很简单，在终端输入：
 
 ```
-    npm set registry https:/;registry.npm.taobao.org/
+    npm set registry https://registry.npm.taobao.org/
 ```
 
 ## nrm的安装
