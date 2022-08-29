@@ -50,3 +50,21 @@
         }
     }
 ```
+
+## 钩子函数
+```javascript
+// 所有的钩子函数是以on开头
+// 钩子函数有好多个，我们只说两个，其它的都一样，
+// onUnmounted, onBeforeMount, onBeforeUPdate, onBeforeUnmount, onReactived, onDeactivated
+import { onMounted, onCreated } from 'vue'
+export default {
+    setup(){
+        onCreated(()=>{
+            console.log('this is created!')
+        })
+        onMounted(()=>{
+            console.log("this is mounted!")
+        })
+    }
+}
+```
