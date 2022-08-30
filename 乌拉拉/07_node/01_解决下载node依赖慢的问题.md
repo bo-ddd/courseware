@@ -34,7 +34,7 @@ nrm 是一个 npm 源管理器，允许你快速地在 npm源间切换。
 
 2.查看当前源
 ```
-    npm current
+    nrm current
 ```
 命令展示效果
 ```
