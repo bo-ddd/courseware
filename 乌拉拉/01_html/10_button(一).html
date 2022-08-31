@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background:#ccc;
+        }
+
+        .btn{
+            display: inline-block;
+            padding: 4px 8px;
+            background: #ff4400;
+            color: #fff;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .btn-white{
+            display: inline-block;
+            padding: 4px 8px;
+            background: #fff;
+            color: #ff4400;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 总结： 模块不可以有 margin top left bottom right -->
+    <!-- 如果有的话，就没有办法复用 -->
+    <div class="btn">提交</div>
+    <div class="btn-white">确定</div>
+    <div class="btn">取消</div>
+    <div class="btn">审核</div>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{ background: #ccc;}
+    </style>
+</head>
+<body>
+    <div id="submit">提交</div>
+    <div id="cancel">取消</div>
+</body>
+<script>
+    // 这种抽离的方法，特别像js中的类的继承；
+
+    class Button{
+        constructor(el){
+            this.el = document.querySelector(el);
+        }
+
+        getCommonStyle(){
+            return  `
+                display: inline-block;
+                padding: 4px 8px;
+                border-radius: 20px;
+                font-size: 14px;
+            `
+        }
+    }
+
+    class SubmitButton extends Button{
+        constructor(el){
+            super(el);
+            this.el.style.cssText = `
+                ${this.getCommonStyle()}
+                background: #ff4400;
+                color: #fff; 
+            `
+        }
+    }
+
+    class CancelButton extends Button{
+        constructor(el){
+            super(el);
+            this.el.style.cssText = `
+                ${this.getCommonStyle()}
+                background: #fff;
+                color: #ff4400; 
+            `
+        }
+    }
+
+    let submit = new SubmitButton('#submit');
+    let cancel = new CancelButton('#cancel')
+    document.body.appendChild(submit);
+    document.body.appendChild(cancel);
+</script>
+</html>

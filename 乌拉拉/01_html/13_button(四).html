@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background:#ccc;
+        }
+
+
+        .btn{
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .btn-submit{
+            background: #ff4400;
+            color: #fff;
+        }
+
+        .btn-white{
+            background: #fff;
+            color: #ff4400;
+        }
+    </style>
+</head>
+<body>
+    <!-- 重点： -->
+    <!-- 组件命名的维度 -->
+    <!-- 组件的命名就是基类的维度 -->
+    <!-- 子类的命名在组件中变成了属性 -->
+
+    <!-- btn: 按钮 -->
+    <!-- type: 类型    按钮的类型 -->
+    <!-- submit  按钮是一个是提交类型的按钮 -->
+    <Button  type="submit"></Button>
+    <button type="submit"></button>
+
+    <!-- <div class="btn btn-submit">提交</div>
+    <div class="btn btn-white">确定</div>
+    <div class="btn btn-submit">取消</div>
+    <div class="btn btn-submit">审核</div> -->
+</body>
+
+</html>
