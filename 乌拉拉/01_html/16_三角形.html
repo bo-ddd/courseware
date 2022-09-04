@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角形</title>
+    <!-- 三角形的画法，是基于border来实现的 -->
+    <style>
+        body{
+            margin: 0;
+        }
+
+        .div{
+            /* transparent:  rgba(0,0,0,0) */
+            border-top: 100px solid transparent;
+            /* border-left: 100px solid yellow; */
+            border-right: 100px solid yellow;
+            border-bottom: 100px solid transparent;
+            position: absolute;
+            left: 0;
+        }
+
+        .shadow{
+            border-top: 100px solid transparent;
+            border-right: 100px solid black;
+            border-bottom: 100px solid transparent;
+            position: absolute;
+            top:0;
+            left:-1px;
+            z-index: -100;
+        }
+    </style>
+</head>
+<body>
+    <div class="div"></div>
+    <div class="shadow"></div>
+</body>
+</html>

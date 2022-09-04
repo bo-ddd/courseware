@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天布局</title>
+    <!-- 1. -->
+    <!-- 如果盒子有宽，且有padding, 并且内容为两列布局 -->
+    <!-- 则应该用 两列间的间距应该用 弹性盒给称开 -->
+    <!-- 2. nth-of-type 伪类在应用场景 -->
+    <!-- 3. 头像和文字居中， 不可以用 align-items：center-->
+    <style>
+        body{
+            margin: 0;
+        }
+        .list{
+            width: 355px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background: red;
+            /* 方案二：gap */
+            display: flex;
+            flex-direction: column;
+            gap: 20px 0;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            /* 让行与行之间有间距的实现方案之一： margin +  伪类 */
+            /* margin-top: 10px; */
+        }
+
+        /* 伪类的应用场景 */
+        .item:nth-of-type(1){
+            margin: 0;
+        }
+
+        .item .avatar{
+            width: 40px;
+            height: 40px;
+            background: yellow;
+            /* 通常情况下，两列布局不能这么称 */
+            /* margin-right: 10px; */
+        }
+
+        .item .info{
+            width: 250px;
+            padding:10px;
+            /* 40 - 14 = 26   26 / 2   13 */
+            font-size: 14px;
+            /* 相当于字体高度为 20px */
+            /* 40 -20  = 20   20/2 */
+            line-height: 20px;  
+        }
+    </style>
+</head>
+<body>
+    <div class="list">
+        <div class="item">
+            <div class="avatar"></div>
+            <div class="info">这是信息这是信息这是信息这是信息这是信息这是信息这是信息这是信息这是信息这是信息这是信息这是信息</div>
+        </div>
+        <div class="item">
+            <div class="avatar"></div>
+            <div class="info">这是信息</div>
+        </div>
+        <div class="item">
+            <div class="avatar"></div>
+            <div class="info">这是信息</div>
+        </div>
+        <div class="item">
+            <div class="avatar"></div>
+            <div class="info">这是信息</div>
+        </div>
+        <div class="item">
+            <div class="avatar"></div>
+            <div class="info">这是信息</div>
+        </div>
+        <div class="item">
+            <div class="avatar"></div>
+            <div class="info">这是信息</div>
+        </div>
+    </div>
+</body>
+</html>
