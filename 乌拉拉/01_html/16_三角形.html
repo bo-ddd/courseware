@@ -21,12 +21,11 @@
             left: 0;
         }
 
+        /* 利用css加载的顺序 */
+        /* 利用css的权重 !important*/
+        /* shadow */
         .shadow{
-            border-top: 100px solid transparent;
             border-right: 100px solid black;
-            border-bottom: 100px solid transparent;
-            position: absolute;
-            top:0;
             left:-1px;
             z-index: -100;
         }
@@ -34,6 +33,6 @@
 </head>
 <body>
     <div class="div"></div>
-    <div class="shadow"></div>
+    <div class="div shadow"></div>
 </body>
 </html>
