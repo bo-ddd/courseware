@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        .scale{
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 0, 0, .5);
+            transform: scale(1);
+            animation: scale .5s;
+            border-radius: 50%;
+        }
+        @keyframes scale {
+            100%{
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        .btn{
+            display: inline-block;
+            padding: 8px 12px;
+            background: pink;
+            border-radius: 4px;
+            margin: 100px;
+            position:relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn">提交订单按钮</div>
+</body>
+<script>
+    console.log(document.querySelector('.btn'))
+    document.querySelector('.btn').onclick = function(e){
+        let left = this.style.offsetLeft - e.clientX;
+        let top = this.style.offsetTop - e.clientY;
+        let span = document.createElement('span');
+        span.style.cssText = `
+            position: absolute;
+            left: ${left}px;
+            top: ${ top }px;
+        `
+        span.classList.add('scale');
+        this.appendChild(span);
+        setTimeout(()=> span.remove() ,500)
+    }
+
+
+    // let button = new Button('.btn');
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        .scale{
+            width: 100px;
+            height: 100px;
+            background: red;
+            animation: scale .5s;
+            border-radius: 50%;
+        }
+        @keyframes scale {
+            100%{
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+<script>
+    document.addEventListener('click',function(e){
+        // box动态添加一个 。div
+
+        // e.clientX  e.clentY
+
+        console.log(e.clientX)
+        console.log(e.clientY)
+
+        let left = e.clientX - 50;
+        let top = e.clientY - 50;
+
+        let span = document.createElement('span');
+        span.style.cssText = `
+            position: fixed;
+            left: ${left}px;
+            top: ${ top }px;
+        `
+        span.classList.add('scale');
+        document.body.appendChild(span);
+        setTimeout(()=> span.remove() ,500)
+    })
+</script>
+</html>
