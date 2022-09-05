@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- sessionStorage -->
+    <!-- 会话存储， 这个存储是存在浏览器的会话中的 -->
+    <!-- 会话是什么？   是一个单独的页面，  刷新页面后不会消失，只要你不关闭浏览器 -->
+    <!-- 会话存储有一个特点，他只能存 字符串，不能存  数组 ， 对象 -->
+</body>
+<script>
+    // sessionStorage.setItem('age', '18');
+    // let age = sessionStorage.getItem('age');
+    // console.log(age) // 18;
+
+    // sessionStorage底层实现原理
+    class Session{
+        constructor(){
+            this.store = {}
+        }
+
+        getItem(key){
+            return this.store[key];
+        }
+
+        setItem(key, value){
+            return this.store[key] = "" + value;
+        }
+    }
+
+    let mySessionStorage = new Session();
+    mySessionStorage.setItem('username', 'xiaoming');
+    let username = mySessionStorage.getItem('username');
+    console.log(username); //xiaoming;
+</script>
+</html>
