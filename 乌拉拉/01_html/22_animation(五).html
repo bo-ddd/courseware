@@ -15,13 +15,13 @@
             width: 100px;
             height: 100px;
             background: rgba(0, 0, 0, .5);
-            transform: scale(1);
+            transform: translate(-50%, -50%) scale(1);
             animation: scale .5s;
             border-radius: 50%;
         }
         @keyframes scale {
             100%{
-                transform: scale(3);
+                transform:translate(-50%, -50%) scale(3);
                 opacity: 0;
             }
         }
@@ -43,8 +43,10 @@
 <script>
     console.log(document.querySelector('.btn'))
     document.querySelector('.btn').onclick = function(e){
-        let left = this.style.offsetLeft - e.clientX;
-        let top = this.style.offsetTop - e.clientY;
+        let left = e.clientX - this.offsetLeft;
+        let top =  e.clientY - this.offsetTop;
+        console.log(e.clientX)
+        console.log(this.offsetLeft)
         let span = document.createElement('span');
         span.style.cssText = `
             position: absolute;
@@ -53,7 +55,7 @@
         `
         span.classList.add('scale');
         this.appendChild(span);
-        setTimeout(()=> span.remove() ,500)
+        setTimeout(()=> span.remove() ,450)
     }
 
 
