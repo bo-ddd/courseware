@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            background: blue;
+        }
+
+        input{
+            outline: none;
+            border: none;
+        }
+
+        .search{
+            height: 30px;
+            display: grid;
+            grid-template-columns: auto  32px;
+            gap: 0 20px;
+        }
+
+        .search .main{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 12px;
+            padding: 0 10px;
+        }
+
+        .search .ipt-search{
+            width: 100%;
+        }
+
+        .mr-5{
+            margin-right: 5px;
+        }
+
+        .icon{
+            width: 16px;
+            height: 16px;
+            background: red;
+        }
+
+        .button{
+            width: 32px;
+            height: 32px;
+            background:red;
+        }
+
+
+        .wrap{
+            width: 345px;
+            margin: 0 auto;
+        }
+
+        .mt-20{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search  wrap mt-20">
+        <div class="main">
+            <div class="icon mr-5"></div>
+            <input type="text" class="ipt-search" placeholder="搜索">
+        </div>
+        <div class="button"></div>
+    </div>
+</body>
+</html>
