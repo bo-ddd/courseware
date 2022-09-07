@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="mt-10" id="box">
+        hello world
+        <span>my name is span tag</span>
+    </div>
+</body>
+<script>
+    // 虚拟DOM 
+    // 虚拟DOM是一个理念， 其实根本就没有绝对的定义
+    // vnode
+    let  vnode = {
+        type: 'dev',
+        props:{
+            id: 'box',
+            class: 'mt-10'
+        },
+        children:'hello world'
+    }
+
+    // 虚拟dom的作用是为了转换成真实的dom;
+    function createVNode(tag, props, content){
+        let el = document.createElement(tag);  //dev
+        for(let prop in props){
+            el.setAttribute(prop, props[prop]);
+        }
+        el.textContent = content;
+        return el;
+    }
+
+    let h = createVNode;
+
+    let el = h(vnode.type, vnode.props,  vnode.content);
+    document.body.appendChild(el);
+
+    // 虚拟 shaojie
+    // let shaojie = {
+    //     username: 'shenshaojie',
+    //     name:'shaojie',
+    //     use: 'shen',
+    //     age: 18,
+    //     link:['篮球']
+    // }
+
+    // DOM
+    // let dom = document.querySelectorAll('.list');
+    // console.log(dom)
+    // dom = {
+    //     childNodes:[],
+    //     tag:'dev',
+    //     offsetWidth: 100;
+    //     margin: 0,
+    //     innerHTML:'hello world',
+    //     textContent:'hello world'
+    // }
+</script>
+</html>

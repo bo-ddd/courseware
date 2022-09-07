@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 虚拟DOM
+    let vnode = {
+        tag:'div',
+        attrs: {
+            id:'',
+            class:''
+        },
+        children:[],
+    }
+    function createElement(tag, attrs, context){
+        let el = document.createElement(tag);
+        for(let attr in attrs){
+            el.setAttribute(attr, attrs[attr]);
+        }
+        el.textContent = context;
+        return el;
+    }
+
+    // 渲染函数
+    let h = createElement;
+    let Main = h('div', { class: 'title', id:'box' }, 'hello world')
+    document.body.appendChild(Main);
+</script>
+</html>
