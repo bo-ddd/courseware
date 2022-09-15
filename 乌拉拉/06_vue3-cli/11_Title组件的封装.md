@@ -11,26 +11,31 @@
 4. 具体代码如下：
 
 ```html
- <script setup lang="ts">
-    import { h,useCssModule } from "vue";
+ <template>
+    <Title :class="style.title">
+        <slot></slot>
+    </Title>
+</template>
 
-   let props=defineProps<{
-    level:'1'|'2'|'3'|'4'|'5'|'6'
-    color:string
-   }>()
-
-   let {level='1',color='white'} = props;
-   let style=useCssModule()
-   let Title=h('h'+level,{class:style.title})
- </script>
-```
-
-```html
+<script setup lang="ts">
+    import { h, useCssModule } from 'vue'
+    const props = defineProps<{
+    level?: "1" | "2" | "3" | "4" | "5" | "6";
+        color?: string;
+    }>()
+    let { level = "1", color = 'white' } = props;
+    let style = useCssModule();
+    let Title = h('h' + level);
+    // 在进行数字运算的时候， 如果有小数，需要把小数扩大10的整数倍，最后在把得出的结果缩小对应的倍数，这样做的原因是可以避免js运算误差
+    let fontSize = (12 + 2 * (6 - Number(level))) / 10 + 'rem';
+</script>
 <style module>
-   .title{
-      color:v-bind(color)
-   }
- </style>
+    .title{
+        padding:1rem 0;
+        color:v-bind(color);
+        font-size: v-bind(fontSize);
+    }
+</style>
 ```
 
 5. 操作虚拟dom底层实现原理为（h方法底层实现） ：
