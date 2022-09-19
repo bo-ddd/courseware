@@ -20,10 +20,10 @@
     let bool2 = isRef(username);
     console.log(bool2) // false;
 ```
-2. unRef()  判断是否为Ref类型,如果是,返回该值对应的value值,否则返回其本身;
+2. unref()  判断是否为Ref类型,如果是,返回该值对应的value值,否则返回其本身;
 ```javascript
     //相当于
-    function unRef(ref){
+    function unref(ref){
         return isRef(ref) ? ref.value : ref;
     }
 ```
